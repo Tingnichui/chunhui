@@ -64,8 +64,8 @@ public class ExcelUtil {
     public static void main(String[] args) throws IOException {
         List<List<String>> rows = new ArrayList<>();
         String str = "";
-        for (int i = 0; i < 9000; i++) {
-            str += i;
+        for (int i = 0; i < 32000; i++) {
+            str = str + "辉";
         }
         rows.add(Collections.singletonList(str));
         File test = createSheet("test", "11", rows);
