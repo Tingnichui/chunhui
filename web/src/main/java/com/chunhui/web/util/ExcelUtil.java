@@ -10,7 +10,9 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ExcelUtil {
@@ -48,14 +50,26 @@ public class ExcelUtil {
 
     public static File createSheet(String sheetName, String title, List<List<String>> rows) throws IOException {
         SXSSFWorkbook workbook = new SXSSFWorkbook();
-        createSheet(workbook, sheetName, title, rows);
         File tempFile = TempFile.createTempFile(IdUtil.getSnowflakeNextIdStr(), ".xlsx");
         try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+            createSheet(workbook, sheetName, title, rows);
             workbook.write(outputStream);
         } finally {
             workbook.dispose();
         }
         return tempFile;
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        List<List<String>> rows = new ArrayList<>();
+        String str = "";
+        for (int i = 0; i < 9000; i++) {
+            str += i;
+        }
+        rows.add(Collections.singletonList(str));
+        File test = createSheet("test", "11", rows);
+        System.err.println(test.delete());
     }
 
 }
