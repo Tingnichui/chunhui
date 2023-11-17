@@ -22,10 +22,10 @@ import java.util.Map;
 @Component
 public class DingdingUtil {
 
-    @Value("${notify.dingding}")
+    @Value("${notify.dingding:}")
     public String webhook;
 
-    @Value("${notify.secret}")
+    @Value("${notify.secret:}")
     public String secret;
 
     public void sendMsg(String content) {
