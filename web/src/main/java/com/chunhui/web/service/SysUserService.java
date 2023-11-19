@@ -1,6 +1,5 @@
-package com.chunhui.web;
+package com.chunhui.web.service;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.chunhui.web.dao.SysUserDao;
 import com.chunhui.web.pojo.po.SysUser;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,11 @@ public class SysUserService {
     private SysUserDao sysUserDao;
 
     public String hello() {
-        System.err.println(sysUserDao.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getId,"1")));
         return sysUserDao.hello();
     }
+
+    public SysUser detail() {
+        return sysUserDao.getById("1");
+    }
+
 }
