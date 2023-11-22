@@ -14,7 +14,7 @@ public class ResultGeneretor {
 
     public static <T> Result<T> success(T o) {
         Result<T> result = new Result<>();
-        result.setCode(Result.FAIL_CODE);
+        result.setCode(Result.SUCCESS_CODE);
         result.setMessage("操作成功");
         result.setData(o);
         return result;
