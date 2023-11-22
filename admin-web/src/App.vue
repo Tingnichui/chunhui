@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="main">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import {getToken, removeToken, setToken} from "@/util/auth";
+import {getToken} from "@/util/auth";
 
 export default {
   mounted() {
     if (!getToken()) {
-      this.$router.push('/login')
+      this.$router.push('/index')
     }
   }
 }
@@ -18,26 +18,14 @@ export default {
 </script>
 
 
-<style>
-/*header {*/
-/*  line-height: 1.5;*/
-/*}*/
-
-/*@media (min-width: 1024px) {*/
-/*  header {*/
-/*    display: flex;*/
-/*    place-items: center;*/
-/*    padding-right: calc(var(--section-gap) / 2);*/
-/*  }*/
-
-/*  .logo {*/
-/*    margin: 0 2rem 0 0;*/
-/*  }*/
-
-/*  header .wrapper {*/
-/*    display: flex;*/
-/*    place-items: flex-start;*/
-/*    flex-wrap: wrap;*/
-/*  }*/
-/*}*/
+<style scoped>
+/* 设置占满页面 */
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
 </style>
