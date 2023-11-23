@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <router-view></router-view>
+    <router-view style="height: 100%"></router-view>
   </div>
 </template>
 
@@ -9,12 +9,13 @@ import {getToken} from "@/util/auth";
 
 export default {
   mounted() {
-    if (!getToken()) {
-      this.$router.push('/index')
+    if (getToken()) {
+      this.$router.push('/home')
+    } else {
+      this.$router.push('/login')
     }
   }
 }
-
 </script>
 
 
@@ -26,6 +27,5 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  width: 100%;
 }
 </style>

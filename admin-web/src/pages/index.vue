@@ -2,10 +2,7 @@
   <div>
     <el-container style="height: 100vh">
       <!-- 侧边栏 -->
-      <el-aside width="200px">
-<!--        <div style="display: flex; justify-content: center; align-items: center; height: 80px;position: sticky;top: 0;">-->
-<!--          淳辉-->
-<!--        </div>-->
+      <el-aside width="200px" style="background: #81D4FA">
         <el-scrollbar>
           <el-menu v-for="(item,index) in menuList" :key="index">
             <!-- 根菜单 -->
@@ -14,11 +11,12 @@
                 <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
                 <span>{{ item.title }}</span>
               </template>
-              <el-menu-item v-for="(leaf,index2) in item.subMune" :key="index2" :index="leaf.id">{{ leaf.title }}
+              <el-menu-item @click="to(subMenu.url)" v-for="(subMenu,index2) in item.subMune" :key="index2" :index="subMenu.id">
+                {{ subMenu.title }}
               </el-menu-item>
             </el-sub-menu>
             <!-- 子菜单 -->
-            <el-menu-item v-else :index="item.id">
+            <el-menu-item v-else @click="to(item.url)" :index="item.id">
               <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
               <template #title>{{ item.title }}</template>
             </el-menu-item>
@@ -28,7 +26,7 @@
 
       <el-container>
         <!-- 顶部 -->
-        <el-header style="text-align: right; font-size: 12px">
+        <el-header style="text-align: right; font-size: 12px;background: #FFF9C4">
           <div class="toolbar">
             <el-dropdown>
               <el-icon style="margin-right: 8px; margin-top: 1px"
@@ -48,14 +46,8 @@
           </div>
         </el-header>
         <!-- 主体 -->
-        <el-main>
-          <el-scrollbar>
-            <el-table :data="tableData">
-              <el-table-column prop="date" label="Date" width="140"/>
-              <el-table-column prop="name" label="Name" width="120"/>
-              <el-table-column prop="address" label="Address"/>
-            </el-table>
-          </el-scrollbar>
+        <el-main style="background: #E3F2FD">
+          <router-view style="height: 100%;background: #FFFFFF"></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -66,12 +58,7 @@
 export default {
   data() {
     return {
-      menuList: [],
-      tableData: Array.from({length: 20}, () => Object.assign({}, {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      })),
+      menuList: []
     }
   },
   mounted() {
@@ -90,22 +77,12 @@ export default {
           "subMune": [
             {
               "title": "机具管理",
-              "url": "/machine/machine",
+              "url": "/home/file",
             }
           ],
           "icon": "list",
           "title": "机具",
           "url": "",
-        },
-        {
-          "subMune": [
-            {
-              "title": "交易记录",
-              "url": "/data/trade",
-            }
-          ],
-          "icon": "Histogram",
-          "title": "数据",
         }
       ]
       // 在这里处理一下菜单id
@@ -120,6 +97,10 @@ export default {
           })
         }
       })
+    },
+    to(url) {
+      console.log(url)
+      this.$router.push(url)
     }
   }
 }
