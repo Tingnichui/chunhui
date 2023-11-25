@@ -26,3 +26,6 @@ replay_pid*
 target
 node_modules
 *.properties
+/web-api/doc/*
+!/web-api/doc/chunhui.pdma.json
+

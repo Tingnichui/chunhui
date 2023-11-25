@@ -1,9 +1,39 @@
 import http from "@/util/http";
 
-export const login = (params) => {
+export const login = (data) => {
     return http({
-        url: "/sys-user/login",
+        url: "/sysUser/login",
         method: "post",
-        params,
+        data,
     });
+};
+
+
+export const regist = (data) => {
+    return http({
+        url: "/sysUser/regist",
+        method: "post",
+        data,
+    });
+};
+
+export const getUploadAccess = (data) => {
+    return http.post("/sysFile/getUploadAccess", data);
+};
+
+export const uploadOss = (url, data, option) => {
+    const formData = new FormData()
+    if (data) {
+        for (const [key, value] of Object.entries(data)) {
+            // if (isArray(value) && value.length) formData.append(key, ...value)
+            formData.append(key, value)
+        }
+    }
+    formData.append(option.filename, option.file, option.file.name)
+    return http.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+    );
 };

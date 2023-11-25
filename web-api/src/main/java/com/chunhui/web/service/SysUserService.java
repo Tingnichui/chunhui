@@ -8,8 +8,7 @@ import com.chunhui.web.exception.ExceptionEnum;
 import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.SysUser;
 import com.chunhui.web.pojo.vo.Result;
-import com.chunhui.web.pojo.vo.SysUserVO;
-import com.chunhui.web.util.ResultGeneretor;
+import com.chunhui.web.util.ResultGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -23,13 +22,11 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SysUserService {
 
+    private final CommonConvert commonConvert = CommonConvert.INSTANCE;
     @Resource
     private SysUserDao sysUserDao;
-
     @Resource
     private RedisTemplate redisTemplate;
-
-    private CommonConvert commonConvert;
 
     public String hello() {
         return sysUserDao.hello();
@@ -39,9 +36,9 @@ public class SysUserService {
         return sysUserDao.getById("1");
     }
 
-    public SysUserVO getCurrentUser() throws Exception {
+    public SysUser getCurrentUser() throws Exception {
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
-        String token = request.getHeader("token");
+        String token = request.getHeader("Token");
         if (StringUtils.isBlank(token)) {
             throw new BusinessException(ExceptionEnum.NO_LOGIN);
         }
@@ -49,7 +46,7 @@ public class SysUserService {
         if (null == user) {
             throw new BusinessException(ExceptionEnum.NO_LOGIN);
         }
-        return commonConvert.toOut(user);
+        return user;
     }
 
     public Result<String> login(SysUser sysUser) {
@@ -59,20 +56,20 @@ public class SysUserService {
                         .eq(SysUser::getPassword, sysUser.getPassword())
         );
         if (null == userInfo) {
-            return ResultGeneretor.fail("用户不存在");
+            return ResultGenerator.fail("用户不存在");
         }
         String token = IdUtil.fastSimpleUUID();
         redisTemplate.opsForValue().setIfAbsent("user:" + token, userInfo, 12, TimeUnit.HOURS);
-        return ResultGeneretor.success(token);
+        return ResultGenerator.success(token);
     }
 
     public Result<String> logout(String token) {
         redisTemplate.delete(("user:" + token));
-        return ResultGeneretor.success();
+        return ResultGenerator.success();
     }
 
     public Result<String> regist(SysUser sysUser) {
         sysUserDao.save(sysUser);
-        return ResultGeneretor.success("注册成功");
+        return ResultGenerator.success("注册成功");
     }
 }

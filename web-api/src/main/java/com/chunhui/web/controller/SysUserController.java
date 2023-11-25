@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/sys-user")
+@RequestMapping("/sysUser")
 public class SysUserController {
 
     @Resource

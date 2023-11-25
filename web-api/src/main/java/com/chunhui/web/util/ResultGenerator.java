@@ -2,7 +2,7 @@ package com.chunhui.web.util;
 
 import com.chunhui.web.pojo.vo.Result;
 
-public class ResultGeneretor {
+public class ResultGenerator {
 
     public static <T> Result<T> fail(String msg) {
         Result<T> result = new Result<>();

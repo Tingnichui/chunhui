@@ -1,80 +1,144 @@
-//package com.chunhui.web.util;
-//
-//import cn.hutool.core.date.DateUtil;
-//import com.aliyun.oss.ClientException;
-//import com.aliyuncs.DefaultAcsClient;
-//import com.aliyuncs.auth.sts.AssumeRoleRequest;
-//import com.aliyuncs.auth.sts.AssumeRoleResponse;
-//import com.aliyuncs.http.MethodType;
-//import com.aliyuncs.profile.DefaultProfile;
-//import com.aliyuncs.profile.IClientProfile;
-//import com.tingnichui.common.pojo.Result;
-//import com.tingnichui.common.util.ResultGenerator;
-//import com.tingnichui.security.util.SecurityUtils;
-//import lombok.extern.slf4j.Slf4j;
-//import org.apache.commons.codec.binary.Base64;
-//import org.springframework.stereotype.Component;
-//
-//import java.nio.charset.StandardCharsets;
-//import java.util.Date;
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//@Slf4j
-//@Component
-//public class AliyunOssUtil {
-//    public Result<Map<String, String>> getSts() {
-//        // STS接入地址，例如sts.cn-hangzhou.aliyuncs.com。
-//        String endpoint = "sts.cn-nanjing.aliyuncs.com";
-//        // 填写步骤1生成的访问密钥AccessKey ID和AccessKey Secret。
-//        String AccessKeyId = "LTAI5t6gPr3kYVKEErceE7kP";
-//        String accessKeySecret = "inyJ4Smz2VLYMIB5TSR3yc8AoqSTci";
-//        // 填写步骤3获取的角色ARN。
-//        String roleArn = "acs:ram::1946319202375959:role/tingnichui";
-//        // 自定义角色会话名称，用来区分不同的令牌，例如可填写为SessionTest。
-//        String roleSessionName = "tingnichui";
-//        // 以下Policy用于限制仅允许使用临时访问凭证向目标存储空间examplebucket上传文件。
-//        // 临时访问凭证最后获得的权限是步骤4设置的角色权限和该Policy设置权限的交集，即仅允许将文件上传至目标存储空间examplebucket下的exampledir目录。
-//        String policy = "{\"Version\":\"1\",\"Statement\":[{\"Action\":[\"oss:PutObject\"],\"Resource\":[\"acs:oss:*:*:chunhui-a/*\"],\"Effect\":\"Allow\"}]}";
-//        try {
-//            String regionId = "";
-//            DefaultProfile.addEndpoint("", regionId, "Sts", endpoint);
-//            IClientProfile profile = DefaultProfile.getProfile(regionId, AccessKeyId, accessKeySecret);
-//            DefaultAcsClient client = new DefaultAcsClient(profile);
-//            final AssumeRoleRequest request = new AssumeRoleRequest();
-//            request.setMethod(MethodType.POST);
-//            request.setRoleArn(roleArn);
-//            request.setRoleSessionName(roleSessionName);
-//            request.setPolicy(policy);
-//            request.setDurationSeconds(20 * 60L);
-//            final AssumeRoleResponse response = client.getAcsResponse(request);
-//
-//            AssumeRoleResponse.Credentials credentials = response.getCredentials();
-//            String securityToken = credentials.getSecurityToken();
-//            String accessKeyId = credentials.getAccessKeyId();
-//            String accessKeySecret1 = credentials.getAccessKeySecret();
-//
-//            String dir = "tingnichui/images/" + SecurityUtils.getSysUser().getUserId() + "/";
-//            final String postPolicy = "{\"expiration\":\"" + DateUtil.offsetMinute(new Date(), 30).toLocalDateTime() + "Z\"," +
-//                    "\"conditions\":[" +
-//                    "{\"bucket\":\"chunhui-a\"}," +
-//                    "[\"starts-with\",\"$key\",\"" + dir + "\"]" +
-//                    "]}";
-//            String encodePolicy = Base64.encodeBase64String(postPolicy.getBytes(StandardCharsets.UTF_8));
-//            String signaturecom = com.aliyun.oss.common.auth.ServiceSignature.create().computeSignature(accessKeySecret1, encodePolicy);
-//
-//            Map<String, String> map = new HashMap<>();
-//            map.put("accessKeyId", accessKeyId);
-//            map.put("Signature", signaturecom);
-//            map.put("token", securityToken);
-//            map.put("policy", encodePolicy);
-//            map.put("url", "https://chunhui-a.oss-cn-nanjing.aliyuncs.com/");
-//            map.put("dir", dir);
-//            return ResultGenerator.success(map);
-//        } catch (ClientException | com.aliyuncs.exceptions.ClientException e) {
-//            System.err.println("Error message: " + e.getMessage());
-//        }
-//        return ResultGenerator.fail("获取失败");
-//    }
-//
-//}
+package com.chunhui.web.util;
+
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.common.auth.CredentialsProvider;
+import com.aliyun.oss.common.auth.DefaultCredentialProvider;
+import com.aliyun.oss.common.utils.BinaryUtil;
+import com.aliyun.oss.model.Bucket;
+import com.aliyun.oss.model.MatchMode;
+import com.aliyun.oss.model.OSSObject;
+import com.aliyun.oss.model.PolicyConditions;
+import com.chunhui.web.pojo.vo.AliyunOssUploadAccess;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+
+@Slf4j
+@Component
+public class AliyunOssUtil {
+
+    public static final String bucketName = "^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){1,61}[a-z0-9]$";
+    public static final String objectName = "^(?![/\\\\])[^\\p{C}]{1,1023}$\n";
+
+    @Value("${aliyun.oss.bucket}")
+    private String bucket;
+
+    @Value("${aliyun.oss.endpoint}")
+    private String endpoint;
+
+    @Value("${aliyun.oss.accessKey.id}")
+    private String accessKeyId;
+
+    @Value("${aliyun.oss.accessKey.secret}")
+    private String accessKeySecret;
+
+
+    private OSS getOssClient() {
+        CredentialsProvider credentialsProvider = new DefaultCredentialProvider(accessKeyId, accessKeySecret);
+        return new OSSClientBuilder().build(endpoint, credentialsProvider);
+    }
+
+    /**
+     * 创建桶
+     */
+    public void createBucket(String bucketName) {
+        OSS ossClient = getOssClient();
+        Bucket bucket = ossClient.createBucket(bucketName);
+        ossClient.shutdown();
+    }
+
+
+    /**
+     * 删除文件
+     */
+    public void delete(String bucketName, String objectName) {
+        OSS ossClient = getOssClient();
+        ossClient.deleteObject(bucketName, objectName);
+        ossClient.shutdown();
+    }
+
+
+    /**
+     * 上传文件
+     *
+     * @param bucketName 填写Bucket名称，例如examplebucket。
+     * @param objectName 填写Object完整路径，例如exampledir/exampleobject.txt。Object完整路径中不能包含Bucket名称。
+     */
+    public void upload(String bucketName, String objectName, FileInputStream inputStream) {
+        OSS ossClient = getOssClient();
+        ossClient.putObject(bucketName, objectName, inputStream);
+        ossClient.shutdown();
+    }
+
+    public void download(String bucketName, String objectName) throws Exception {
+        OSS ossClient = getOssClient();
+        // 调用ossClient.getObject返回一个OSSObject实例，该实例包含文件内容及文件元信息。
+        OSSObject ossObject = ossClient.getObject(bucketName, objectName);
+        // 调用ossObject.getObjectContent获取文件输入流，可读取此输入流获取其内容。
+        InputStream content = ossObject.getObjectContent();
+        if (content != null) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+            while (true) {
+                String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
+                System.out.println("\n" + line);
+            }
+            // 数据读取完成后，获取的流必须关闭，否则会造成连接泄漏，导致请求无连接可用，程序无法正常工作。
+            content.close();
+        }
+        ossClient.shutdown();
+    }
+
+
+    /**
+     * @param dir 设置上传到OSS文件的前缀，可置空此项。置空后，文件将上传至Bucket的根目录下。
+     * @return
+     */
+    public AliyunOssUploadAccess getUploadAccess(String dir, String fileName) {
+        // 填写Host名称，格式为https://bucketname.endpoint。
+        String host = "https://" + bucket + "." + endpoint;
+
+        // 创建OSSClient实例。
+        OSS ossClient = getOssClient();
+
+        PolicyConditions policyConds = new PolicyConditions();
+        // 设置上传大小 此处设置为1G PostObject请求最大可支持的文件大小为5 GB，即CONTENT_LENGTH_RANGE为5*1024*1024*1024。
+        policyConds.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1 * 1024 * 1024 * 1024);
+        // 设置上传目录
+        String key = dir + (StringUtils.isBlank(fileName) ? "" : fileName);
+        policyConds.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, key);
+
+        // 设置过期时间
+        DateTime expireEndTime = DateUtil.offsetMinute(new Date(), 1);
+        String postPolicy = ossClient.generatePostPolicy(expireEndTime, policyConds);
+        byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
+        String encodedPolicy = BinaryUtil.toBase64String(binaryData);
+        String postSignature = ossClient.calculatePostSignature(postPolicy);
+
+        AliyunOssUploadAccess access = new AliyunOssUploadAccess();
+        access.setAccessid(accessKeyId);
+        access.setPolicy(encodedPolicy);
+        access.setSignature(postSignature);
+        access.setDir(dir);
+        access.setFilePath(key);
+        access.setHost(host);
+        access.setExpire(String.valueOf(expireEndTime.getTime() / 1000));
+        ossClient.shutdown();
+        return access;
+
+    }
+
+}

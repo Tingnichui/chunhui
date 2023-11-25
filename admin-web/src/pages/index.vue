@@ -76,12 +76,12 @@ export default {
         {
           "subMune": [
             {
-              "title": "机具管理",
+              "title": "文件管理",
               "url": "/home/file",
             }
           ],
           "icon": "list",
-          "title": "机具",
+          "title": "文件",
           "url": "",
         }
       ]
