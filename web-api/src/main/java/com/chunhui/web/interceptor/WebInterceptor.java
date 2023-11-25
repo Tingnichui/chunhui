@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.chunhui.web.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,12 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Slf4j
 @Component
 public class WebInterceptor implements HandlerInterceptor {
 
-
+    @Value("${ignore.url}")
+    private List<String> ignoreUrl;
     @Resource
     private RedisTemplate redisTemplate;
 
@@ -33,8 +36,10 @@ public class WebInterceptor implements HandlerInterceptor {
         MDC.put("processId", IdUtil.getSnowflakeNextIdStr());
         // 放入请求开始时间
         request.setAttribute("startTime", System.currentTimeMillis());
-        // 登录鉴权
-        sysUserService.getCurrentUser();
+        if (!ignoreUrl.contains(request.getServletPath())) {
+            // 登录鉴权
+            request.setAttribute("userInfo", sysUserService.getCurrentUser());
+        }
         return true;
     }
 

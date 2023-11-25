@@ -23,7 +23,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 设置拦截所有请求
         registry.addInterceptor(webInterceptor)
-                .excludePathPatterns(ignoreUrl)
+                // 此处过滤请求无法打日志 放到Interceptor做白名单
+//                .excludePathPatterns(ignoreUrl)
                 .addPathPatterns("/**");
     }
 

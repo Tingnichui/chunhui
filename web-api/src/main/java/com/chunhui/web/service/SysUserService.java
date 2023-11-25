@@ -52,18 +52,27 @@ public class SysUserService {
         return commonConvert.toOut(user);
     }
 
-    public Result<String> login() {
-        SysUser one = sysUserDao.getOne(Wrappers.lambdaQuery(SysUser.class).last("limit 1"));
-        if (null == one) {
+    public Result<String> login(SysUser sysUser) {
+        SysUser userInfo = sysUserDao.getOne(
+                Wrappers.lambdaQuery(SysUser.class)
+                        .eq(SysUser::getUserName, sysUser.getUserName())
+                        .eq(SysUser::getPassword, sysUser.getPassword())
+        );
+        if (null == userInfo) {
             return ResultGeneretor.fail("用户不存在");
         }
         String token = IdUtil.fastSimpleUUID();
-        redisTemplate.opsForValue().setIfAbsent("user:" + token, one, 12, TimeUnit.HOURS);
+        redisTemplate.opsForValue().setIfAbsent("user:" + token, userInfo, 12, TimeUnit.HOURS);
         return ResultGeneretor.success(token);
     }
 
     public Result<String> logout(String token) {
         redisTemplate.delete(("user:" + token));
         return ResultGeneretor.success();
+    }
+
+    public Result<String> regist(SysUser sysUser) {
+        sysUserDao.save(sysUser);
+        return ResultGeneretor.success("注册成功");
     }
 }
