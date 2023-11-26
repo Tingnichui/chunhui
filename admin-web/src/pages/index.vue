@@ -2,7 +2,7 @@
   <div>
     <el-container style="height: 100vh">
       <!-- 侧边栏 -->
-      <el-aside width="200px" style="background: #81D4FA">
+      <el-aside style="background: #81D4FA" width="200px">
         <el-scrollbar>
           <el-menu v-for="(item,index) in menuList" :key="index">
             <!-- 根菜单 -->
@@ -11,12 +11,13 @@
                 <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
                 <span>{{ item.title }}</span>
               </template>
-              <el-menu-item @click="to(subMenu.url)" v-for="(subMenu,index2) in item.subMune" :key="index2" :index="subMenu.id">
+              <el-menu-item v-for="(subMenu,index2) in item.subMune" :key="index2" :index="subMenu.id"
+                            @click="to(subMenu.url)">
                 {{ subMenu.title }}
               </el-menu-item>
             </el-sub-menu>
             <!-- 子菜单 -->
-            <el-menu-item v-else @click="to(item.url)" :index="item.id">
+            <el-menu-item v-else :index="item.id" @click="to(item.url)">
               <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
               <template #title>{{ item.title }}</template>
             </el-menu-item>
@@ -76,12 +77,12 @@ export default {
         {
           "subMune": [
             {
-              "title": "文件管理",
+              "title": "资源管理",
               "url": "/home/file",
             }
           ],
           "icon": "list",
-          "title": "文件",
+          "title": "资源",
           "url": "",
         }
       ]

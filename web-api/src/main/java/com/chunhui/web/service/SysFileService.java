@@ -38,7 +38,7 @@ public class SysFileService {
         // 填充sysfile 保存到数据库
         sysFile.setFilePath(dir + fileName);
         sysFile.setStorageServices("oss");
-        sysFile.setUrl(uploadAccess.getHost() + sysFile.getFilePath());
+        sysFile.setUrl(uploadAccess.getHost() + "/" + sysFile.getFilePath());
         sysFileDao.save(sysFile);
         uploadAccess.setId(sysFile.getId());
         return ResultGenerator.success(uploadAccess);

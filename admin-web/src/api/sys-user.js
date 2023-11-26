@@ -21,6 +21,14 @@ export const getUploadAccess = (data) => {
     return http.post("/sysFile/getUploadAccess", data);
 };
 
+export const saveResInfo = (data) => {
+    return http.post("/resInfo/save", data);
+};
+
+export const resPageList = (data) => {
+    return http.post("/resInfo/pageList", data);
+};
+
 export const uploadOss = (url, data, option) => {
     const formData = new FormData()
     if (data) {
