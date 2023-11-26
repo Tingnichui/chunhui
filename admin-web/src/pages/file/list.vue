@@ -5,21 +5,33 @@
         <el-form-item label="资源标题">
           <el-input v-model="searchForm.title" clearable placeholder="请输入文件名称"/>
         </el-form-item>
-        <!--        <el-form-item label="上传时间">-->
-        <!--          <el-date-picker-->
-        <!--              v-model="searchForm.createDate"-->
-        <!--              end-placeholder="结束时间"-->
-        <!--              range-separator="至"-->
-        <!--              start-placeholder="开始时间"-->
-        <!--              type="daterange"-->
-        <!--          />-->
-        <!--        </el-form-item>-->
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
           <el-button type="primary" @click="reset">重置</el-button>
           <el-button type="primary" @click="showSaveForm">添加</el-button>
         </el-form-item>
       </el-form>
+    </div>
+    <div style="height: calc(80%);">
+      <el-table :data="tableData.records" border stripe style="height: 100%">
+        <el-table-column label="序号" type="index" width="100"/>
+        <el-table-column label="标题" prop="title" width="180"/>
+        <el-table-column label="描述" prop="content" width="180"/>
+        <el-table-column label="创建时间" prop="createTime"/>
+      </el-table>
+      <div style="margin: 10px;display: flex;justify-content: right">
+        <el-pagination
+            :current-page="tableData.current"
+            :page-size="tableData.size"
+            :page-sizes="[15, 30, 60, 80]"
+            :total="tableData.total"
+            background
+            layout="total, prev, pager, next, sizes"
+            small
+            @size-change="changePageSize"
+            @current-change="changeCurrentPage"
+        />
+      </div>
     </div>
     <div>
       <el-dialog v-model="uploadFlag" center title="上传文件" width="40%">
@@ -56,25 +68,6 @@
           </span>
         </template>
       </el-dialog>
-    </div>
-    <div style="height: 100%;padding: 20px">
-      <el-table :data="tableData.records" height="500px">
-        <el-table-column label="标题" prop="title" width="180"/>
-        <el-table-column label="描述" prop="content" width="180"/>
-        <el-table-column label="创建时间" prop="createTime"/>
-      </el-table>
-      <el-pagination
-          v-model:current-page="tableData.current"
-          v-model:page-size="tableData.size"
-          :background="background"
-          :disabled="disabled"
-          :page-sizes="[15, 30, 60, 80]"
-          :small="small"
-          :total="tableData.total"
-          layout="sizes, prev, pager, next"
-          @size-change="changePageSize"
-          @current-change="changeCurrentPage"
-      />
     </div>
   </div>
 </template>

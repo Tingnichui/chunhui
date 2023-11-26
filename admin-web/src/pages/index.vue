@@ -27,7 +27,7 @@
 
       <el-container>
         <!-- 顶部 -->
-        <el-header style="text-align: right; font-size: 12px;background: #FFF9C4">
+        <el-header style="text-align: right; font-size: 12px;background: #FFF9C4;">
           <div class="toolbar">
             <el-dropdown>
               <el-icon style="margin-right: 8px; margin-top: 1px"
@@ -48,7 +48,7 @@
         </el-header>
         <!-- 主体 -->
         <el-main style="background: #E3F2FD">
-          <router-view style="height: 100%;background: #FFFFFF"></router-view>
+          <router-view style="background: #FFFFFF;height: 100%"></router-view>
         </el-main>
       </el-container>
     </el-container>
