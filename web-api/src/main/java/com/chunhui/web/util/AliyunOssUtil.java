@@ -2,15 +2,13 @@ package com.chunhui.web.util;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.common.auth.CredentialsProvider;
 import com.aliyun.oss.common.auth.DefaultCredentialProvider;
 import com.aliyun.oss.common.utils.BinaryUtil;
-import com.aliyun.oss.model.Bucket;
-import com.aliyun.oss.model.MatchMode;
-import com.aliyun.oss.model.OSSObject;
-import com.aliyun.oss.model.PolicyConditions;
+import com.aliyun.oss.model.*;
 import com.chunhui.web.pojo.vo.AliyunOssUploadAccess;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,14 +19,17 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Component
 public class AliyunOssUtil {
 
-    public static final String bucketName = "^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){1,61}[a-z0-9]$";
+    public static final String bucketNameRe = "^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){1,61}[a-z0-9]$";
     public static final String objectName = "^(?![/\\\\])[^\\p{C}]{1,1023}$\n";
 
     @Value("${aliyun.oss.bucket}")
@@ -43,6 +44,61 @@ public class AliyunOssUtil {
     @Value("${aliyun.oss.accessKey.secret}")
     private String accessKeySecret;
 
+    /**
+     * @param path 填写Object完整路径，例如exampleobject.txt。Object完整路径中不能包含Bucket名称。
+     */
+    public String getDownLoadAccess(String bucketName, String path) {
+
+        // 创建OSSClient实例。
+        OSS ossClient = getOssClient();
+
+        // 设置请求头。
+        // 如果生成签名URL时设置了header参数，例如用户元数据，存储类型等，则调用签名URL下载文件时，也需要将这些参数发送至服务端。如果签名和发送至服务端的不一致，会报签名错误
+        Map<String, String> headers = new HashMap<>();
+        /*// 指定Object的存储类型。
+        headers.put(OSSHeaders.STORAGE_CLASS, StorageClass.Standard.toString());
+        // 指定ContentType。
+        headers.put(OSSHeaders.CONTENT_TYPE, "text/txt");*/
+
+
+        // 设置用户自定义元信息。 如果使用userMeta，
+        // sdk内部会为userMeta拼接"x-oss-meta-"前缀。当您使用其他方式生成签名URL进行下载时，userMeta也需要拼接"x-oss-meta-"前缀。
+        Map<String, String> userMetadata = new HashMap<>();
+        /*userMetadata.put("key1","value1");
+        userMetadata.put("key2","value2");*/
+
+        URL signedUrl = null;
+        // 指定生成的签名URL过期时间，单位为毫秒。本示例以设置过期时间为1分钟为例。
+        DateTime expireEndTime = DateUtil.offsetMinute(new Date(), 1);
+        // 生成签名URL。
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, path, HttpMethod.GET);
+        // 设置过期时间。
+        request.setExpiration(expireEndTime);
+        // 将请求头加入到request中。
+        request.setHeaders(headers);
+        // 添加用户自定义元信息。
+        request.setUserMetadata(userMetadata);
+
+        // 设置查询参数。
+        // Map<String, String> queryParam = new HashMap<String, String>();
+        // 指定IP地址或者IP地址段。
+        // queryParam.put("x-oss-ac-source-ip","192.0.2.0");
+        // 指定子网掩码中1的个数。
+        // queryParam.put("x-oss-ac-subnet-mask","32");
+        // 指定VPC ID。
+        // queryParam.put("x-oss-ac-vpc-id","vpc-12345678");
+        // 指定是否允许转发请求。
+        // queryParam.put("x-oss-ac-forward-allow","true");
+        // request.setQueryParameter(queryParam);
+
+        // 设置单链接限速，单位为bit，例如限速100 KB/s。
+        // request.setTrafficLimit(100 * 1024 * 8);
+
+        // 通过HTTP GET请求生成签名URL。
+        signedUrl = ossClient.generatePresignedUrl(request);
+        // 打印签名URL。
+        return signedUrl.toString();
+    }
 
     private OSS getOssClient() {
         CredentialsProvider credentialsProvider = new DefaultCredentialProvider(accessKeyId, accessKeySecret);
