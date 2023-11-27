@@ -105,7 +105,14 @@ export default {
           policy: res.data.policy,
           signature: res.data.signature
         }
-        uploadOss(res.data.host, oss, option)
+        uploadOss(res.data.host, oss, option).then(() => {
+              this.saveForm.fileList.push(res.data.id)
+              this.$message({
+                message: "上传成功" + res.data.id,
+                type: 'success'
+              })
+            }
+        )
       });
     },
     save() {
@@ -138,8 +145,14 @@ export default {
       this.searchForm.current = current
       this.search()
     },
+    resetSaveForm() {
+      this.fileList = []
+      this.saveForm = {
+        fileList: []
+      }
+    },
     showSaveForm() {
-      this.saveForm = {}
+      this.resetSaveForm()
       this.uploadFlag = true
     }
   }

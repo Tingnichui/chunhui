@@ -1,4 +1,4 @@
-import http from "@/util/http";
+import http, {createBaseAxios} from "@/util/http";
 
 export const login = (data) => {
     return http({
@@ -38,7 +38,7 @@ export const uploadOss = (url, data, option) => {
         }
     }
     formData.append(option.filename, option.file, option.file.name)
-    return http.post(url, formData, {
+    return createBaseAxios().post(url, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
