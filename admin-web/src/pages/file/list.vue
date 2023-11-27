@@ -47,6 +47,8 @@
                 v-model:file-list="fileList"
                 :auto-upload="true"
                 :http-request="doUpload"
+                :on-change="changeFile"
+                :on-remove="removeFile"
             >
               <el-button type="primary">上传文件</el-button>
               <template #tip>
@@ -69,12 +71,19 @@
         </template>
       </el-dialog>
     </div>
+    <!-- 上传文件进度条 -->
+    <div v-if="uploadLoading" class="loading-overlay">
+      <el-progress
+          :percentage="progressPercent" :stroke-width="18" color="#ff0000" striped-flow type="circle">
+      </el-progress>
+    </div>
   </div>
 </template>
 
 <script>
 
 import {getUploadAccess, resPageList, saveResInfo, uploadOss} from "@/api/sys-user";
+import {createBaseAxios} from "@/util/http";
 
 export default {
   name: "index",
@@ -85,18 +94,27 @@ export default {
       tableData: [],
       uploadFlag: false,
       saveForm: {},
-      searchForm: {}
+      searchForm: {},
+      uploadLoading: false,
+      progressPercent: 0
     }
   },
   mounted() {
     this.reset();
   },
   methods: {
+    changeFile(file, fileList) {
+      // 数据小于0.1M的时候按KB显示
+      const size = file.size / 1024 / 1024 > 0.1 ? `(${(file.size / 1024 / 1024).toFixed(1)}M)` : `(${(file.size / 1024).toFixed(1)}KB)`
+      file.name.indexOf('M') > -1 || file.name.indexOf('KB') > -1 ? file.name : file.name += size
+    },
     doUpload(option) {
+      this.progressPercent = 0
+      const file = option.file;
       getUploadAccess({
-        fileName: option.file.name,
-        fileType: option.file.type,
-        fileSize: option.file.size
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size
       }).then((res) => {
         const oss = {
           key: res.data.filePath,
@@ -105,15 +123,34 @@ export default {
           policy: res.data.policy,
           signature: res.data.signature
         }
-        uploadOss(res.data.host, oss, option).then(() => {
+        const config = {
+          onUploadProgress: progressEvent => {
+            this.progressPercent = Number((progressEvent.loaded / progressEvent.total * 100).toFixed(2))
+          },
+          headers: {'Content-Type': 'multipart/form-data'}
+        }
+        const formData = new FormData()
+        if (oss) {
+          for (const [key, value] of Object.entries(oss)) {
+            formData.append(key, value)
+          }
+        }
+        formData.append('file', file, file.name)
+        debugger
+        this.uploadLoading = true
+        createBaseAxios().post(res.data.host, formData, config).then(() => {
               this.saveForm.fileList.push(res.data.id)
+              this.uploadLoading = false
               this.$message({
-                message: "上传成功" + res.data.id,
+                message: "上传成功",
                 type: 'success'
               })
             }
-        )
+        );
       });
+    },
+    removeFile(file) {
+      console.log(file);
     },
     save() {
       saveResInfo(this.saveForm).then(res => {
@@ -160,4 +197,17 @@ export default {
 </script>
 
 <style scoped>
+.loading-overlay {
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 </style>
