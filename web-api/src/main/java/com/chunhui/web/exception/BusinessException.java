@@ -1,7 +1,14 @@
 package com.chunhui.web.exception;
 
 
-public class BusinessException extends Exception{
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class BusinessException extends Exception {
+
+    private String code;
 
     public BusinessException(String s) {
         super(s);
@@ -9,5 +16,6 @@ public class BusinessException extends Exception{
 
     public BusinessException(ExceptionEnum exceptionEnum) {
         super(exceptionEnum.getMessage());
+        this.code = exceptionEnum.getCode();
     }
 }

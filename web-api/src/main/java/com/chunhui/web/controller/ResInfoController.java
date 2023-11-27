@@ -6,6 +6,7 @@ import com.chunhui.web.pojo.query.ResInfoQuery;
 import com.chunhui.web.pojo.vo.ResInfoVO;
 import com.chunhui.web.pojo.vo.Result;
 import com.chunhui.web.service.ResInfoService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class ResInfoController {
     private ResInfoService resInfoService;
 
     @RequestMapping("/save")
-    public Result<String> save(@RequestBody ResInfoVO resInfo) {
+    public Result<String> save(@Validated @RequestBody ResInfoVO resInfo) {
         return resInfoService.save(resInfo);
     }
 
