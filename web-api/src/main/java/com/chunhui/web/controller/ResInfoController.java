@@ -7,6 +7,8 @@ import com.chunhui.web.pojo.vo.ResInfoOutVO;
 import com.chunhui.web.pojo.vo.ResInfoSaveVO;
 import com.chunhui.web.pojo.vo.Result;
 import com.chunhui.web.service.ResInfoService;
+import com.chunhui.web.util.ResultGenerator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,14 @@ public class ResInfoController {
     @RequestMapping("/save")
     public Result<String> save(@Validated @RequestBody ResInfoSaveVO resInfo) {
         return resInfoService.save(resInfo);
+    }
+
+    @RequestMapping("/update")
+    public Result<String> update(@Validated @RequestBody ResInfoSaveVO resInfo) {
+        if (StringUtils.isBlank(resInfo.getId())) {
+            return ResultGenerator.fail("id不能为空");
+        }
+        return resInfoService.update(resInfo);
     }
 
     @RequestMapping("/getResInfoById")

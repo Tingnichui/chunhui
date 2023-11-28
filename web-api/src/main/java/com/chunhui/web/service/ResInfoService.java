@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * res_info 资源表;
@@ -38,12 +39,39 @@ public class ResInfoService {
     private SysFileService sysFileService;
 
     @Transactional(rollbackFor = Exception.class)
-    public Result<String> save(ResInfoSaveVO resInfo) {
-        ResInfo po = commonConvert.toPo(resInfo);
-        resInfoDao.save(po);
-        for (String fileId : resInfo.getFileList()) {
+    public Result<String> save(ResInfoSaveVO invo) {
+        // 新增
+        ResInfo resInfo = commonConvert.toPo(invo);
+        resInfoDao.save(resInfo);
+        for (String fileId : invo.getFileList()) {
             ResFile resFile = new ResFile();
-            resFile.setResId(po.getId());
+            resFile.setResId(resInfo.getId());
+            resFile.setFileId(fileId);
+            resFileDao.save(resFile);
+        }
+        return ResultGenerator.success();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Result<String> update(ResInfoSaveVO invo) {
+        ResInfo resInfo = commonConvert.toPo(invo);
+        resInfoDao.updateById(resInfo);
+        // 删除解除关系的
+        List<String> fileList = invo.getFileList();
+        List<String> list = SimpleQuery.list(Wrappers.lambdaQuery(ResFile.class).eq(ResFile::getResId, resInfo.getId()), ResFile::getFileId);
+        List<String> delIds = list.stream().filter(v -> !fileList.contains(v)).collect(Collectors.toList());
+        if (!delIds.isEmpty()) {
+            for (String delId : delIds) {
+                resFileDao.remove(Wrappers.lambdaQuery(ResFile.class).eq(ResFile::getResId, resInfo.getId()).eq(ResFile::getFileId, delId));
+            }
+        }
+        for (String fileId : fileList) {
+            long count = resFileDao.count(Wrappers.lambdaQuery(ResFile.class).eq(ResFile::getResId, resInfo.getId()).eq(ResFile::getFileId, fileId));
+            if (count > 0) {
+                continue;
+            }
+            ResFile resFile = new ResFile();
+            resFile.setResId(resInfo.getId());
             resFile.setFileId(fileId);
             resFileDao.save(resFile);
         }

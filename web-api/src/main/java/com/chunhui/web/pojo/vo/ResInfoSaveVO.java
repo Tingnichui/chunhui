@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 public class ResInfoSaveVO {
 
+    private String id;
 
     /**
      * 标题

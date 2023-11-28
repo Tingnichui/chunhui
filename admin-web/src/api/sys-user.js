@@ -25,6 +25,10 @@ export const saveResInfo = (data) => {
     return http.post("/resInfo/save", data);
 };
 
+export const updateResInfo = (data) => {
+    return http.post("/resInfo/update", data);
+};
+
 export const getResInfoById = (id) => {
     return http.postForm("/resInfo/getResInfoById", {id});
 };

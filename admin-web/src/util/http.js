@@ -6,7 +6,7 @@ import router from "@/router";
 export function createBaseAxios() {
     return axios.create({
         baseURL: "http://localhost:8080/api", // 基础请求地址
-        timeout: 10000, // 请求超时设置
+        timeout: 60 * 1000, // 请求超时设置
         withCredentials: false, // 跨域请求是否需要携带 cookie
     })
 }
