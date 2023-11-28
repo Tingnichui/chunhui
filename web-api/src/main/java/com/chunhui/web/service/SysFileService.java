@@ -11,6 +11,7 @@ import com.chunhui.web.pojo.vo.SysFileSaveVO;
 import com.chunhui.web.util.AliyunOssUtil;
 import com.chunhui.web.util.ResultGenerator;
 import com.chunhui.web.util.ServerletUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -55,5 +56,17 @@ public class SysFileService {
             return Collections.emptyList();
         }
         return commonConvert.toOutList(sysFileDao.listByIds(ids));
+    }
+
+    public Result<String> getDownLoadAccess(String id) {
+        SysFile sysFile = sysFileDao.getById(id);
+        if (null == sysFile) {
+            return ResultGenerator.fail("文件不存在");
+        }
+        String filePath = sysFile.getFilePath();
+        if (StringUtils.isBlank(filePath)) {
+            return ResultGenerator.fail("文件保存路径为空");
+        }
+        return ResultGenerator.success(aliyunOssUtil.getDownLoadAccess(filePath));
     }
 }

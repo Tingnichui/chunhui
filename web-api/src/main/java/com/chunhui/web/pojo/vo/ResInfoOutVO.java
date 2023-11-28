@@ -2,6 +2,7 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class ResInfoOutVO {
     private String title;
 
     private String content;
+
+    private Date createTime;
 
     /**
      * 文件列表;

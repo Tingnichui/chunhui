@@ -55,6 +55,7 @@
                 :before-remove="beforeRemove"
                 :http-request="doUpload"
                 :on-change="changeFile"
+                :on-preview="previewFile"
                 :on-remove="removeFile"
             >
               <el-button type="primary">上传文件</el-button>
@@ -90,7 +91,7 @@
 <script>
 
 import {
-  deleteById,
+  deleteById, getDownLoadAccess,
   getResInfoById,
   getUploadAccess,
   resPageList,
@@ -195,6 +196,15 @@ export default {
       console.log(file);
       console.log(fileList);
       // const
+    },
+    previewFile(file) {
+      const index = this.fileList.findIndex(item => item.uid === file.uid)
+      const fileId = this.saveForm.fileList[index];
+      getDownLoadAccess(fileId).then(
+          res => {
+            window.open(res.data)
+          }
+      )
     },
     beforeRemove(file, fileList) {
       return ElMessageBox.confirm(

@@ -9,6 +9,7 @@ import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.ResFile;
 import com.chunhui.web.pojo.po.ResInfo;
 import com.chunhui.web.pojo.query.ResInfoQuery;
+import com.chunhui.web.pojo.vo.PageResult;
 import com.chunhui.web.pojo.vo.ResInfoOutVO;
 import com.chunhui.web.pojo.vo.ResInfoSaveVO;
 import com.chunhui.web.pojo.vo.Result;
@@ -78,8 +79,15 @@ public class ResInfoService {
         return ResultGenerator.success();
     }
 
-    public Result<IPage<ResInfo>> pageList(ResInfoQuery query) {
-        return ResultGenerator.success(resInfoDao.pageListByQurey(query));
+    public Result<PageResult<ResInfoOutVO>> pageList(ResInfoQuery query) {
+        IPage<ResInfo> resInfoIPage = resInfoDao.pageListByQurey(query);
+        PageResult<ResInfoOutVO> page = new PageResult<>();
+        page.setCurrent(resInfoIPage.getCurrent());
+        page.setPages(resInfoIPage.getPages());
+        page.setSize(resInfoIPage.getSize());
+        page.setTotal(resInfoIPage.getTotal());
+        page.setRecords(commonConvert.toResOutList(resInfoIPage.getRecords()));
+        return ResultGenerator.success(page);
     }
 
     public Result<ResInfoOutVO> getResInfoById(String id) {

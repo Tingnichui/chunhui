@@ -45,9 +45,9 @@ public class AliyunOssUtil {
     private String accessKeySecret;
 
     /**
-     * @param path 填写Object完整路径，例如exampleobject.txt。Object完整路径中不能包含Bucket名称。
+     * @param path 填写Object完整路径，例如user/exampleobject.txt。Object完整路径中不能包含Bucket名称。
      */
-    public String getDownLoadAccess(String bucketName, String path) {
+    public String getDownLoadAccess(String path) {
 
         // 创建OSSClient实例。
         OSS ossClient = getOssClient();
@@ -71,7 +71,7 @@ public class AliyunOssUtil {
         // 指定生成的签名URL过期时间，单位为毫秒。本示例以设置过期时间为1分钟为例。
         DateTime expireEndTime = DateUtil.offsetMinute(new Date(), 1);
         // 生成签名URL。
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, path, HttpMethod.GET);
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucket, path, HttpMethod.GET);
         // 设置过期时间。
         request.setExpiration(expireEndTime);
         // 将请求头加入到request中。

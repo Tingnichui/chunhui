@@ -1,8 +1,7 @@
 package com.chunhui.web.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.chunhui.web.pojo.po.ResInfo;
 import com.chunhui.web.pojo.query.ResInfoQuery;
+import com.chunhui.web.pojo.vo.PageResult;
 import com.chunhui.web.pojo.vo.ResInfoOutVO;
 import com.chunhui.web.pojo.vo.ResInfoSaveVO;
 import com.chunhui.web.pojo.vo.Result;
@@ -56,7 +55,7 @@ public class ResInfoController {
     }
 
     @RequestMapping("/pageList")
-    public Result<IPage<ResInfo>> pageList(@RequestBody ResInfoQuery query) {
+    public Result<PageResult<ResInfoOutVO>> pageList(@RequestBody ResInfoQuery query) {
         return resInfoService.pageList(query);
     }
 

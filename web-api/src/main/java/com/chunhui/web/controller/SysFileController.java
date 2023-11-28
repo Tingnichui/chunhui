@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotBlank;
 
 /**
  * sys_file 文件表;
@@ -28,6 +29,11 @@ public class SysFileController {
     @RequestMapping("/getUploadAccess")
     public Result<AliyunOssUploadAccess> regist(@Validated @RequestBody SysFileSaveVO sysFile) throws BusinessException {
         return sysFileService.saveAndGetAccess(sysFile);
+    }
+
+    @RequestMapping("/getDownLoadAccess")
+    public Result<String> getDownLoadAccess(@NotBlank(message = "id不能为空") String id) {
+        return sysFileService.getDownLoadAccess(id);
     }
 
 }

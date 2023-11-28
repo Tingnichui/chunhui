@@ -21,7 +21,7 @@ class AliyunOssUtilTests {
 
     @Test
     void name() {
-        String downLoadAccess = aliyunOssUtil.getDownLoadAccess("fei-a", "user/1728284047377879041/1701014960-images.jpg");
+        String downLoadAccess = aliyunOssUtil.getDownLoadAccess("user/1728284047377879041/1701014960-images.jpg");
         System.err.println(downLoadAccess);
     }
 }
