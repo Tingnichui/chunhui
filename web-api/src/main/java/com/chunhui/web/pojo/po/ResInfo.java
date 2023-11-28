@@ -24,9 +24,4 @@ public class ResInfo extends BaseDO {
      */
     private String content;
 
-    /**
-     * 文件列表;json格式，存储sys_file.id
-     */
-    private String fileList;
-
 }

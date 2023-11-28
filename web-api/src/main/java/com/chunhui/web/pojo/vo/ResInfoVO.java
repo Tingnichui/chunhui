@@ -28,7 +28,7 @@ public class ResInfoVO {
     private String content;
 
     /**
-     * 文件列表;json格式，存储sys_file.id
+     * 文件列表;存储sys_file.id
      */
     private List<String> fileList;
 
