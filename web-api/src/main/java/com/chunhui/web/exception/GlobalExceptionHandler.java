@@ -31,14 +31,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result<String> exceptionHandler(Exception e) {
         log.error("全局异常处理", e);
-        // 处理业务异常
-        if (e instanceof BusinessException) {
-            return ResultGenerator.fail(((BusinessException) e).getCode(), e.getMessage());
-        }
-        // 注解校验
         return ResultGenerator.fail(e.getMessage());
     }
 
+    @ExceptionHandler(value = BusinessException.class)
+    public Result<String> businessExceptionHandler(BusinessException e) {
+        return ResultGenerator.fail(e.getCode(), e.getMessage());
+    }
 
     /**
      * 处理 json 请求体调用接口对象参数校验失败抛出的异常
