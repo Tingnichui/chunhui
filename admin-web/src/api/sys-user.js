@@ -25,6 +25,14 @@ export const saveResInfo = (data) => {
     return http.post("/resInfo/save", data);
 };
 
+export const getResInfoById = (id) => {
+    return http.postForm("/resInfo/getResInfoById", {id});
+};
+
+export const deleteById = (id) => {
+    return http.postForm("/resInfo/deleteById", {id});
+};
+
 export const resPageList = (data) => {
     return http.post("/resInfo/pageList", data);
 };

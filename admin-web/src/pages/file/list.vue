@@ -7,7 +7,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
-          <el-button type="primary" @click="reset">重置</el-button>
+          <el-button type="primary" @click="research">重置</el-button>
           <el-button type="primary" @click="showSaveForm">添加</el-button>
         </el-form-item>
       </el-form>
@@ -18,6 +18,12 @@
         <el-table-column label="标题" prop="title" width="180"/>
         <el-table-column label="描述" prop="content" width="180"/>
         <el-table-column label="创建时间" prop="createTime"/>
+        <el-table-column label="操作">
+          <template #default="scope">
+            <el-button size="small" @click="showUpdate(scope.row.id)">编辑</el-button>
+            <el-button size="small" type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div style="margin: 10px;display: flex;justify-content: right">
         <el-pagination
@@ -82,8 +88,9 @@
 
 <script>
 
-import {getUploadAccess, resPageList, saveResInfo, uploadOss} from "@/api/sys-user";
+import {deleteById, getResInfoById, getUploadAccess, resPageList, saveResInfo, uploadOss} from "@/api/sys-user";
 import {createBaseAxios} from "@/util/http";
+import {ElMessageBox} from "element-plus";
 
 export default {
   name: "index",
@@ -100,9 +107,27 @@ export default {
     }
   },
   mounted() {
-    this.reset();
+    this.research();
   },
   methods: {
+    showUpdate(id) {
+      getResInfoById(id).then((res) => {
+
+      })
+    },
+    deleteInfo(id) {
+      ElMessageBox.confirm('确定删除该资源？')
+          .then(() => {
+            deleteById(id).then(res => {
+              this.research()
+              this.$message({
+                message: "删除成功",
+                type: 'success'
+              })
+            })
+          })
+
+    },
     changeFile(file, fileList) {
       // 数据小于0.1M的时候按KB显示
       const size = file.size / 1024 / 1024 > 0.1 ? `(${(file.size / 1024 / 1024).toFixed(1)}M)` : `(${(file.size / 1024).toFixed(1)}KB)`
@@ -158,7 +183,7 @@ export default {
           message: res.message,
           type: 'success',
         })
-        this.reset();
+        this.research();
         this.uploadFlag = false
       })
     },
@@ -167,7 +192,7 @@ export default {
         this.tableData = res.data
       })
     },
-    reset() {
+    research() {
       this.searchForm = {
         current: 1,
         size: 15

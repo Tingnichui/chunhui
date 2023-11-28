@@ -47,7 +47,7 @@ public class BaseDO implements Serializable {
     /**
      * 是否删除;0未删除；秒级时间戳 已删除
      */
-    @TableLogic(value = "0", delval = "UNIX_TIMESTAMP()")
+    @TableLogic(value = "0", delval = "1")
     private String delFlag;
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * @date : 2023-11-26
  */
 @Data
-public class ResInfoVO {
+public class ResInfoSaveVO {
 
 
     /**

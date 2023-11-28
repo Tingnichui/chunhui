@@ -1,11 +1,13 @@
 package com.chunhui.web.mapstruct;
 
 import com.chunhui.web.pojo.po.ResInfo;
+import com.chunhui.web.pojo.po.SysFile;
 import com.chunhui.web.pojo.po.SysUser;
-import com.chunhui.web.pojo.vo.ResInfoVO;
-import com.chunhui.web.pojo.vo.SysUserVO;
+import com.chunhui.web.pojo.vo.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(uses = TypeConvert.class)
 public interface CommonConvert {
@@ -13,6 +15,14 @@ public interface CommonConvert {
 
     SysUserVO toOut(SysUser sysUser);
 
-    ResInfo toPo(ResInfoVO resInfoVO);
+    SysFileOutVO toOut(SysFile sysFile);
+
+    List<SysFileOutVO> toOutList(List<SysFile> sysFile);
+
+    ResInfoOutVO toOut(ResInfo resInfo);
+
+    ResInfo toPo(ResInfoSaveVO resInfoVO);
+
+    SysFile toPo(SysFileSaveVO sysFileSaveVO);
 
 }

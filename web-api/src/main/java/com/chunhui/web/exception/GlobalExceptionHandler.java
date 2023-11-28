@@ -5,7 +5,6 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.chunhui.web.pojo.vo.Result;
 import com.chunhui.web.util.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -61,16 +59,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public Result<String> ParamsException(ConstraintViolationException e) {
 
-        List<String> errorList = CollectionUtil.newArrayList();
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         for (ConstraintViolation<?> violation : violations) {
-            StringBuilder message = new StringBuilder();
-            Path path = violation.getPropertyPath();
-            String[] pathArr = StringUtils.split(path.toString(), ".");
-            String msg = message.append(pathArr[1]).append(violation.getMessage()).toString();
-            errorList.add(msg);
+            return ResultGenerator.fail(ExceptionEnum.PARAMS_INVALID.getCode(), violation.getMessage());
         }
-        return ResultGenerator.fail(ExceptionEnum.PARAMS_INVALID.getCode(), errorList);
+        return ResultGenerator.fail(ExceptionEnum.PARAMS_INVALID.getCode(), "未知异常");
     }
 
     /**
