@@ -16,6 +16,16 @@ const routes = [
             }
         ]
     },
+    {
+        path: '/home',
+        component: () => import('@/pages/home/index.vue'),
+        children: [
+            {
+                path: 'resource/list',
+                component: () => import('@/pages/home/resource/list.vue')
+            }
+        ]
+    },
 ]
 
 const router = createRouter({

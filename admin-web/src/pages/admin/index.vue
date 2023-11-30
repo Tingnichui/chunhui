@@ -75,8 +75,8 @@ export default {
         {
           "subMune": [],
           "icon": "HomeFilled",
-          "title": "首页",
-          "url": "/admin",
+          "title": "回到首页",
+          "url": "/home",
         },
         {
           "subMune": [],
