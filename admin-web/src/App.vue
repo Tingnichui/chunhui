@@ -10,7 +10,7 @@ import {getToken} from "@/util/auth";
 export default {
   mounted() {
     if (getToken()) {
-      this.$router.push('/home')
+      this.$router.push('/admin')
     } else {
       this.$router.push('/login')
     }

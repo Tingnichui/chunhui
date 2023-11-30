@@ -3,26 +3,30 @@
     <el-container style="height: 100vh">
       <!-- 侧边栏 -->
       <el-aside style="background: #81D4FA" width="200px">
-        <el-scrollbar>
-          <el-menu v-for="(item,index) in menuList" :key="index">
-            <!-- 根菜单 -->
-            <el-sub-menu v-if="!item.url" :index="item.id">
-              <template #title>
+        <el-menu>
+          <div v-for="(item,index) in menuList" :key="index">
+            <template v-if="!item.url">
+              <!-- 根菜单 -->
+              <el-sub-menu :index="item.id">
+                <template #title>
+                  <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
+                  <span>{{ item.title }}</span>
+                </template>
+                <el-menu-item v-for="(subMenu,index2) in item.subMune" :key="index2" :index="subMenu.id"
+                              @click="to(subMenu.url)">
+                  {{ subMenu.title }}
+                </el-menu-item>
+              </el-sub-menu>
+            </template>
+            <template v-else>
+              <!-- 子菜单 -->
+              <el-menu-item :index="item.id" @click="to(item.url)">
                 <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
-                <span>{{ item.title }}</span>
-              </template>
-              <el-menu-item v-for="(subMenu,index2) in item.subMune" :key="index2" :index="subMenu.id"
-                            @click="to(subMenu.url)">
-                {{ subMenu.title }}
+                <template #title>{{ item.title }}</template>
               </el-menu-item>
-            </el-sub-menu>
-            <!-- 子菜单 -->
-            <el-menu-item v-else :index="item.id" @click="to(item.url)">
-              <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
-              <template #title>{{ item.title }}</template>
-            </el-menu-item>
-          </el-menu>
-        </el-scrollbar>
+            </template>
+          </div>
+        </el-menu>
       </el-aside>
 
       <el-container>
@@ -72,18 +76,13 @@ export default {
           "subMune": [],
           "icon": "HomeFilled",
           "title": "首页",
-          "url": "/home/home",
+          "url": "/admin",
         },
         {
-          "subMune": [
-            {
-              "title": "资源管理",
-              "url": "/home/file",
-            }
-          ],
+          "subMune": [],
           "icon": "list",
           "title": "资源",
-          "url": "",
+          "url": "/admin/resource/list",
         }
       ]
       // 在这里处理一下菜单id

@@ -7,16 +7,12 @@ const routes = [
         component: () => import('@/pages/sys-user/login.vue')
     },
     {
-        path: '/home',
-        component: () => import('@/pages/index.vue'),
+        path: '/admin',
+        component: () => import('@/pages/admin/index.vue'),
         children: [
             {
-                path: 'home',
-                component: () => import('@/pages/home/home.vue')
-            },
-            {
-                path: 'file',
-                component: () => import('@/pages/file/list.vue')
+                path: 'resource/list',
+                component: () => import('@/pages/admin/resource/list.vue')
             }
         ]
     },

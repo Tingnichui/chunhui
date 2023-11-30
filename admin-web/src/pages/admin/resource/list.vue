@@ -107,7 +107,7 @@ export default {
   data() {
     return {
       fileList: [],
-      tableData: [],
+      tableData: {total: 0},
       saveDialogFlag: false,
       saveForm: {},
       searchForm: {},
