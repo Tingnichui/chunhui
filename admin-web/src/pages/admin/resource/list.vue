@@ -198,13 +198,23 @@ export default {
       // const
     },
     previewFile(file) {
-      const index = this.fileList.findIndex(item => item.uid === file.uid)
-      const fileId = this.saveForm.fileList[index];
-      getDownLoadAccess(fileId).then(
-          res => {
-            window.open(res.data)
+      this.$confirm(`确认下载${file.name}`, '提示',
+          {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'info',
           }
       )
+          .then(() => {
+            const index = this.fileList.findIndex(item => item.uid === file.uid)
+            const fileId = this.saveForm.fileList[index];
+            getDownLoadAccess(fileId).then(
+                res => {
+                  window.open(res.data)
+                }
+            )
+          })
+
     },
     beforeRemove(file, fileList) {
       return ElMessageBox.confirm(

@@ -3,7 +3,7 @@
     <el-container style="height: 100vh">
       <!-- 侧边栏 -->
       <el-aside style="background: #81D4FA" width="200px">
-        <el-menu>
+        <el-menu default-active="2">
           <div v-for="(item,index) in menuList" :key="index">
             <template v-if="!item.url">
               <!-- 根菜单 -->
