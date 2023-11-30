@@ -14,7 +14,7 @@
       </div>
     </div>
     <div>
-      <el-dialog v-model="showDetailFlag" center width="40%">
+      <el-dialog v-model="showDetailFlag" center width="40%" @close="close">
         <el-form :model="detailInfo" label-position="right" label-width="80px">
           <el-form-item label="标题">
             <el-input v-model="detailInfo.title" disabled/>
@@ -33,7 +33,7 @@
         </el-form>
         <template #footer>
           <span class="dialog-footer">
-            <el-button type="primary" @click="this.showDetailFlag = false">
+            <el-button type="primary" @click="close">
               取消
             </el-button>
           </span>
@@ -61,6 +61,11 @@ export default {
     this.research()
   },
   methods: {
+    close() {
+      this.showDetailFlag = false
+      this.detailInfo = {}
+      this.fileList = []
+    },
     research() {
       this.searchForm = {
         current: 1,
