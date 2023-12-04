@@ -9,6 +9,7 @@ import {getToken} from "@/util/auth";
 
 export default {
   mounted() {
+    console.log(import.meta.env.VITE_BASE_URL)
     if (getToken()) {
       this.$router.push('/admin')
     } else {
