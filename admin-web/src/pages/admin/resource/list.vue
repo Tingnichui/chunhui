@@ -181,7 +181,7 @@ export default {
         }
         formData.append('file', file, file.name)
         this.uploadLoading = true
-        createBaseAxios().post(res.data.host, formData, config).then(() => {
+        createBaseAxios(60 * 60 * 1000).post(res.data.host, formData, config).then(() => {
               this.saveForm.fileList.push(res.data.id)
               this.uploadLoading = false
               this.$message({

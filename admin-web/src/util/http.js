@@ -3,10 +3,10 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import {getToken} from "@/util/auth";
 import router from "@/router";
 
-export function createBaseAxios() {
+export function createBaseAxios(timeout = 60 * 1000) {
     return axios.create({
         baseURL: import.meta.env.VITE_BASE_URL, // 基础请求地址
-        timeout: 60 * 1000, // 请求超时设置
+        timeout: timeout, // 请求超时设置
         withCredentials: false, // 跨域请求是否需要携带 cookie
     })
 }

@@ -1,4 +1,5 @@
 import http, {createBaseAxios} from "@/util/http";
+import axios from "axios";
 
 export const login = (data) => {
     return http({
@@ -54,7 +55,7 @@ export const uploadOss = (url, data, option) => {
         }
     }
     formData.append(option.filename, option.file, option.file.name)
-    return createBaseAxios().post(url, formData, {
+    return axios.create({timeout: 10000}).post(url, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

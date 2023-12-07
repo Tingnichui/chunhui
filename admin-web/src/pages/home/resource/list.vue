@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div style="display: flex;height: 100vh;flex-flow: wrap">
-      <div v-for="item in list" style="width: 400px;padding: 5px;max-height: 150px">
-        <el-card shadow="hover">
+    <el-row gutter="20" style="width: 100%;padding: 0 20px;">
+      <el-col v-for="item in list" :span="6">
+        <el-card shadow="hover" style="padding: 5px;min-height: 100px;margin-bottom: 20px">
           <template #header>
             <div class="card-header">
               <span>{{ item.title }}</span>
@@ -11,8 +11,8 @@
           </template>
           <div class="text">{{ item.content }}</div>
         </el-card>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
     <div>
       <el-dialog v-model="showDetailFlag" center width="40%" @close="close">
         <el-form :model="detailInfo" label-position="right" label-width="80px">
