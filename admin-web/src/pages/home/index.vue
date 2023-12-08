@@ -43,6 +43,7 @@ export default {
   },
   mounted() {
     this.getMenu();
+    this.$router.push('/home/resource/list')
   },
   methods: {
     to(url) {

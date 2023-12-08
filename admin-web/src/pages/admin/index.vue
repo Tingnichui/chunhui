@@ -68,6 +68,7 @@ export default {
   },
   mounted() {
     this.getMenu();
+    this.$router.push('/admin/resource/list')
   },
   methods: {
     getMenu() {
@@ -81,7 +82,7 @@ export default {
         {
           "subMune": [],
           "icon": "list",
-          "title": "资源",
+          "title": "资源管理",
           "url": "/admin/resource/list",
         }
       ]
