@@ -1,9 +1,6 @@
 package com.chunhui.web.mapstruct;
 
-import com.chunhui.web.pojo.po.ResInfo;
-import com.chunhui.web.pojo.po.SysFile;
-import com.chunhui.web.pojo.po.SysMenu;
-import com.chunhui.web.pojo.po.SysUser;
+import com.chunhui.web.pojo.po.*;
 import com.chunhui.web.pojo.vo.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -35,4 +32,14 @@ public interface CommonConvert {
     SysMenu toSysMenu(SysMenuSaveVO saveVO);
 
     SysMenu updatetoSysMenu(SysMenuUpdateVO saveVO);
+
+
+    List<SysRoleOutVO> toSysRoleOutList(List<SysRole> records);
+
+    SysRoleOutVO toSysRoleListOut(SysRole byId);
+
+    SysRole toSysRole(SysRoleSaveVO saveVO);
+
+    SysRole updatetoSysRole(SysRoleUpdateVO saveVO);
+
 }

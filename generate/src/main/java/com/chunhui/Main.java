@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Main {
 
-    public static final List<String> tableNames = Arrays.asList("sys_menu");
+    public static final List<String> tableNames = Arrays.asList("sys_role");
 
     /**
      * 忽略表字段
@@ -67,7 +67,7 @@ public class Main {
 
         // mapper
         templateList.add(new TemplateConfig()
-                .setCoverFlag(false)
+                .setCoverFlag(true)
                 .setName("mapper.ftl")
                 .setGenateDir("D:\\project\\chunhui\\web-api\\src\\main\\java\\com\\chunhui\\web\\mapper")
                 .setFilePrefix("Mapper")
@@ -75,7 +75,7 @@ public class Main {
 
         // dao
         templateList.add(new TemplateConfig()
-                .setCoverFlag(false)
+                .setCoverFlag(true)
                 .setName("dao.ftl")
                 .setGenateDir("D:\\project\\chunhui\\web-api\\src\\main\\java\\com\\chunhui\\web\\dao")
                 .setFilePrefix("Dao")
@@ -84,7 +84,7 @@ public class Main {
 
         // service
         templateList.add(new TemplateConfig()
-                .setCoverFlag(false)
+                .setCoverFlag(true)
                 .setName("service.ftl")
                 .setGenateDir("D:\\project\\chunhui\\web-api\\src\\main\\java\\com\\chunhui\\web\\service")
                 .setFilePrefix("Service")
@@ -92,7 +92,7 @@ public class Main {
 
         // service
         templateList.add(new TemplateConfig()
-                .setCoverFlag(false)
+                .setCoverFlag(true)
                 .setName("controller.ftl")
                 .setGenateDir("D:\\project\\chunhui\\web-api\\src\\main\\java\\com\\chunhui\\web\\controller")
                 .setFilePrefix("Controller")
@@ -109,7 +109,7 @@ public class Main {
 
         // vue-api
         templateList.add(new TemplateConfig()
-                .setCoverFlag(false)
+                .setCoverFlag(true)
                 .setName("vue-api.ftl")
                 .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\api")
                 .setFileSuffix(".js"));
@@ -132,6 +132,16 @@ public class Main {
             for (TemplateConfig templateConfig : templateList) {
                 doGenerate(tableInfo, templateConfig);
             }
+
+            String str = "    List<SysRoleOutVO> toSysRoleOutList(List<SysRole> records);\n" +
+                    "\n" +
+                    "    SysRoleOutVO toSysRoleListOut(SysRole byId);\n" +
+                    "\n" +
+                    "    SysRole toSysRole(SysRoleSaveVO saveVO);\n" +
+                    "\n" +
+                    "    SysRole updatetoSysRole(SysRoleUpdateVO saveVO);\n";
+
+            System.err.println(str.replaceAll("SysRole", tableInfo.getTableBigHump()));
 
         }
     }

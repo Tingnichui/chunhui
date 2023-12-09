@@ -17,6 +17,10 @@ const routes = [
             {
                 path: 'menu/list',
                 component: () => import('@/pages/admin/sys-menu/list.vue')
+            },
+            {
+                path: 'sys-role/list',
+                component: () => import('@/pages/admin/sys-role/list.vue')
             }
         ]
     },

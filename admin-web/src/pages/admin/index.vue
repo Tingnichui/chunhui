@@ -90,7 +90,14 @@ export default {
           "icon": "list",
           "title": "菜单管理",
           "url": "/admin/menu/list",
+        },
+        {
+          "subMune": [],
+          "icon": "list",
+          "title": "角色管理",
+          "url": "/admin/sys-role/list",
         }
+
       ]
       // 在这里处理一下菜单id
       let menuId = 0;
