@@ -1,16 +1,13 @@
-package com.chunhui.web.pojo.po;
+package com.chunhui.web.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
 
-/**
-* 系统用户表
-*/
+
 @Data
-@TableName("sys_user")
-public class SysUser extends BaseDO {
-
+public class SysUserSaveVO {
 
 
     /**

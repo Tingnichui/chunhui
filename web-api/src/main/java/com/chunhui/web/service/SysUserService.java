@@ -7,7 +7,9 @@ import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.exception.ExceptionEnum;
 import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.SysUser;
-import com.chunhui.web.pojo.vo.Result;
+import com.chunhui.web.pojo.query.SysUserQuery;
+import com.chunhui.web.pojo.vo.*;
+import com.chunhui.web.util.PageUtil;
 import com.chunhui.web.util.ResultGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -72,4 +74,28 @@ public class SysUserService {
         sysUserDao.save(sysUser);
         return ResultGenerator.success("注册成功");
     }
+
+    public Result<PageResult<SysUserOutVO>> pageList(SysUserQuery query) {
+        return ResultGenerator.success(PageUtil.pageResult(sysUserDao.pageListByQurey(query), commonConvert::toSysUserOutList));
+    }
+
+    public Result<SysUserOutVO> detail(String id) {
+        return ResultGenerator.success(commonConvert.toSysUserListOut(sysUserDao.getById(id)));
+    }
+
+    public Result<String> save(SysUserSaveVO saveVO) {
+        sysUserDao.save(commonConvert.toSysUser(saveVO));
+        return ResultGenerator.success();
+    }
+
+    public Result<String> update(SysUserUpdateVO updateVO) {
+        sysUserDao.updateById(commonConvert.updatetoSysUser(updateVO));
+        return ResultGenerator.success();
+    }
+
+    public Result<String> delete(String id) {
+        sysUserDao.removeById(id);
+        return ResultGenerator.success();
+    }
+
 }

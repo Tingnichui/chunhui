@@ -2,14 +2,13 @@ package com.chunhui.web.controller;
 
 
 import com.chunhui.web.pojo.po.SysUser;
-import com.chunhui.web.pojo.vo.Result;
+import com.chunhui.web.pojo.query.SysUserQuery;
+import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.service.SysUserService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotBlank;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -30,11 +29,6 @@ public class SysUserController {
         return sysUserService.regist(sysUser);
     }
 
-    @RequestMapping("/detail")
-    public SysUser detail() {
-        return sysUserService.detail();
-    }
-
     @RequestMapping("/login")
     public Result<String> login(@RequestBody SysUser sysUser) {
         return sysUserService.login(sysUser);
@@ -43,6 +37,32 @@ public class SysUserController {
     @RequestMapping("/logout")
     public Result<String> logout(@RequestHeader String token) {
         return sysUserService.logout(token);
+    }
+
+    @RequestMapping("/pageList")
+    public Result<PageResult<SysUserOutVO>> regist(@RequestBody SysUserQuery query) {
+        return sysUserService.pageList(query);
+    }
+
+    @RequestMapping("/detail")
+    public Result<SysUserOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return sysUserService.detail(id);
+    }
+
+    @RequestMapping("/save")
+    public Result<String> save(@RequestBody SysUserSaveVO saveVO) {
+        return sysUserService.save(saveVO);
+    }
+
+
+    @RequestMapping("/update")
+    public Result<String> update(@RequestBody SysUserUpdateVO updateVO) {
+        return sysUserService.update(updateVO);
+    }
+
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return sysUserService.delete(id);
     }
 
 

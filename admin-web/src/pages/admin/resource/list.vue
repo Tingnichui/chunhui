@@ -91,7 +91,7 @@
 <script>
 
 import {
-  deleteById, getDownLoadAccess,
+  getDownLoadAccess,
   getResInfoById,
   getUploadAccess,
   resPageList,
@@ -99,6 +99,7 @@ import {
   updateResInfo,
   uploadOss
 } from "@/api/sys-user";
+import {deleteById} from "@/api/res-info";
 import {createBaseAxios} from "@/util/http";
 import {ElMessageBox} from "element-plus";
 

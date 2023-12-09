@@ -38,10 +38,6 @@ export const getResInfoById = (id) => {
     return http.postForm("/resInfo/getResInfoById", {id});
 };
 
-export const deleteById = (id) => {
-    return http.postForm("/resInfo/deleteById", {id});
-};
-
 export const resPageList = (data) => {
     return http.post("/resInfo/pageList", data);
 };
@@ -61,4 +57,24 @@ export const uploadOss = (url, data, option) => {
             }
         }
     );
+};
+
+export const pageList = (data) => {
+    return http.post("/sysUser/pageList", data);
+};
+
+export const save = (data) => {
+    return http.post("/sysUser/save", data);
+};
+
+export const update = (data) => {
+    return http.post("/sysUser/update", data);
+};
+
+export const detail = (id) => {
+    return http.postForm("/sysUser/detail", {id});
+};
+
+export const deleteById = (id) => {
+    return http.postForm("/sysUser/delete", {id});
 };

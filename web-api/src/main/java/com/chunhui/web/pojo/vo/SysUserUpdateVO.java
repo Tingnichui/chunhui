@@ -1,16 +1,18 @@
-package com.chunhui.web.pojo.po;
+package com.chunhui.web.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import javax.validation.constraints.NotBlank;
+
+import java.util.Date;
+import java.util.List;
 
 
-/**
-* 系统用户表
-*/
 @Data
-@TableName("sys_user")
-public class SysUser extends BaseDO {
+public class SysUserUpdateVO {
 
+
+@NotBlank(message = "主键id不能为空")
+private String id;
 
 
     /**

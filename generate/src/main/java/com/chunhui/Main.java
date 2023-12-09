@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Main {
 
-    public static final List<String> tableNames = Arrays.asList("sys_permission");
+    public static final List<String> tableNames = Arrays.asList("sys_user");
 
     /**
      * 忽略表字段
