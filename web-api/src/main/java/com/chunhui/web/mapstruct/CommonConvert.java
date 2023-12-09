@@ -58,4 +58,28 @@ public interface CommonConvert {
 
     SysUser updatetoSysUser(SysUserUpdateVO saveVO);
 
+    List<SysUserRoleOutVO> toSysUserRoleOutList(List<SysUserRole> records);
+
+    SysUserRoleOutVO toSysUserRoleListOut(SysUserRole byId);
+
+    SysUserRole toSysUserRole(SysUserRoleSaveVO saveVO);
+
+    SysUserRole updatetoSysUserRole(SysUserRoleUpdateVO saveVO);
+
+    List<SysRolePermissionOutVO> toSysRolePermissionOutList(List<SysRolePermission> records);
+
+    SysRolePermissionOutVO toSysRolePermissionListOut(SysRolePermission byId);
+
+    SysRolePermission toSysRolePermission(SysRolePermissionSaveVO saveVO);
+
+    SysRolePermission updatetoSysRolePermission(SysRolePermissionUpdateVO saveVO);
+
+    List<SysMenuPermissionOutVO> toSysMenuPermissionOutList(List<SysMenuPermission> records);
+
+    SysMenuPermissionOutVO toSysMenuPermissionListOut(SysMenuPermission byId);
+
+    SysMenuPermission toSysMenuPermission(SysMenuPermissionSaveVO saveVO);
+
+    SysMenuPermission updatetoSysMenuPermission(SysMenuPermissionUpdateVO saveVO);
+
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Main {
 
-    public static final List<String> tableNames = Arrays.asList("sys_user");
+    public static final List<String> tableNames = Arrays.asList("sys_user_role","sys_role_permission","sys_menu_permission");
 
     /**
      * 忽略表字段
@@ -99,13 +99,13 @@ public class Main {
                 .setFileSuffix(".java"));
 
         // vue-list.ftl
-        templateList.add(new TemplateConfig()
-                .setCoverFlag(true)
-                .setName("vue-list.ftl")
-                .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\pages\\admin")
-                .setFatherDir("tableName")
-                .setFilePrefix("list")
-                .setFileSuffix(".vue"));
+//        templateList.add(new TemplateConfig()
+//                .setCoverFlag(true)
+//                .setName("vue-list.ftl")
+//                .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\pages\\admin")
+//                .setFatherDir("tableName")
+//                .setFilePrefix("list")
+//                .setFileSuffix(".vue"));
 
         // vue-api
         templateList.add(new TemplateConfig()

@@ -52,7 +52,7 @@
         </el-header>
         <!-- 主体 -->
         <el-main style="background: #E3F2FD">
-          <router-view style="background: #FFFFFF;height: 100%"></router-view>
+          <router-view style="background: #E3F2FD;height: 100%"></router-view>
         </el-main>
       </el-container>
     </el-container>
