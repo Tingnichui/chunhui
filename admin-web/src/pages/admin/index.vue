@@ -84,6 +84,12 @@ export default {
           "icon": "list",
           "title": "资源管理",
           "url": "/admin/resource/list",
+        },
+        {
+          "subMune": [],
+          "icon": "list",
+          "title": "菜单管理",
+          "url": "/admin/menu/list",
         }
       ]
       // 在这里处理一下菜单id

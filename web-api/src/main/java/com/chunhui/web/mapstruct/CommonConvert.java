@@ -2,6 +2,7 @@ package com.chunhui.web.mapstruct;
 
 import com.chunhui.web.pojo.po.ResInfo;
 import com.chunhui.web.pojo.po.SysFile;
+import com.chunhui.web.pojo.po.SysMenu;
 import com.chunhui.web.pojo.po.SysUser;
 import com.chunhui.web.pojo.vo.*;
 import org.mapstruct.Mapper;
@@ -27,4 +28,11 @@ public interface CommonConvert {
 
     SysFile toPo(SysFileSaveVO sysFileSaveVO);
 
+    List<SysMenuOutVO> toSysMenuOutList(List<SysMenu> records);
+
+    SysMenuOutVO toSysMenuListOut(SysMenu byId);
+
+    SysMenu toSysMenu(SysMenuSaveVO saveVO);
+
+    SysMenu updatetoSysMenu(SysMenuUpdateVO saveVO);
 }

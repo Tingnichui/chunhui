@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class PageResult<T> {
+public class PageResult<DTO> {
     private long current;
 
     private long pages;
@@ -14,6 +14,5 @@ public class PageResult<T> {
 
     private long total;
 
-    private List<T> records;
-
+    private List<DTO> records;
 }

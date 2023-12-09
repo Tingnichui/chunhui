@@ -13,6 +13,10 @@ const routes = [
             {
                 path: 'resource/list',
                 component: () => import('@/pages/admin/resource/list.vue')
+            },
+            {
+                path: 'menu/list',
+                component: () => import('@/pages/admin/sys-menu/list.vue')
             }
         ]
     },
