@@ -96,6 +96,12 @@ export default {
           "icon": "list",
           "title": "角色管理",
           "url": "/admin/sys-role/list",
+        },
+        {
+          "subMune": [],
+          "icon": "list",
+          "title": "权限管理",
+          "url": "/admin/sys-permission/list",
         }
 
       ]

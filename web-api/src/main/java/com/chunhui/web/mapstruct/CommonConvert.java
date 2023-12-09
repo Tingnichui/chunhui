@@ -41,5 +41,13 @@ public interface CommonConvert {
     SysRole toSysRole(SysRoleSaveVO saveVO);
 
     SysRole updatetoSysRole(SysRoleUpdateVO saveVO);
+    
+    List<SysPermissionOutVO> toSysPermissionOutList(List<SysPermission> records);
+
+    SysPermissionOutVO toSysPermissionListOut(SysPermission byId);
+
+    SysPermission toSysPermission(SysPermissionSaveVO saveVO);
+
+    SysPermission updatetoSysPermission(SysPermissionUpdateVO saveVO);
 
 }
