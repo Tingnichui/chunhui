@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import {getDownLoadAccess, getResInfoById, resPageList} from "@/api/sys-user";
-import {ElMessageBox} from "element-plus";
+import {detail, pageList} from "@/api/res-info";
+import {getDownLoadAccess} from "@/api/sys-file";
 
 export default {
   name: "index",
@@ -74,13 +74,13 @@ export default {
       this.search()
     },
     search() {
-      resPageList(this.searchForm).then(res => {
+      pageList(this.searchForm).then(res => {
         this.list = res.data.records
       })
     },
     detail(id) {
       this.showDetailFlag = true
-      getResInfoById(id).then(
+      detail(id).then(
           res => {
             this.detailInfo = res.data
             const fileList = res.data.fileList;
