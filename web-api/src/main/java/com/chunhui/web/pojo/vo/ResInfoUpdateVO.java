@@ -2,11 +2,16 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
 @Data
-public class ResInfoSaveVO {
+public class ResInfoUpdateVO {
+
+
+    @NotBlank(message = "主键id不能为空")
+    private String id;
 
 
     /**
@@ -24,5 +29,6 @@ public class ResInfoSaveVO {
      * 文件列表;存储sys_file.id
      */
     private List<String> fileList;
+
 
 }

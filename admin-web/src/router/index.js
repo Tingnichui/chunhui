@@ -12,7 +12,7 @@ const routes = [
         children: [
             {
                 path: 'resource/list',
-                component: () => import('@/pages/admin/resource/list.vue')
+                component: () => import('@/pages/admin/res-info/list.vue')
             },
             {
                 path: 'menu/list',

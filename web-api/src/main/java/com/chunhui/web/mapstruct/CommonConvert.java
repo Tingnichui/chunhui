@@ -17,9 +17,13 @@ public interface CommonConvert {
 
     List<SysFileOutVO> toOutList(List<SysFile> sysFile);
 
-    List<ResInfoOutVO> toResOutList(List<ResInfo> list);
+    List<ResInfoOutVO> toResInfoOutList(List<ResInfo> records);
 
-    ResInfoOutVO toOut(ResInfo resInfo);
+    ResInfoOutVO toResInfoListOut(ResInfo byId);
+
+    ResInfo toResInfo(ResInfoSaveVO saveVO);
+
+    ResInfo updatetoResInfo(ResInfoUpdateVO saveVO);
 
     ResInfo toPo(ResInfoSaveVO resInfoVO);
 

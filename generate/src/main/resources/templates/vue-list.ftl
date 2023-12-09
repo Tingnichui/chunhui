@@ -151,6 +151,7 @@
             showSaveForm() {
                 this.resetSaveForm()
                 this.saveDialogFlag = true
+                this.updateFlag = false
             },
             showUpdate(id) {
                 this.resetSaveForm()

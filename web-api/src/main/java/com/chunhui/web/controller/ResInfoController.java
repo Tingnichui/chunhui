@@ -1,10 +1,7 @@
 package com.chunhui.web.controller;
 
 import com.chunhui.web.pojo.query.ResInfoQuery;
-import com.chunhui.web.pojo.vo.PageResult;
-import com.chunhui.web.pojo.vo.ResInfoOutVO;
-import com.chunhui.web.pojo.vo.ResInfoSaveVO;
-import com.chunhui.web.pojo.vo.Result;
+import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.service.ResInfoService;
 import com.chunhui.web.util.ResultGenerator;
 import org.apache.commons.lang3.StringUtils;
@@ -37,26 +34,26 @@ public class ResInfoController {
     }
 
     @RequestMapping("/update")
-    public Result<String> update(@Validated @RequestBody ResInfoSaveVO resInfo) {
+    public Result<String> update(@Validated @RequestBody ResInfoUpdateVO resInfo) {
         if (StringUtils.isBlank(resInfo.getId())) {
             return ResultGenerator.fail("id不能为空");
         }
         return resInfoService.update(resInfo);
     }
 
-    @RequestMapping("/getResInfoById")
-    public Result<ResInfoOutVO> detailById(@NotBlank(message = "id不能为空") @RequestParam String id) {
-        return resInfoService.getResInfoById(id);
-    }
-
-    @RequestMapping("/deleteById")
-    public Result<ResInfoOutVO> deleteById(@NotBlank(message = "id不能为空") @RequestParam String id) {
-        return resInfoService.deleteById(id);
-    }
-
     @RequestMapping("/pageList")
     public Result<PageResult<ResInfoOutVO>> pageList(@RequestBody ResInfoQuery query) {
         return resInfoService.pageList(query);
+    }
+
+    @RequestMapping("/detail")
+    public Result<ResInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return resInfoService.detail(id);
+    }
+
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return resInfoService.delete(id);
     }
 
 }
