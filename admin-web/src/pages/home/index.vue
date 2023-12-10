@@ -34,6 +34,8 @@
 
 <script>
 
+import {detail, getCurrentUserDetail} from "@/api/sys-user";
+
 export default {
   name: "index",
   data() {
@@ -51,31 +53,44 @@ export default {
       this.$router.push(url)
     },
     getMenu() {
-      this.menuList = [
-        {
-          "subMune": [],
-          "icon": "HomeFilled",
-          "title": "后台管理",
-          "url": "/admin",
-        },
-        {
-          "subMune": [],
-          "icon": "list",
-          "title": "资源",
-          "url": "/home/resource/list",
+      getCurrentUserDetail().then(res => {
+        if (res.data.userName === "admin") {
+          this.menuList = [
+            {
+              "subMune": [],
+              "icon": "HomeFilled",
+              "title": "后台管理",
+              "url": "/admin",
+            },
+            {
+              "subMune": [],
+              "icon": "list",
+              "title": "资源",
+              "url": "/home/resource/list",
+            }
+          ]
+        } else {
+          this.menuList = [
+            {
+              "subMune": [],
+              "icon": "list",
+              "title": "资源",
+              "url": "/home/resource/list",
+            }
+          ]
         }
-      ]
-      // 在这里处理一下菜单id
-      let menuId = 0;
-      let subMenuId = 100;
-      this.menuList.forEach(m => {
-        m.id = ++menuId + "";
-        if (m.subMune.length !== 0) {
-          m.subMune.forEach(s => {
-            s.id = ++subMenuId + "";
-            s.s_menu_id = menuId + "";
-          })
-        }
+        // 在这里处理一下菜单id
+        let menuId = 0;
+        let subMenuId = 100;
+        this.menuList.forEach(m => {
+          m.id = ++menuId + "";
+          if (m.subMune.length !== 0) {
+            m.subMune.forEach(s => {
+              s.id = ++subMenuId + "";
+              s.s_menu_id = menuId + "";
+            })
+          }
+        })
       })
     },
     handleSelect() {

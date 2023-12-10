@@ -44,6 +44,11 @@ public class SysUserController {
         return sysUserService.pageList(query);
     }
 
+    @RequestMapping("/getCurrentUserDetail")
+    public Result<SysUserOutVO> getCurrentUserDetail() throws Exception {
+        return sysUserService.getCurrentUserDetail();
+    }
+
     @RequestMapping("/detail")
     public Result<SysUserOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
         return sysUserService.detail(id);

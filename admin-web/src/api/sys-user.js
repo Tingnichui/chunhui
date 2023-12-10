@@ -34,6 +34,10 @@ export const detail = (id) => {
     return http.postForm("/sysUser/detail", {id});
 };
 
+export const getCurrentUserDetail = () => {
+    return http.get("/sysUser/getCurrentUserDetail");
+};
+
 export const deleteById = (id) => {
     return http.postForm("/sysUser/delete", {id});
 };

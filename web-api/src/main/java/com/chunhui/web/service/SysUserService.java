@@ -98,4 +98,7 @@ public class SysUserService {
         return ResultGenerator.success();
     }
 
+    public Result<SysUserOutVO> getCurrentUserDetail() throws Exception {
+        return detail(getCurrentUser().getId());
+    }
 }
