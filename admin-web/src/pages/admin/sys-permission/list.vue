@@ -57,7 +57,13 @@
         <el-table-column
             prop="permissionType"
             label="权限类型"
-        />
+        >
+          <template #default="scope">
+            <div v-for="item in permissionTypeList" :v-if="item.value === scope.row.permissionType">
+              {{item.label}}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
             prop="act"
             label="操作"
@@ -93,7 +99,30 @@
           <el-input v-model="saveForm.name"/>
         </el-form-item>
         <el-form-item label="权限类型">
-          <el-input v-model="saveForm.permissionType"/>
+          <el-select v-model="saveForm.permissionType" placeholder="请选择权限类型" @change="changePermissionType">
+            <el-option
+                v-for="item in permissionTypeList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="资源">
+          <el-select
+              v-model="saveForm.resourceIdList"
+              multiple
+              collapse-tags
+              placeholder="Select"
+              style="width: 240px"
+          >
+            <el-option
+                v-for="item in resourceList"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+            />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -112,6 +141,7 @@
 
 <script>
 import {deleteById, detail, pageList, save, update} from "@/api/sys-permission.js";
+import {pageMenuList} from "@/api/sys-menu";
 import {ElMessageBox} from "element-plus";
 
 export default {
@@ -124,7 +154,11 @@ export default {
       searchForm: {
         current: 1,
         size: 15
-      }
+      },
+      permissionTypeList: [
+        {label: '菜单', value: '1'}
+      ],
+      resourceList: []
     }
   },
   mounted() {
@@ -165,6 +199,7 @@ export default {
       detail(id).then((res) => {
         this.saveDialogFlag = true
         this.saveForm = res.data
+        this.changePermissionType(res.data.permissionType)
       })
     },
     saveData() {
@@ -188,6 +223,12 @@ export default {
             type: 'success'
           })
         })
+      })
+    },
+    changePermissionType(value) {
+      console.log(value)
+      pageMenuList({size: -1}).then(res => {
+        this.resourceList = res.data.records
       })
     }
   }

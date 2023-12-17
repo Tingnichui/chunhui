@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import {deleteById, detail, pageList, save, update} from "@/api/sys-menu.js";
+import {deleteById, detail, pageMenuList, save, update} from "@/api/sys-menu.js";
 import {ElMessageBox} from "element-plus";
 
 export default {
@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     search() {
-      pageList(this.searchForm).then(res => {
+      pageMenuList(this.searchForm).then(res => {
             this.tableData = res.data
           }
       )

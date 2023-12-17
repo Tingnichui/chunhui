@@ -1,6 +1,6 @@
 import http from "@/util/http";
 
-export const pageList = (data) => {
+export const pageMenuList = (data) => {
 return http.post("/sysMenu/pageList", data);
 };
 

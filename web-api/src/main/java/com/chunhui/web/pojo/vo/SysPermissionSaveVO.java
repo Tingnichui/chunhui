@@ -2,7 +2,7 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
@@ -11,15 +11,22 @@ public class SysPermissionSaveVO {
 
 
     /**
-    * 权限名称
-    */
+     * 权限名称
+     */
+    @NotBlank(message = "权限名称不嫩为空")
     private String name;
 
 
     /**
-    * 权限类型
-    */
+     * 权限类型
+     */
+    @NotBlank(message = "权限类型不嫩为空")
     private String permissionType;
+
+    /**
+     * 资源id
+     */
+    private List<String> resourceIdList;
 
 
 }
