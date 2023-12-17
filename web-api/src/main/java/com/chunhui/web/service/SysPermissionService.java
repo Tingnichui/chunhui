@@ -42,11 +42,14 @@ public class SysPermissionService {
     public Result<String> save(SysPermissionSaveVO saveVO) {
         SysPermission sysPermission = commonConvert.toSysPermission(saveVO);
         sysPermissionDao.save(sysPermission);
-        for (String s : saveVO.getResourceIdList()) {
-            SysResourcePermission resPer = new SysResourcePermission();
-            resPer.setPermissionId(sysPermission.getId());
-            resPer.setResourceId(s);
-            sysResourcePermissionDao.save(resPer);
+        List<String> resourceIdList = saveVO.getResourceIdList();
+        if (null != resourceIdList && !resourceIdList.isEmpty()) {
+            for (String s : resourceIdList) {
+                SysResourcePermission resPer = new SysResourcePermission();
+                resPer.setPermissionId(sysPermission.getId());
+                resPer.setResourceId(s);
+                sysResourcePermissionDao.save(resPer);
+            }
         }
         return ResultGenerator.success();
     }
@@ -54,14 +57,19 @@ public class SysPermissionService {
     @Transactional(rollbackFor = Exception.class)
     public Result<String> update(SysPermissionUpdateVO updateVO) {
         sysPermissionDao.updateById(commonConvert.updatetoSysPermission(updateVO));
-        sysResourcePermissionDao.remove(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, updateVO.getId()).notIn(SysResourcePermission::getResourceId, updateVO.getResourceIdList()));
-        for (String s : updateVO.getResourceIdList()) {
-            long count = sysResourcePermissionDao.count(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, updateVO.getId()).eq(SysResourcePermission::getResourceId, s));
-            if (count > 0) continue;
-            SysResourcePermission resPer = new SysResourcePermission();
-            resPer.setPermissionId(updateVO.getId());
-            resPer.setResourceId(s);
-            sysResourcePermissionDao.save(resPer);
+        List<String> resourceIdList = updateVO.getResourceIdList();
+        if (null != resourceIdList && !resourceIdList.isEmpty()) {
+            sysResourcePermissionDao.remove(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, updateVO.getId()).notIn(SysResourcePermission::getResourceId, resourceIdList));
+            for (String s : resourceIdList) {
+                long count = sysResourcePermissionDao.count(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, updateVO.getId()).eq(SysResourcePermission::getResourceId, s));
+                if (count > 0) continue;
+                SysResourcePermission resPer = new SysResourcePermission();
+                resPer.setPermissionId(updateVO.getId());
+                resPer.setResourceId(s);
+                sysResourcePermissionDao.save(resPer);
+            }
+        } else {
+            sysResourcePermissionDao.remove(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, updateVO.getId()));
         }
         return ResultGenerator.success();
     }
