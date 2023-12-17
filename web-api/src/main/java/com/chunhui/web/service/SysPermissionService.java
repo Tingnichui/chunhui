@@ -66,8 +66,10 @@ public class SysPermissionService {
         return ResultGenerator.success();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Result<String> delete(String id) {
         sysPermissionDao.removeById(id);
+        sysResourcePermissionDao.remove(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, id));
         return ResultGenerator.success();
     }
 
