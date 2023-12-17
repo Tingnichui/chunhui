@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2023-12-9 22:22:15",
+  "updatedTime": "2023-12-17 14:06:42",
   "dbConns": [],
   "profile": {
     "default": {
@@ -2244,8 +2244,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_menu_permission",
-      "defName": "系统菜单权限",
+      "defKey": "sys_resource_permission",
+      "defName": "系统资源权限关联关系",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -2428,25 +2428,6 @@
           "id": "D9B25633-535F-42A7-8E4C-587060F0F1D1"
         },
         {
-          "defKey": "menu_id",
-          "defName": "菜单id",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "refDict": "",
-          "extProps": {
-            "当前时间": "CURRENT_TIMESTAMP"
-          },
-          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
-          "id": "8E32F8D9-E2F4-46E7-AB76-769C75258329"
-        },
-        {
           "defKey": "permission_id",
           "defName": "权限id",
           "comment": "",
@@ -2464,6 +2445,25 @@
           },
           "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
           "id": "EA4D8870-7BC6-4399-8CE9-1C4867033281"
+        },
+        {
+          "defKey": "resource_id",
+          "defName": "资源id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "id": "8E32F8D9-E2F4-46E7-AB76-769C75258329"
         }
       ],
       "correlations": [],

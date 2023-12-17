@@ -78,12 +78,4 @@ public interface CommonConvert {
 
     SysRolePermission updatetoSysRolePermission(SysRolePermissionUpdateVO saveVO);
 
-    List<SysMenuPermissionOutVO> toSysMenuPermissionOutList(List<SysMenuPermission> records);
-
-    SysMenuPermissionOutVO toSysMenuPermissionListOut(SysMenuPermission byId);
-
-    SysMenuPermission toSysMenuPermission(SysMenuPermissionSaveVO saveVO);
-
-    SysMenuPermission updatetoSysMenuPermission(SysMenuPermissionUpdateVO saveVO);
-
 }
