@@ -10,14 +10,14 @@ public class SysPermissionOutVO {
 
 
     /**
-    * 权限名称
-    */
+     * 权限名称
+     */
     private String name;
 
 
     /**
-    * 权限类型
-    */
+     * 权限类型
+     */
     private String permissionType;
 
 

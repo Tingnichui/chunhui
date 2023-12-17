@@ -16,34 +16,34 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/sysPermission")
 public class SysPermissionController {
 
-@Resource
-private SysPermissionService sysPermissionService;
+    @Resource
+    private SysPermissionService sysPermissionService;
 
-@RequestMapping("/pageList")
-public Result<PageResult<SysPermissionOutVO>> regist(@RequestBody SysPermissionQuery query) {
-    return sysPermissionService.pageList(query);
+    @RequestMapping("/pageList")
+    public Result<PageResult<SysPermissionOutVO>> regist(@RequestBody SysPermissionQuery query) {
+        return sysPermissionService.pageList(query);
     }
 
-@RequestMapping("/detail")
-public Result<SysPermissionOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return sysPermissionService.detail(id);
-}
+    @RequestMapping("/detail")
+    public Result<SysPermissionOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return sysPermissionService.detail(id);
+    }
 
-@RequestMapping("/save")
-public Result<String> save(@RequestBody SysPermissionSaveVO saveVO) {
-return sysPermissionService.save(saveVO);
-}
+    @RequestMapping("/save")
+    public Result<String> save(@RequestBody SysPermissionSaveVO saveVO) {
+        return sysPermissionService.save(saveVO);
+    }
 
 
-@RequestMapping("/update")
-public Result<String> update(@RequestBody SysPermissionUpdateVO updateVO) {
-return sysPermissionService.update(updateVO);
-}
+    @RequestMapping("/update")
+    public Result<String> update(@RequestBody SysPermissionUpdateVO updateVO) {
+        return sysPermissionService.update(updateVO);
+    }
 
-@RequestMapping("/delete")
-public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return sysPermissionService.delete(id);
-}
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return sysPermissionService.delete(id);
+    }
 
 
 }

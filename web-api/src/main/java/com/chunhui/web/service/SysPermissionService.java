@@ -13,38 +13,32 @@ import javax.annotation.Resource;
 
 @Service
 public class SysPermissionService {
-private final CommonConvert commonConvert = CommonConvert.INSTANCE;
-@Resource
-private SysPermissionDao sysPermissionDao;
+    private final CommonConvert commonConvert = CommonConvert.INSTANCE;
+    @Resource
+    private SysPermissionDao sysPermissionDao;
 
-public Result
-<PageResult
-<SysPermissionOutVO>> pageList(SysPermissionQuery query) {
-    return ResultGenerator.success(PageUtil.pageResult(sysPermissionDao.pageListByQurey(query),
-    commonConvert::toSysPermissionOutList));
+    public Result<PageResult<SysPermissionOutVO>> pageList(SysPermissionQuery query) {
+        return ResultGenerator.success(PageUtil.pageResult(sysPermissionDao.pageListByQurey(query), commonConvert::toSysPermissionOutList));
     }
 
-    public Result
-    <SysPermissionOutVO> detail(String id) {
-        return ResultGenerator.success(commonConvert.toSysPermissionListOut(sysPermissionDao.getById(id)));
-        }
+    public Result<SysPermissionOutVO> detail(String id) {
+        SysPermissionOutVO sysPermissionListOut = commonConvert.toSysPermissionListOut(sysPermissionDao.getById(id));
+        return ResultGenerator.success(sysPermissionListOut);
+    }
 
-        public Result
-        <String> save(SysPermissionSaveVO saveVO) {
-            sysPermissionDao.save(commonConvert.toSysPermission(saveVO));
-            return ResultGenerator.success();
-            }
+    public Result<String> save(SysPermissionSaveVO saveVO) {
+        sysPermissionDao.save(commonConvert.toSysPermission(saveVO));
+        return ResultGenerator.success();
+    }
 
-            public Result
-            <String> update(SysPermissionUpdateVO updateVO) {
-                sysPermissionDao.updateById(commonConvert.updatetoSysPermission(updateVO));
-                return ResultGenerator.success();
-                }
+    public Result<String> update(SysPermissionUpdateVO updateVO) {
+        sysPermissionDao.updateById(commonConvert.updatetoSysPermission(updateVO));
+        return ResultGenerator.success();
+    }
 
-                public Result
-                <String> delete(String id) {
-                    sysPermissionDao.removeById(id);
-                    return ResultGenerator.success();
-                    }
+    public Result<String> delete(String id) {
+        sysPermissionDao.removeById(id);
+        return ResultGenerator.success();
+    }
 
-                    }
+}
