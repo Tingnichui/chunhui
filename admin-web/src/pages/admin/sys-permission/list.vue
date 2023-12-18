@@ -55,6 +55,10 @@
             label="权限名称"
         />
         <el-table-column
+            prop="permissionKey"
+            label="权限KEY"
+        />
+        <el-table-column
             prop="permissionType"
             label="权限类型"
         >
@@ -107,13 +111,16 @@
                 :value="item.value"
             />
           </el-select>
+          <el-form-item label="权限KEY">
+            <el-input v-model="saveForm.permissionKey"/>
+          </el-form-item>
         </el-form-item>
         <el-form-item label="资源">
           <el-select
               v-model="saveForm.resourceIdList"
               multiple
               collapse-tags
-              placeholder="Select"
+              placeholder="请选择资源"
               style="width: 240px"
           >
             <el-option
@@ -140,7 +147,7 @@
 </template>
 
 <script>
-import {deleteById, detail, pageList, save, update} from "@/api/sys-permission.js";
+import {deleteById, detail, pagePermissionList, save, update} from "@/api/sys-permission.js";
 import {pageMenuList} from "@/api/sys-menu";
 import {ElMessageBox} from "element-plus";
 
@@ -166,7 +173,7 @@ export default {
   },
   methods: {
     search() {
-      pageList(this.searchForm).then(res => {
+      pagePermissionList(this.searchForm).then(res => {
             this.tableData = res.data
           }
       )

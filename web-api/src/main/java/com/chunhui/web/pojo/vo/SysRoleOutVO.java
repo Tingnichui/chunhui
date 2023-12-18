@@ -2,6 +2,8 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SysRoleOutVO {
 
@@ -10,9 +12,11 @@ public class SysRoleOutVO {
 
 
     /**
-    * 角色名称
-    */
+     * 角色名称
+     */
     private String roleName;
+
+    private List<String> permissonIdList;
 
 
 }

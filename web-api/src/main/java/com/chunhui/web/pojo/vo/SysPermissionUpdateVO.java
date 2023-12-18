@@ -28,6 +28,12 @@ public class SysPermissionUpdateVO {
     private String permissionType;
 
     /**
+     * 权限关键词
+     */
+    @NotBlank(message = "权限关键词不嫩为空")
+    private String permissionKey;
+
+    /**
      * 资源id
      */
     private List<String> resourceIdList;

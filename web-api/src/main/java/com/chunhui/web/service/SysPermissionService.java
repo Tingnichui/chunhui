@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.toolkit.SimpleQuery;
 import com.chunhui.web.dao.SysPermissionDao;
 import com.chunhui.web.dao.SysResourcePermissionDao;
+import com.chunhui.web.dao.SysRolePermissionDao;
 import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.SysPermission;
 import com.chunhui.web.pojo.po.SysResourcePermission;
+import com.chunhui.web.pojo.po.SysRolePermission;
 import com.chunhui.web.pojo.query.SysPermissionQuery;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.util.PageUtil;
@@ -23,6 +25,9 @@ public class SysPermissionService {
     private final CommonConvert commonConvert = CommonConvert.INSTANCE;
     @Resource
     private SysPermissionDao sysPermissionDao;
+
+    @Resource
+    private SysRolePermissionDao sysRolePermissionDao;
 
     @Resource
     private SysResourcePermissionDao sysResourcePermissionDao;
@@ -76,6 +81,12 @@ public class SysPermissionService {
 
     @Transactional(rollbackFor = Exception.class)
     public Result<String> delete(String id) {
+        // 查询权限是否被角色使用
+        long count = sysRolePermissionDao.count(Wrappers.lambdaQuery(SysRolePermission.class).eq(SysRolePermission::getPermissionId, id));
+        if (count > 0) {
+            return ResultGenerator.fail("该权限已被角色绑定无法删除");
+        }
+        
         sysPermissionDao.removeById(id);
         sysResourcePermissionDao.remove(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, id));
         return ResultGenerator.success();

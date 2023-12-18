@@ -16,34 +16,34 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/sysRole")
 public class SysRoleController {
 
-@Resource
-private SysRoleService sysRoleService;
+    @Resource
+    private SysRoleService sysRoleService;
 
-@RequestMapping("/pageList")
-public Result<PageResult<SysRoleOutVO>> regist(@RequestBody SysRoleQuery query) {
-    return sysRoleService.pageList(query);
+    @RequestMapping("/pageList")
+    public Result<PageResult<SysRoleOutVO>> regist(@RequestBody SysRoleQuery query) {
+        return sysRoleService.pageList(query);
     }
 
-@RequestMapping("/detail")
-public Result<SysRoleOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return sysRoleService.detail(id);
-}
+    @RequestMapping("/detail")
+    public Result<SysRoleOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return sysRoleService.detail(id);
+    }
 
-@RequestMapping("/save")
-public Result<String> save(@RequestBody SysRoleSaveVO saveVO) {
-return sysRoleService.save(saveVO);
-}
+    @RequestMapping("/save")
+    public Result<String> save(@RequestBody SysRoleSaveVO saveVO) {
+        return sysRoleService.save(saveVO);
+    }
 
 
-@RequestMapping("/update")
-public Result<String> update(@RequestBody SysRoleUpdateVO updateVO) {
-return sysRoleService.update(updateVO);
-}
+    @RequestMapping("/update")
+    public Result<String> update(@RequestBody SysRoleUpdateVO updateVO) {
+        return sysRoleService.update(updateVO);
+    }
 
-@RequestMapping("/delete")
-public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return sysRoleService.delete(id);
-}
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return sysRoleService.delete(id);
+    }
 
 
 }

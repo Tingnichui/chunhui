@@ -54,6 +54,7 @@
         >
           <template #default="scope">
             <el-space>
+              <el-button link type="primary" @click="authorize(scope.row.id)">授权</el-button>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
               <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
             </el-space>
@@ -92,10 +93,31 @@
       </template>
     </el-dialog>
   </div>
+  <el-dialog v-model="authorizeDialogFlag" center title="授权" width="40%">
+    <el-form :model="saveForm" label-position="right" label-width="80px">
+      <el-transfer
+          v-model="authorizeForm.permissionIdList"
+          filterable
+          filter-placeholder="请输入关键字"
+          :titles="['未授权', '已授权']"
+          :data="authorizeList"
+          :props="{key: 'id',label: 'name'}"
+      />
+    </el-form>
+    <template #footer>
+          <span class="dialog-footer">
+            <el-button type="primary" @click="saveAuthorize">
+              保存
+            </el-button>
+          </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
 import {deleteById, detail, pageList, save, update} from "@/api/sys-role.js";
+import {pagePermissionList} from "@/api/sys-permission";
+import {saveRolePermission} from "@/api/sys-role-permission";
 import {ElMessageBox} from "element-plus";
 
 export default {
@@ -105,10 +127,13 @@ export default {
       saveForm: {},
       updateFlag: false,
       saveDialogFlag: false,
+      authorizeDialogFlag: false,
       searchForm: {
         current: 1,
         size: 15
-      }
+      },
+      authorizeForm: {},
+      authorizeList: []
     }
   },
   mounted() {
@@ -171,6 +196,25 @@ export default {
             message: "删除成功",
             type: 'success'
           })
+        })
+      })
+    },
+    authorize(id) {
+      this.authorizeDialogFlag = true
+      pagePermissionList({size: -1}).then(
+          res => {
+            this.authorizeList = res.data.records
+            detail(id).then((detailRes) => {
+              this.authorizeForm = {roleId: id, permissionIdList: detailRes.data.permissonIdList}
+            })
+          }
+      )
+    },
+    saveAuthorize() {
+      saveRolePermission(this.authorizeForm).then(res => {
+        this.$message({
+          message: res.message,
+          type: 'success',
         })
       })
     }

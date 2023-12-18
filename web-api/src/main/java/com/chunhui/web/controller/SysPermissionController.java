@@ -4,6 +4,7 @@ package com.chunhui.web.controller;
 import com.chunhui.web.pojo.query.SysPermissionQuery;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.service.SysPermissionService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 
+@Validated
 @RestController
 @RequestMapping("/sysPermission")
 public class SysPermissionController {
@@ -30,13 +32,13 @@ public class SysPermissionController {
     }
 
     @RequestMapping("/save")
-    public Result<String> save(@RequestBody SysPermissionSaveVO saveVO) {
+    public Result<String> save(@Validated @RequestBody SysPermissionSaveVO saveVO) {
         return sysPermissionService.save(saveVO);
     }
 
 
     @RequestMapping("/update")
-    public Result<String> update(@RequestBody SysPermissionUpdateVO updateVO) {
+    public Result<String> update(@Validated @RequestBody SysPermissionUpdateVO updateVO) {
         return sysPermissionService.update(updateVO);
     }
 

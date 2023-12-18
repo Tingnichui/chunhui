@@ -2,7 +2,7 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
@@ -11,15 +11,16 @@ public class SysRolePermissionSaveVO {
 
 
     /**
-    * 角色id
-    */
+     * 角色id
+     */
+    @NotBlank(message = "角色id不能为空")
     private String roleId;
 
 
     /**
-    * 权限id
-    */
-    private String permissionId;
+     * 权限id
+     */
+    private List<String> permissionIdList;
 
 
 }

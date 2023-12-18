@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2023-12-17 14:06:42",
+  "updatedTime": "2023-12-17 22:12:55",
   "dbConns": [],
   "profile": {
     "default": {
@@ -2697,6 +2697,25 @@
           },
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "EF23316F-8FB3-44A6-922C-14A66571E575"
+        },
+        {
+          "defKey": "permission_key",
+          "defName": "权限关键词",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
+          "id": "E7D62DDD-3B50-4549-BC0A-93FCA1E8B83E"
         }
       ],
       "correlations": [],

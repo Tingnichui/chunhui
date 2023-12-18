@@ -22,6 +22,12 @@ public class SysPermissionOutVO {
      */
     private String permissionType;
 
+
+    /**
+     * 权限关键词
+     */
+    private String permissionKey;
+
     /**
      * 资源id
      */

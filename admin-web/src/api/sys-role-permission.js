@@ -4,7 +4,7 @@ export const pageList = (data) => {
 return http.post("/sysRolePermission/pageList", data);
 };
 
-export const save = (data) => {
+export const saveRolePermission = (data) => {
 return http.post("/sysRolePermission/save", data);
 };
 

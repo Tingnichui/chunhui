@@ -1,6 +1,6 @@
 import http from "@/util/http";
 
-export const pageList = (data) => {
+export const pagePermissionList = (data) => {
 return http.post("/sysPermission/pageList", data);
 };
 
