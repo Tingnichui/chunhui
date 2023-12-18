@@ -94,7 +94,7 @@
     </el-dialog>
   </div>
   <el-dialog v-model="authorizeDialogFlag" center title="授权" width="40%">
-    <el-form :model="saveForm" label-position="right" label-width="80px">
+    <el-form :model="authorizeForm" label-position="right" label-width="80px">
       <el-transfer
           v-model="authorizeForm.permissionIdList"
           filterable
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import {deleteById, detail, pageList, save, update} from "@/api/sys-role.js";
+import {deleteById, detail, pageSysRoleList, save, update} from "@/api/sys-role.js";
 import {pagePermissionList} from "@/api/sys-permission";
 import {saveRolePermission} from "@/api/sys-role-permission";
 import {ElMessageBox} from "element-plus";
@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     search() {
-      pageList(this.searchForm).then(res => {
+      pageSysRoleList(this.searchForm).then(res => {
             this.tableData = res.data
           }
       )

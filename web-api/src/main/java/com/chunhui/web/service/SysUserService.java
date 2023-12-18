@@ -2,11 +2,13 @@ package com.chunhui.web.service;
 
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.toolkit.SimpleQuery;
 import com.chunhui.web.dao.SysUserDao;
 import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.exception.ExceptionEnum;
 import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.SysUser;
+import com.chunhui.web.pojo.po.SysUserRole;
 import com.chunhui.web.pojo.query.SysUserQuery;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.util.PageUtil;
@@ -19,6 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -80,7 +83,10 @@ public class SysUserService {
     }
 
     public Result<SysUserOutVO> detail(String id) {
-        return ResultGenerator.success(commonConvert.toSysUserListOut(sysUserDao.getById(id)));
+        SysUserOutVO sysUserListOut = commonConvert.toSysUserListOut(sysUserDao.getById(id));
+        List<String> list = SimpleQuery.list(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getUserId, id), SysUserRole::getRoleId);
+        sysUserListOut.setRoleIdList(list);
+        return ResultGenerator.success(sysUserListOut);
     }
 
     public Result<String> save(SysUserSaveVO saveVO) {
