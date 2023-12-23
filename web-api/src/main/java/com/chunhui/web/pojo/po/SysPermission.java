@@ -22,7 +22,7 @@ public class SysPermission extends BaseDO {
      * 权限类型
      */
     private String permissionType;
-    
+
 
     /**
      * 权限关键词

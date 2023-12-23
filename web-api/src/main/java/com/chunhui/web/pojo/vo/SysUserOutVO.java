@@ -39,5 +39,10 @@ public class SysUserOutVO {
      */
     private List<String> roleIdList;
 
+    /**
+     * 权限key列表
+     */
+    private List<String> permList;
+
 
 }

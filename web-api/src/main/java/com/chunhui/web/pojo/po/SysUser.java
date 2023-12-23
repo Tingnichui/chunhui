@@ -5,35 +5,34 @@ import lombok.Data;
 
 
 /**
-* 系统用户表
-*/
+ * 系统用户表
+ */
 @Data
 @TableName("sys_user")
 public class SysUser extends BaseDO {
 
 
-
     /**
-    * 用户名
-    */
+     * 用户名
+     */
     private String userName;
 
 
     /**
-    * 昵称
-    */
+     * 昵称
+     */
     private String nickName;
 
 
     /**
-    * 手机号
-    */
+     * 手机号
+     */
     private String phoneNum;
 
 
     /**
-    * 密码
-    */
+     * 密码
+     */
     private String password;
 
 

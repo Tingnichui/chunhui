@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @RestController
 @RequestMapping("/sysMenu")
@@ -32,6 +33,11 @@ public class SysMenuController {
     @RequestMapping("/save")
     public Result<String> save(@RequestBody SysMenuSaveVO saveVO) {
         return sysMenuService.save(saveVO);
+    }
+
+    @RequestMapping("/listMenuByKey")
+    public Result<List<SysMenuOutVO>> listMenuByKey(@NotBlank(message = "key不能为空") @RequestParam String key) throws Exception {
+        return sysMenuService.listMenuByKey(key);
     }
 
 

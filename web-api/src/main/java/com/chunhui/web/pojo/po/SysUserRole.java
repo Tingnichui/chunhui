@@ -5,23 +5,22 @@ import lombok.Data;
 
 
 /**
-* 系统用户角色
-*/
+ * 系统用户角色
+ */
 @Data
 @TableName("sys_user_role")
 public class SysUserRole extends BaseDO {
 
 
-
     /**
-    * 用户id
-    */
+     * 用户id
+     */
     private String userId;
 
 
     /**
-    * 角色id
-    */
+     * 角色id
+     */
     private String roleId;
 
 
