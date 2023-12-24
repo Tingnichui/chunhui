@@ -10,14 +10,14 @@ public class SysRolePermissionOutVO {
 
 
     /**
-    * 角色id
-    */
+     * 角色id
+     */
     private String roleId;
 
 
     /**
-    * 权限id
-    */
+     * 权限id
+     */
     private String permissionId;
 
 

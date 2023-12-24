@@ -2,9 +2,6 @@ package com.chunhui.web.pojo.query;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
-
 
 @Data
 public class SysPermissionQuery extends QueryBase {
@@ -13,14 +10,14 @@ public class SysPermissionQuery extends QueryBase {
 
 
     /**
-    * 权限名称
-    */
+     * 权限名称
+     */
     private String name;
 
 
     /**
-    * 权限类型
-    */
+     * 权限类型
+     */
     private String permissionType;
 
 

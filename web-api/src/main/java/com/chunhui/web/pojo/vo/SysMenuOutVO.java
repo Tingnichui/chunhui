@@ -10,20 +10,20 @@ public class SysMenuOutVO {
 
 
     /**
-    * 菜单名称
-    */
+     * 菜单名称
+     */
     private String name;
 
 
     /**
-    * 菜单地址
-    */
+     * 菜单地址
+     */
     private String url;
 
 
     /**
-    * 图标
-    */
+     * 图标
+     */
     private String icon;
 
 

@@ -2,9 +2,6 @@ package com.chunhui.web.pojo.query;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
-
 
 @Data
 public class SysRoleQuery extends QueryBase {
@@ -13,8 +10,8 @@ public class SysRoleQuery extends QueryBase {
 
 
     /**
-    * 角色名称
-    */
+     * 角色名称
+     */
     private String roleName;
 
 

@@ -10,14 +10,14 @@ public class SysUserRoleOutVO {
 
 
     /**
-    * 用户id
-    */
+     * 用户id
+     */
     private String userId;
 
 
     /**
-    * 角色id
-    */
+     * 角色id
+     */
     private String roleId;
 
 
