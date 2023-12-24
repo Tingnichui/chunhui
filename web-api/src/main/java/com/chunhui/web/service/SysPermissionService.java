@@ -86,7 +86,7 @@ public class SysPermissionService {
         if (count > 0) {
             return ResultGenerator.fail("该权限已被角色绑定无法删除");
         }
-        
+
         sysPermissionDao.removeById(id);
         sysResourcePermissionDao.remove(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, id));
         return ResultGenerator.success();
