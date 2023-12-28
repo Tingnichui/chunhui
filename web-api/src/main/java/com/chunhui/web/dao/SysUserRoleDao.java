@@ -14,16 +14,16 @@ import javax.annotation.Resource;
 
 @Repository
 public class SysUserRoleDao extends BaseDao
-<SysUserRoleMapper, SysUserRole> {
+        <SysUserRoleMapper, SysUserRole> {
 
-@Resource
-private SysUserRoleMapper sysUserRoleMapper;
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
 
-public IPage<SysUserRole> pageListByQurey(SysUserRoleQuery query) {
-LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.lambdaQuery();
-    queryWrapper.like(StringUtils.isNotBlank(query.getUserId()), SysUserRole::getUserId, query.getUserId());
-    queryWrapper.like(StringUtils.isNotBlank(query.getRoleId()), SysUserRole::getRoleId, query.getRoleId());
-return super.pageList(query, queryWrapper);
-}
+    public IPage<SysUserRole> pageListByQurey(SysUserRoleQuery query) {
+        LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.like(StringUtils.isNotBlank(query.getUserId()), SysUserRole::getUserId, query.getUserId());
+        queryWrapper.like(StringUtils.isNotBlank(query.getRoleId()), SysUserRole::getRoleId, query.getRoleId());
+        return super.pageList(query, queryWrapper);
+    }
 
 }

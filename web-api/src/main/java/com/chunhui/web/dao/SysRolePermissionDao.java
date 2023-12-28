@@ -14,16 +14,16 @@ import javax.annotation.Resource;
 
 @Repository
 public class SysRolePermissionDao extends BaseDao
-<SysRolePermissionMapper, SysRolePermission> {
+        <SysRolePermissionMapper, SysRolePermission> {
 
-@Resource
-private SysRolePermissionMapper sysRolePermissionMapper;
+    @Resource
+    private SysRolePermissionMapper sysRolePermissionMapper;
 
-public IPage<SysRolePermission> pageListByQurey(SysRolePermissionQuery query) {
-LambdaQueryWrapper<SysRolePermission> queryWrapper = Wrappers.lambdaQuery();
-    queryWrapper.like(StringUtils.isNotBlank(query.getRoleId()), SysRolePermission::getRoleId, query.getRoleId());
-    queryWrapper.like(StringUtils.isNotBlank(query.getPermissionId()), SysRolePermission::getPermissionId, query.getPermissionId());
-return super.pageList(query, queryWrapper);
-}
+    public IPage<SysRolePermission> pageListByQurey(SysRolePermissionQuery query) {
+        LambdaQueryWrapper<SysRolePermission> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.like(StringUtils.isNotBlank(query.getRoleId()), SysRolePermission::getRoleId, query.getRoleId());
+        queryWrapper.like(StringUtils.isNotBlank(query.getPermissionId()), SysRolePermission::getPermissionId, query.getPermissionId());
+        return super.pageList(query, queryWrapper);
+    }
 
 }

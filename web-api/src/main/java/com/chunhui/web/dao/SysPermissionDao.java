@@ -14,16 +14,16 @@ import javax.annotation.Resource;
 
 @Repository
 public class SysPermissionDao extends BaseDao
-<SysPermissionMapper, SysPermission> {
+        <SysPermissionMapper, SysPermission> {
 
-@Resource
-private SysPermissionMapper sysPermissionMapper;
+    @Resource
+    private SysPermissionMapper sysPermissionMapper;
 
-public IPage<SysPermission> pageListByQurey(SysPermissionQuery query) {
-LambdaQueryWrapper<SysPermission> queryWrapper = Wrappers.lambdaQuery();
-    queryWrapper.like(StringUtils.isNotBlank(query.getName()), SysPermission::getName, query.getName());
-    queryWrapper.like(StringUtils.isNotBlank(query.getPermissionType()), SysPermission::getPermissionType, query.getPermissionType());
-return super.pageList(query, queryWrapper);
-}
+    public IPage<SysPermission> pageListByQurey(SysPermissionQuery query) {
+        LambdaQueryWrapper<SysPermission> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.like(StringUtils.isNotBlank(query.getName()), SysPermission::getName, query.getName());
+        queryWrapper.like(StringUtils.isNotBlank(query.getPermissionType()), SysPermission::getPermissionType, query.getPermissionType());
+        return super.pageList(query, queryWrapper);
+    }
 
 }
