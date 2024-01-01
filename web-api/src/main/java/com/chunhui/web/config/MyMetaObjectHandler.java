@@ -19,7 +19,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public static final String CREATE_TIME = "createTime";
     public static final String UPDATE_BY = "updateBy";
     public static final String UPDATE_TIME = "updateTime";
-    
+
     @Override
     public void insertFill(MetaObject metaObject) {
         // 填充创建人id

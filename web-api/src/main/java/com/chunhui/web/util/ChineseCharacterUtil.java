@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 public class ChineseCharacterUtil {
 
 
-    public static String convertHanzi2PinyintoUpperCase(String str,boolean full) {
-        return convertHanzi2Pinyin(str,full).toUpperCase();
+    public static String convertHanzi2PinyintoUpperCase(String str, boolean full) {
+        return convertHanzi2Pinyin(str, full).toUpperCase();
     }
 
     /***
@@ -20,55 +20,47 @@ public class ChineseCharacterUtil {
      * @param full 是否全拼
      * @return
      */
-    public static String convertHanzi2Pinyin(String hanzi,boolean full)
-    {
+    public static String convertHanzi2Pinyin(String hanzi, boolean full) {
         /***
          * ^[\u2E80-\u9FFF]+$ 匹配所有东亚区的语言
          * ^[\u4E00-\u9FFF]+$ 匹配简体和繁体
          * ^[\u4E00-\u9FA5]+$ 匹配简体
          */
-        String regExp="^[\u4E00-\u9FFF]+$";
-        StringBuffer sb=new StringBuffer();
-        if(hanzi==null||"".equals(hanzi.trim()))
-        {
+        String regExp = "^[\u4E00-\u9FFF]+$";
+        StringBuffer sb = new StringBuffer();
+        if (hanzi == null || "".equals(hanzi.trim())) {
             return "";
         }
-        String pinyin="";
-        for(int i=0;i<hanzi.length();i++)
-        {
-            char unit=hanzi.charAt(i);
-            if(match(String.valueOf(unit),regExp))//是汉字，则转拼音
+        String pinyin = "";
+        for (int i = 0; i < hanzi.length(); i++) {
+            char unit = hanzi.charAt(i);
+            if (match(String.valueOf(unit), regExp))//是汉字，则转拼音
             {
-                pinyin=convertSingleHanzi2Pinyin(unit);
-                if(full)
-                {
+                pinyin = convertSingleHanzi2Pinyin(unit);
+                if (full) {
                     sb.append(pinyin);
-                }
-                else
-                {
+                } else {
                     sb.append(pinyin.charAt(0));
                 }
-            }
-            else
-            {
+            } else {
                 sb.append(unit);
             }
         }
         return sb.toString();
     }
+
     /***
      * 将单个汉字转成拼音
      * @param hanzi
      * @return
      */
-    private static String convertSingleHanzi2Pinyin(char hanzi)
-    {
+    private static String convertSingleHanzi2Pinyin(char hanzi) {
         HanyuPinyinOutputFormat outputFormat = new HanyuPinyinOutputFormat();
         outputFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         String[] res;
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         try {
-            res = PinyinHelper.toHanyuPinyinStringArray(hanzi,outputFormat);
+            res = PinyinHelper.toHanyuPinyinStringArray(hanzi, outputFormat);
             sb.append(res[0]);//对于多音字，只用第一个拼音
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,15 +74,14 @@ public class ChineseCharacterUtil {
      * @param regex 正则表达式
      * @return 是否匹配
      */
-    public static boolean match(String str,String regex)
-    {
-        Pattern pattern=Pattern.compile(regex);
-        Matcher matcher=pattern.matcher(str);
+    public static boolean match(String str, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
         return matcher.find();
     }
 
     public static void main(String[] args) {
-        System.out.println(convertHanzi2Pinyin("涉赌人员",false).toUpperCase());
+        System.out.println(convertHanzi2Pinyin("人员", false).toUpperCase());
     }
 
 }
