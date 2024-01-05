@@ -1,5 +1,4 @@
-import http, {createBaseAxios} from "@/util/http";
-import axios from "axios";
+import http from "@/util/http";
 
 export const login = (data) => {
     return http({
