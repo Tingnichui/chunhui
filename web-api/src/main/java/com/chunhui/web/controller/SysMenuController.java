@@ -35,9 +35,9 @@ public class SysMenuController {
         return sysMenuService.save(saveVO);
     }
 
-    @RequestMapping("/listMenuByKey")
-    public Result<List<SysMenuOutVO>> listMenuByKey(@NotBlank(message = "key不能为空") @RequestParam String key) throws Exception {
-        return sysMenuService.listMenuByKey(key);
+    @RequestMapping("/getMenuByCurrentUser")
+    public Result<List<SysMenuOutVO>> getMenuByCurrentUser() throws Exception {
+        return sysMenuService.getMenuByCurrentUser();
     }
 
 

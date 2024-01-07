@@ -2,6 +2,7 @@ package com.chunhui.web.service;
 
 import com.chunhui.web.dao.SysMenuDao;
 import com.chunhui.web.mapstruct.CommonConvert;
+import com.chunhui.web.pojo.po.SysUser;
 import com.chunhui.web.pojo.query.SysMenuQuery;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.util.PageUtil;
@@ -17,9 +18,11 @@ public class SysMenuService {
     private final CommonConvert commonConvert = CommonConvert.INSTANCE;
     @Resource
     private SysMenuDao sysMenuDao;
-
     @Resource
     private SysUserService sysUserService;
+
+    @Resource
+    private SysPermissionService sysPermissionService;
 
     public Result<PageResult<SysMenuOutVO>> pageList(SysMenuQuery query) {
         return ResultGenerator.success(PageUtil.pageResult(sysMenuDao.pageListByQurey(query), commonConvert::toSysMenuOutList));
@@ -44,9 +47,15 @@ public class SysMenuService {
         return ResultGenerator.success();
     }
 
-    public Result<List<SysMenuOutVO>> listMenuByKey(String key) throws Exception {
-        SysUserOutVO userDetail = sysUserService.getCurrentUserDetail().getData();
-//        userDetail.getRoleIdList()
-        return null;
+    public Result<List<SysMenuOutVO>> getMenuByCurrentUser() throws Exception {
+        SysUser user = sysUserService.getCurrentUser();
+        if ("admin".equals(user.getUserName())) {
+            return ResultGenerator.success(commonConvert.toSysMenuOutList(sysMenuDao.list()));
+        }
+
+        List<String> muneIds = sysPermissionService.getMenuIdListByCurrentUser();
+        List<SysMenuOutVO> sysMenuOutList = commonConvert.toSysMenuOutList(sysMenuDao.listByIds(muneIds));
+        return ResultGenerator.success(sysMenuOutList);
+
     }
 }

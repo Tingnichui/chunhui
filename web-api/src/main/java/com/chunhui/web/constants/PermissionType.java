@@ -12,6 +12,6 @@ public enum PermissionType {
     ;
 
 
-    private final String type;
+    private final String code;
     private final String mean;
 }

@@ -13,8 +13,7 @@ import javax.annotation.Resource;
 
 
 @Repository
-public class SysRoleDao extends BaseDao
-        <SysRoleMapper, SysRole> {
+public class SysRoleDao extends BaseDao<SysRoleMapper, SysRole> {
 
     @Resource
     private SysRoleMapper sysRoleMapper;

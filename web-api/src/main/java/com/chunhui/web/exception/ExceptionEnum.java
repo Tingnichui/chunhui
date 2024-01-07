@@ -15,6 +15,7 @@ public enum ExceptionEnum {
     METHOD_NOT_ALLOWED("1005", "请求方法不被允许"),
     BAD_REQUEST("1006", "请求方式错误"),
     NOT_FOUND("1007", "接口不存在"),
+    NOT_CONFIGURE_MENU("1008", "未配置菜单权限"),
     ;
 
     private final String code;

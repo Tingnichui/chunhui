@@ -2,21 +2,24 @@ package com.chunhui.web.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.toolkit.SimpleQuery;
+import com.chunhui.web.constants.PermissionType;
 import com.chunhui.web.dao.SysPermissionDao;
 import com.chunhui.web.dao.SysResourcePermissionDao;
 import com.chunhui.web.dao.SysRolePermissionDao;
+import com.chunhui.web.exception.BusinessException;
+import com.chunhui.web.exception.ExceptionEnum;
 import com.chunhui.web.mapstruct.CommonConvert;
-import com.chunhui.web.pojo.po.SysPermission;
-import com.chunhui.web.pojo.po.SysResourcePermission;
-import com.chunhui.web.pojo.po.SysRolePermission;
+import com.chunhui.web.pojo.po.*;
 import com.chunhui.web.pojo.query.SysPermissionQuery;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.util.PageUtil;
 import com.chunhui.web.util.ResultGenerator;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -28,6 +31,9 @@ public class SysPermissionService {
 
     @Resource
     private SysRolePermissionDao sysRolePermissionDao;
+
+    @Resource
+    private SysUserService sysUserService;
 
     @Resource
     private SysResourcePermissionDao sysResourcePermissionDao;
@@ -92,4 +98,28 @@ public class SysPermissionService {
         return ResultGenerator.success();
     }
 
+    public List<String> getMenuIdListByCurrentUser() throws Exception {
+        SysUser user = sysUserService.getCurrentUser();
+        // 获取当前用户所有角色
+        List<String> roleIds = SimpleQuery.list(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getUserId, user.getId()), SysUserRole::getRoleId);
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return Collections.emptyList();
+        }
+        // 获取角色对应得权限
+        List<String> permissonIds = SimpleQuery.list(Wrappers.lambdaQuery(SysRolePermission.class).in(SysRolePermission::getRoleId, roleIds), SysRolePermission::getPermissionId);
+        if (CollectionUtils.isEmpty(permissonIds)) {
+            return Collections.emptyList();
+        }
+        // 获取菜单权限列表
+        SysPermission permission = sysPermissionDao.getOne(
+                Wrappers.lambdaQuery(SysPermission.class)
+                        .eq(SysPermission::getPermissionType, PermissionType.MENU.getCode())
+                        .in(BaseDO::getId, permissonIds)
+                        .last("limit 1")
+        );
+        if (null == permission) {
+            throw new BusinessException(ExceptionEnum.NOT_CONFIGURE_MENU);
+        }
+        return SimpleQuery.list(Wrappers.lambdaQuery(SysResourcePermission.class).eq(SysResourcePermission::getPermissionId, permission.getId()), SysResourcePermission::getResourceId);
+    }
 }
