@@ -2,10 +2,10 @@
   <div class="page">
     <el-card>
       <el-form
-          class="query-form"
-          inline
           :label-width="80"
           :model="searchForm"
+          class="query-form"
+          inline
       >
         <el-form-item
             label="用户名 :"
@@ -44,8 +44,8 @@
           />
         </el-form-item>
         <div class="action-groups">
-          <el-button type="primary" plain @click="search">查询</el-button>
-          <el-button type="primary" plain @click="research">重置</el-button>
+          <el-button plain type="primary" @click="search">查询</el-button>
+          <el-button plain type="primary" @click="research">重置</el-button>
         </div>
       </el-form>
     </el-card>
@@ -54,42 +54,42 @@
         <div class="card-header">
           <el-space><span>菜单管理</span></el-space>
           <el-space>
-            <el-button type="primary" plain @click="showSaveForm">新增</el-button>
+            <el-button plain type="primary" @click="showSaveForm">新增</el-button>
           </el-space>
         </div>
       </template>
       <el-table
           :data="tableData.records"
-          style="width: 100%"
-          size="default"
-          height="500"
           :highlight-current-row="true"
-          row-key="id"
-          empty-text="No Data"
           :stripe="true"
+          empty-text="No Data"
+          height="500"
+          row-key="id"
+          size="default"
+          style="width: 100%"
       >
         <el-table-column
-            prop="userName"
             label="用户名"
+            prop="userName"
         />
         <el-table-column
-            prop="nickName"
             label="昵称"
+            prop="nickName"
         />
         <el-table-column
-            prop="phoneNum"
             label="手机号"
+            prop="phoneNum"
         />
         <el-table-column
-            prop="password"
             label="密码"
+            prop="password"
         />
         <el-table-column
-            prop="act"
-            label="操作"
             :width="160"
             align="center"
             fixed="right"
+            label="操作"
+            prop="act"
         >
           <template #default="scope">
             <el-space>
@@ -103,18 +103,18 @@
     </el-card>
     <el-card>
       <el-pagination
-          layout="total,prev,pager,next,sizes"
+          v-model:current-page="tableData.current"
+          v-model:page-size="tableData.pageSize"
           :background="true"
+          :page-sizes="[15,30,50,80,100]"
           :small="true"
           :total="tableData.total"
-          :page-sizes="[15,30,50,80,100]"
-          v-model:page-size="tableData.pageSize"
-          v-model:current-page="tableData.current"
+          layout="total,prev,pager,next,sizes"
           @current-change="changeCurrentPage"
           @size-change="changePageSize"
       />
     </el-card>
-    <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
+    <el-dialog v-model="saveDialogFlag" :title="updateFlag ? '修改' : '新增'" center width="40%">
       <el-form :model="saveForm" label-position="right" label-width="80px">
         <el-form-item label="用户名">
           <el-input v-model="saveForm.userName"/>
@@ -144,11 +144,11 @@
       <el-form :model="authorizeForm" label-position="right" label-width="80px">
         <el-transfer
             v-model="authorizeForm.roleIdList"
-            filterable
-            filter-placeholder="请输入关键字"
-            :titles="['未授权', '已授权']"
             :data="authorizeRoleList"
             :props="{key: 'id',label: 'roleName'}"
+            :titles="['未授权', '已授权']"
+            filter-placeholder="请输入关键字"
+            filterable
         />
       </el-form>
       <template #footer>
