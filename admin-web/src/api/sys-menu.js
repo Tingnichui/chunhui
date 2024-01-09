@@ -19,3 +19,7 @@ export const detail = (id) => {
 export const deleteById = (id) => {
     return http.postForm("/sysMenu/delete", {id});
 };
+
+export const getHomeMenu = () => {
+    return http.post("/sysMenu/getMenuByCurrentUser");
+};

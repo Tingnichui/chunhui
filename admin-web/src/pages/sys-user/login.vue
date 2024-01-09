@@ -47,7 +47,7 @@ export default {
     login() {
       login(this.userInfo).then(
           (res) => {
-            this.$router.push('/home/resource/list')
+            this.$router.push('/admin')
             setToken(res.data)
           }
       );

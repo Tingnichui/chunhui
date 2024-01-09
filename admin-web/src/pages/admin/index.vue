@@ -10,11 +10,11 @@
               <el-sub-menu :index="item.id">
                 <template #title>
                   <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.name }}</span>
                 </template>
                 <el-menu-item v-for="(subMenu,index2) in item.subMune" :key="index2" :index="subMenu.id"
                               @click="to(subMenu.url)">
-                  {{ subMenu.title }}
+                  {{ subMenu.name }}
                 </el-menu-item>
               </el-sub-menu>
             </template>
@@ -22,7 +22,7 @@
               <!-- 子菜单 -->
               <el-menu-item :index="item.id" @click="to(item.url)">
                 <component :is="item.icon" style="width: 24px;height: 18px;margin-right: 5px;"></component>
-                <template #title>{{ item.title }}</template>
+                <template #title>{{ item.name }}</template>
               </el-menu-item>
             </template>
           </div>
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import {getHomeMenu} from "@/api/sys-menu";
+
 export default {
   data() {
     return {
@@ -67,8 +69,9 @@ export default {
     }
   },
   mounted() {
-    this.getMenu();
-    this.$router.push('/admin/resource/list')
+    getHomeMenu().then(res => {
+      this.menuList = res.data
+    });
   },
   methods: {
     getMenu() {

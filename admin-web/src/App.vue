@@ -11,7 +11,7 @@ export default {
   mounted() {
     console.log(import.meta.env.VITE_BASE_URL)
     if (getToken()) {
-      this.$router.push('/home')
+      this.$router.push('/admin')
     } else {
       this.$router.push('/login')
     }
