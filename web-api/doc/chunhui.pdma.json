@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2024-1-12 21:25:09",
+  "updatedTime": "2024-1-12 21:42:11",
   "dbConns": [],
   "profile": {
     "default": {
@@ -4123,7 +4123,7 @@
           "codeRoot": ""
         }
       },
-      "defKey": "jljs_contract_operate",
+      "defKey": "jljs_contract_operate_record",
       "defName": "加励健身-合同操作记录",
       "comment": "",
       "properties": {
@@ -4307,8 +4307,8 @@
           "id": "9C90D717-059F-488F-A86A-7A933D52EB92"
         },
         {
-          "defKey": "course_info_id",
-          "defName": "课程id",
+          "defKey": "contract_info_id",
+          "defName": "heto",
           "comment": "",
           "type": "",
           "len": "",
