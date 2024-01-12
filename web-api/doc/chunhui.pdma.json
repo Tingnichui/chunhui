@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2024-1-12 21:42:11",
+  "updatedTime": "2024-1-12 21:56:24",
   "dbConns": [],
   "profile": {
     "default": {
@@ -4308,7 +4308,7 @@
         },
         {
           "defKey": "contract_info_id",
-          "defName": "heto",
+          "defName": "合同id",
           "comment": "",
           "type": "",
           "len": "",

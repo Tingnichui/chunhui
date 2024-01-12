@@ -29,6 +29,30 @@ const routes = [
             {
                 path: 'sys-user/list',
                 component: () => import('@/pages/admin/sys-user/list.vue')
+            },
+            {
+                path: 'jljs-class-record/list',
+                component: () => import('@/pages/admin/jljs-class-record/list.vue')
+            },
+            {
+                path: 'jljs-coach-info/list',
+                component: () => import('@/pages/admin/jljs-coach-info/list.vue')
+            },
+            {
+                path: 'jljs-contract-operate-record/list',
+                component: () => import('@/pages/admin/jljs-contract-operate-record/list.vue')
+            },
+            {
+                path: 'jljs-course-info/list',
+                component: () => import('@/pages/admin/jljs-course-info/list.vue')
+            },
+            {
+                path: 'jljs-member-info/list',
+                component: () => import('@/pages/admin/jljs-member-info/list.vue')
+            },
+            {
+                path: 'jljs_contract_info/list',
+                component: () => import('@/pages/admin/jljs-contract-info/list.vue')
             }
         ]
     },

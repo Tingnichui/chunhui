@@ -2,32 +2,42 @@
   <div class="page">
     <el-card>
       <el-form
-          :label-width="80"
-          :model="searchForm"
           class="query-form"
           inline
+          :label-width="80"
+          :model="searchForm"
       >
         <el-form-item
-            label="权限名称 :"
+            label="教练 :"
             prop="name"
             style="width:25%"
         >
-          <el-input
-              v-model="searchForm.name"
-          />
+          <el-select v-model="searchForm.coachId" filterable placeholder="请选择教练">
+            <el-option
+                v-for="item in coachList"
+                :key="item.id"
+                :label="item.coachName"
+                :value="item.id"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item
-            label="权限类型 :"
+            label="会员 :"
             prop="name"
             style="width:25%"
         >
-          <el-input
-              v-model="searchForm.permissionType"
-          />
+          <el-select v-model="searchForm.memberId" filterable placeholder="请选择会员">
+            <el-option
+                v-for="item in memberList"
+                :key="item.id"
+                :label="item.memberName"
+                :value="item.id"
+            />
+          </el-select>
         </el-form-item>
         <div class="action-groups">
-          <el-button plain type="primary" @click="search">查询</el-button>
-          <el-button plain type="primary" @click="research">重置</el-button>
+          <el-button type="primary" plain @click="search">查询</el-button>
+          <el-button type="primary" plain @click="research">重置</el-button>
         </div>
       </el-form>
     </el-card>
@@ -36,44 +46,58 @@
         <div class="card-header">
           <el-space><span>菜单管理</span></el-space>
           <el-space>
-            <el-button plain type="primary" @click="showSaveForm">新增</el-button>
+            <el-button type="primary" plain @click="showSaveForm">新增</el-button>
           </el-space>
         </div>
       </template>
       <el-table
           :data="tableData.records"
-          :highlight-current-row="true"
-          :stripe="true"
-          empty-text="No Data"
-          height="500"
-          row-key="id"
-          size="default"
           style="width: 100%"
+          size="default"
+          height="500"
+          :highlight-current-row="true"
+          row-key="id"
+          empty-text="No Data"
+          :stripe="true"
       >
         <el-table-column
-            label="权限名称"
-            prop="name"
-        />
-        <el-table-column
-            label="权限KEY"
-            prop="permissionKey"
-        />
-        <el-table-column
-            label="权限类型"
-            prop="permissionType"
+            prop="coachId"
+            label="教练"
         >
           <template #default="scope">
-            <div v-for="item in permissionTypeList">
-              <span v-if="item.value === scope.row.permissionType"> {{ item.label }} </span>
+            <div v-for="item in coachList" >
+              <span v-if="item.id === scope.row.coachId"> {{ item.coachName }} </span>
             </div>
           </template>
         </el-table-column>
         <el-table-column
+            prop="memberId"
+            label="会员"
+        >
+          <template #default="scope">
+            <div v-for="item in memberList">
+              <span v-if="item.id === scope.row.memberId">{{ item.memberName }}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+            prop="classBeginTime"
+            label="开始时间"
+        />
+        <el-table-column
+            prop="classEndTime"
+            label="结束时间"
+        />
+        <el-table-column
+            prop="classRemark"
+            label="课程备注"
+        />
+        <el-table-column
+            prop="act"
+            label="操作"
             :width="160"
             align="center"
             fixed="right"
-            label="操作"
-            prop="act"
         >
           <template #default="scope">
             <el-space>
@@ -86,50 +110,47 @@
     </el-card>
     <el-card>
       <el-pagination
-          v-model:current-page="tableData.current"
-          v-model:page-size="tableData.pageSize"
+          layout="total,prev,pager,next,sizes"
           :background="true"
-          :page-sizes="[15,30,50,80,100]"
           :small="true"
           :total="tableData.total"
-          layout="total,prev,pager,next,sizes"
+          :page-sizes="[15,30,50,80,100]"
+          v-model:page-size="tableData.pageSize"
+          v-model:current-page="tableData.current"
           @current-change="changeCurrentPage"
           @size-change="changePageSize"
       />
     </el-card>
-    <el-dialog v-model="saveDialogFlag" :title="updateFlag ? '修改' : '新增'" center width="40%">
+    <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
       <el-form :model="saveForm" label-position="right" label-width="80px">
-        <el-form-item label="权限名称">
-          <el-input v-model="saveForm.name"/>
-        </el-form-item>
-        <el-form-item label="权限类型">
-          <el-select v-model="saveForm.permissionType" placeholder="请选择权限类型" @change="changePermissionType">
+        <el-form-item label="教练">
+          <el-select v-model="saveForm.coachId" filterable placeholder="请选择教练">
             <el-option
-                v-for="item in permissionTypeList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="权限KEY">
-          <el-input v-model="saveForm.permissionKey"/>
-        </el-form-item>
-        <el-form-item label="资源">
-          <el-select
-              v-model="saveForm.resourceIdList"
-              collapse-tags
-              multiple
-              placeholder="请选择资源"
-              style="width: 240px"
-          >
-            <el-option
-                v-for="item in resourceList"
+                v-for="item in coachList"
                 :key="item.id"
-                :label="item.name"
+                :label="item.coachName"
                 :value="item.id"
             />
           </el-select>
+        </el-form-item>
+        <el-form-item label="会员">
+          <el-select v-model="saveForm.memberId" filterable placeholder="请选择会员">
+            <el-option
+                v-for="item in memberList"
+                :key="item.id"
+                :label="item.memberName"
+                :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程开始时间">
+          <el-input v-model="saveForm.classBeginTime"/>
+        </el-form-item>
+        <el-form-item label="课程结束时间">
+          <el-input v-model="saveForm.classEndTime"/>
+        </el-form-item>
+        <el-form-item label="课程备注">
+          <el-input v-model="saveForm.classRemark"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -147,9 +168,16 @@
 </template>
 
 <script>
-import {deleteById, detail, pagePermissionList, save, update} from "@/api/sys-permission.js";
-import {pageMenuList} from "@/api/sys-menu";
+import {
+  deleteJljsClassRecordById,
+  getJljsClassRecordDetail,
+  pageJljsClassRecordList,
+  saveJljsClassRecord,
+  updateJljsClassRecord
+} from "@/api/jljs-class-record.js";
 import {ElMessageBox} from "element-plus";
+import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
+import {pageJljsCoachInfoList} from "@/api/jljs-coach-info";
 
 export default {
   data() {
@@ -158,22 +186,26 @@ export default {
       saveForm: {},
       updateFlag: false,
       saveDialogFlag: false,
+      courseList: [],
+      coachList: [],
       searchForm: {
         current: 1,
         size: 15
-      },
-      permissionTypeList: [
-        {label: '菜单', value: '1'}
-      ],
-      resourceList: []
+      }
     }
   },
   mounted() {
     this.research()
+    pageJljsMemberInfoList({size: -1}).then(res => {
+      this.memberList = res.data.records
+    })
+    pageJljsCoachInfoList({size: -1}).then(res => {
+      this.coachList = res.data.records
+    })
   },
   methods: {
     search() {
-      pagePermissionList(this.searchForm).then(res => {
+      pageJljsClassRecordList(this.searchForm).then(res => {
             this.tableData = res.data
           }
       )
@@ -199,18 +231,18 @@ export default {
     showSaveForm() {
       this.resetSaveForm()
       this.saveDialogFlag = true
+      this.updateFlag = false
     },
     showUpdate(id) {
       this.resetSaveForm()
       this.updateFlag = true
-      detail(id).then((res) => {
+      getJljsClassRecordDetail(id).then((res) => {
         this.saveDialogFlag = true
         this.saveForm = res.data
-        this.changePermissionType(res.data.permissionType)
       })
     },
     saveData() {
-      const promiseFn = this.updateFlag ? update : save;
+      const promiseFn = this.updateFlag ? updateJljsClassRecord : saveJljsClassRecord;
       promiseFn(this.saveForm).then(res => {
         this.$message({
           message: res.message,
@@ -223,19 +255,13 @@ export default {
     },
     deleteInfo(id) {
       ElMessageBox.confirm('确定删除？').then(() => {
-        deleteById(id).then(res => {
+        deleteJljsClassRecordById(id).then(res => {
           this.research()
           this.$message({
             message: "删除成功",
             type: 'success'
           })
         })
-      })
-    },
-    changePermissionType(value) {
-      console.log(value)
-      pageMenuList({size: -1}).then(res => {
-        this.resourceList = res.data.records
       })
     }
   }
