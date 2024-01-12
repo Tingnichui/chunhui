@@ -1,4 +1,4 @@
-package com.chunhui.web.pojo.vo;
+package com.chunhui.web.pojo.query;
 
 import lombok.Data;
 
@@ -6,7 +6,9 @@ import java.math.BigDecimal;
 
 
 @Data
-public class JljsMemberOrderSaveVO {
+public class JljsContractInfoQuery extends QueryBase {
+
+    private String id;
 
 
     /**

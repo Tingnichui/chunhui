@@ -1,14 +1,17 @@
-package com.chunhui.web.pojo.query;
+package com.chunhui.web.pojo.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 
+/**
+ * 加励健身-会员合同
+ */
 @Data
-public class JljsMemberOrderQuery extends QueryBase {
-
-    private String id;
+@TableName("jljs_contract_info")
+public class JljsContractInfo extends BaseDO {
 
 
     /**

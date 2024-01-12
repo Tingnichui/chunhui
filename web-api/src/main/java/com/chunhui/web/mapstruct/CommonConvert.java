@@ -102,14 +102,6 @@ public interface CommonConvert {
 
     JljsCourseInfo updatetoJljsCourseInfo(JljsCourseInfoUpdateVO saveVO);
 
-    List<JljsMemberOrderOutVO> toJljsMemberOrderOutList(List<JljsMemberOrder> records);
-
-    JljsMemberOrderOutVO toJljsMemberOrderListOut(JljsMemberOrder byId);
-
-    JljsMemberOrder toJljsMemberOrder(JljsMemberOrderSaveVO saveVO);
-
-    JljsMemberOrder updatetoJljsMemberOrder(JljsMemberOrderUpdateVO saveVO);
-
     List<JljsContractOperateOutVO> toJljsContractOperateOutList(List<JljsContractOperate> records);
 
     JljsContractOperateOutVO toJljsContractOperateListOut(JljsContractOperate byId);
@@ -125,4 +117,12 @@ public interface CommonConvert {
     JljsClassRecord toJljsClassRecord(JljsClassRecordSaveVO saveVO);
 
     JljsClassRecord updatetoJljsClassRecord(JljsClassRecordUpdateVO saveVO);
+
+    List<JljsContractInfoOutVO> toJljsContractInfoOutList(List<JljsContractInfo> records);
+
+    JljsContractInfoOutVO toJljsContractInfoListOut(JljsContractInfo byId);
+
+    JljsContractInfo toJljsContractInfo(JljsContractInfoSaveVO saveVO);
+
+    JljsContractInfo updatetoJljsContractInfo(JljsContractInfoUpdateVO saveVO);
 }

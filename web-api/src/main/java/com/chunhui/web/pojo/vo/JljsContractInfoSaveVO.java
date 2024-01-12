@@ -4,11 +4,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+
 @Data
-public class JljsMemberOrderOutVO {
-
-
-    private String id;
+public class JljsContractInfoSaveVO {
 
 
     /**

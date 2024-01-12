@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 
 @Data
-public class JljsMemberOrderUpdateVO {
+public class JljsContractInfoUpdateVO {
 
 
     @NotBlank(message = "主键id不能为空")
