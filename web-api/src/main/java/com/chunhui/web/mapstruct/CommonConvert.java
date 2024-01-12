@@ -78,4 +78,51 @@ public interface CommonConvert {
 
     SysRolePermission updatetoSysRolePermission(SysRolePermissionUpdateVO saveVO);
 
+    List<JljsMemberInfoOutVO> toJljsMemberInfoOutList(List<JljsMemberInfo> records);
+
+    JljsMemberInfoOutVO toJljsMemberInfoListOut(JljsMemberInfo byId);
+
+    JljsMemberInfo toJljsMemberInfo(JljsMemberInfoSaveVO saveVO);
+
+    JljsMemberInfo updatetoJljsMemberInfo(JljsMemberInfoUpdateVO saveVO);
+
+    List<JljsCoachInfoOutVO> toJljsCoachInfoOutList(List<JljsCoachInfo> records);
+
+    JljsCoachInfoOutVO toJljsCoachInfoListOut(JljsCoachInfo byId);
+
+    JljsCoachInfo toJljsCoachInfo(JljsCoachInfoSaveVO saveVO);
+
+    JljsCoachInfo updatetoJljsCoachInfo(JljsCoachInfoUpdateVO saveVO);
+
+    List<JljsCourseInfoOutVO> toJljsCourseInfoOutList(List<JljsCourseInfo> records);
+
+    JljsCourseInfoOutVO toJljsCourseInfoListOut(JljsCourseInfo byId);
+
+    JljsCourseInfo toJljsCourseInfo(JljsCourseInfoSaveVO saveVO);
+
+    JljsCourseInfo updatetoJljsCourseInfo(JljsCourseInfoUpdateVO saveVO);
+
+    List<JljsMemberOrderOutVO> toJljsMemberOrderOutList(List<JljsMemberOrder> records);
+
+    JljsMemberOrderOutVO toJljsMemberOrderListOut(JljsMemberOrder byId);
+
+    JljsMemberOrder toJljsMemberOrder(JljsMemberOrderSaveVO saveVO);
+
+    JljsMemberOrder updatetoJljsMemberOrder(JljsMemberOrderUpdateVO saveVO);
+
+    List<JljsContractOperateOutVO> toJljsContractOperateOutList(List<JljsContractOperate> records);
+
+    JljsContractOperateOutVO toJljsContractOperateListOut(JljsContractOperate byId);
+
+    JljsContractOperate toJljsContractOperate(JljsContractOperateSaveVO saveVO);
+
+    JljsContractOperate updatetoJljsContractOperate(JljsContractOperateUpdateVO saveVO);
+
+    List<JljsClassRecordOutVO> toJljsClassRecordOutList(List<JljsClassRecord> records);
+
+    JljsClassRecordOutVO toJljsClassRecordListOut(JljsClassRecord byId);
+
+    JljsClassRecord toJljsClassRecord(JljsClassRecordSaveVO saveVO);
+
+    JljsClassRecord updatetoJljsClassRecord(JljsClassRecordUpdateVO saveVO);
 }

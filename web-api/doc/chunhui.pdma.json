@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2023-12-17 22:12:55",
+  "updatedTime": "2024-1-12 19:21:19",
   "dbConns": [],
   "profile": {
     "default": {
@@ -469,7 +469,8 @@
     ],
     "extProps": {
       "当前时间": "CURRENT_TIMESTAMP"
-    }
+    },
+    "menuWidth": "320px"
   },
   "entities": [
     {
@@ -2953,6 +2954,1784 @@
       ],
       "correlations": [],
       "indexes": []
+    },
+    {
+      "id": "48905D8D-62F2-4533-B2C8-5B6CCEB403BD",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "jljs_member_info",
+      "defName": "加励健身-会员信息",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "主键",
+          "comment": "",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "refDict": "",
+          "uiHint": "",
+          "id": "048975A7-88C4-46BD-B986-55ABBA6D74C1"
+        },
+        {
+          "defKey": "create_by",
+          "defName": "创建人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "246D06DF-8C20-4BC2-9666-CECDC555E609"
+        },
+        {
+          "defKey": "create_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "C7B0D45F-3AC6-44BB-973F-4753126EA8AE"
+        },
+        {
+          "defKey": "update_by",
+          "defName": "更新人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "28B13263-D415-4D2D-A5C5-FAA69ADA6A18"
+        },
+        {
+          "defKey": "update_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "21271646-40E5-4DF1-A4BF-355A89ED0012"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "是否删除",
+          "comment": "0未删除；秒级时间戳 已删除",
+          "type": "VARCHAR",
+          "len": 10,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "",
+          "id": "19BA5E9B-DD51-41D9-BD4B-F9305FAA4671"
+        },
+        {
+          "defKey": "member_name",
+          "defName": "会员姓名",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "07DD325A-FBA2-4A6A-BDDE-E4650BED9394"
+        },
+        {
+          "defKey": "member_gender",
+          "defName": "会员性别",
+          "comment": "1 男；2女",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
+          "id": "2052BECA-C7CC-4343-930C-93102F0359F9"
+        },
+        {
+          "defKey": "member_age",
+          "defName": "会员年龄",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "529CE951-83AB-4F51-8ADE-AC201A0DC834"
+        },
+        {
+          "defKey": "member_phone_num",
+          "defName": "手机号",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "E7C615EE-67DF-46A5-BCA9-05F10EE5662E"
+        }
+      ],
+      "correlations": [],
+      "indexes": []
+    },
+    {
+      "id": "B328E34D-4F63-4E87-8E9D-091C7180B4F6",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "jljs_coach_info",
+      "defName": "加励健身-教练信息",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "主键",
+          "comment": "",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "refDict": "",
+          "uiHint": "",
+          "id": "9B2673EB-3F53-42E5-A385-375551776D2B"
+        },
+        {
+          "defKey": "create_by",
+          "defName": "创建人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "61DF322A-4C93-4C5E-AA4C-50EEDF7E683E"
+        },
+        {
+          "defKey": "create_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "CECA968D-DA5B-45A2-9F0B-1BFC7A2110B9"
+        },
+        {
+          "defKey": "update_by",
+          "defName": "更新人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "C3B82465-462B-45A1-8C2E-AB1ED6A00D3F"
+        },
+        {
+          "defKey": "update_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "B4F19F22-5DAF-4F23-9971-6452C463D361"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "是否删除",
+          "comment": "0未删除；秒级时间戳 已删除",
+          "type": "VARCHAR",
+          "len": 10,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "",
+          "id": "3355C517-FC36-4100-8092-E85CCA3BE035"
+        },
+        {
+          "defKey": "coach_name",
+          "defName": "教练姓名",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "DC37CB7F-4702-44D0-B935-94AACD7D7909"
+        },
+        {
+          "defKey": "coach_phone_num",
+          "defName": "电话号码",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "58E71DDF-4F62-43AD-AB49-B76AC34C9D60"
+        }
+      ],
+      "correlations": [],
+      "indexes": []
+    },
+    {
+      "id": "94D87820-0928-4CF1-A2BF-5818C0772F1E",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "jljs_course_info",
+      "defName": "加励健身-课程信息",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "主键",
+          "comment": "",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "refDict": "",
+          "uiHint": "",
+          "id": "F2D7A8BE-6B9B-4B0A-93C5-28C1E0EE2190"
+        },
+        {
+          "defKey": "create_by",
+          "defName": "创建人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "2C37408A-71C4-448E-90DD-BDAEF7C8F063"
+        },
+        {
+          "defKey": "create_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "8446E2BE-C73B-4F54-8907-C38A39BF6D8A"
+        },
+        {
+          "defKey": "update_by",
+          "defName": "更新人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "B5D99D6A-15EE-479C-A405-47E610C9B61B"
+        },
+        {
+          "defKey": "update_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "BC558BAF-1F20-410C-B18E-81147D077615"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "是否删除",
+          "comment": "0未删除；秒级时间戳 已删除",
+          "type": "VARCHAR",
+          "len": 10,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "",
+          "id": "06E1411C-C48C-4FA5-9B6A-90067C16C40E"
+        },
+        {
+          "defKey": "course_name",
+          "defName": "名称",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "44E5824E-5CC9-4A55-B30C-5B02BDC58D6E"
+        },
+        {
+          "defKey": "course_price",
+          "defName": "价格",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "C3B1681B-99F9-4818-9E80-DE1652A51D85",
+          "id": "9DFF7F09-A5F0-49B9-9ADB-8EAFD2FFFDD3"
+        },
+        {
+          "defKey": "course_describe",
+          "defName": "描述",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "5E1ACFD0-5E23-401A-BB7B-2A3E00A709A9"
+        },
+        {
+          "defKey": "course_valid_days",
+          "defName": "有效天数",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "id": "DCD960C0-D707-4B83-A70F-D53BA5CF3242"
+        }
+      ],
+      "correlations": [],
+      "indexes": []
+    },
+    {
+      "id": "B8ACDB52-4B2B-456F-B882-DB85E8620890",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "jljs_member_order",
+      "defName": "加励健身-会员合同",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "主键",
+          "comment": "",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "refDict": "",
+          "uiHint": "",
+          "id": "E5AD0FC0-DFB7-47ED-94D1-98315F5B203F"
+        },
+        {
+          "defKey": "create_by",
+          "defName": "创建人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "FACFE04F-7009-47EA-886E-878766A8519A"
+        },
+        {
+          "defKey": "create_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "6F92BBA5-C154-443A-8951-2AC7C213AA4F"
+        },
+        {
+          "defKey": "update_by",
+          "defName": "更新人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "040DEEF6-F33B-45C6-9AF6-1EC99AD73F81"
+        },
+        {
+          "defKey": "update_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "DC737CDE-2C35-44F4-8110-78B11F929404"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "是否删除",
+          "comment": "0未删除；秒级时间戳 已删除",
+          "type": "VARCHAR",
+          "len": 10,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "",
+          "id": "03D3665A-AC10-420D-A65E-012F2F9C402C"
+        },
+        {
+          "defKey": "member_id",
+          "defName": "会员id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "A926DC4D-7ADF-41DB-8984-1D467BBB1DCC"
+        },
+        {
+          "defKey": "course_info_id",
+          "defName": "课程id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "444FB0C6-D2E8-4C03-B54B-2FE0FC52A70E"
+        },
+        {
+          "defKey": "belong_coach_id",
+          "defName": "开单教练id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "57E54311-7CA7-48BC-B415-AFD346D918C8"
+        },
+        {
+          "defKey": "contract_amount",
+          "defName": "合同金额",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "C3B1681B-99F9-4818-9E80-DE1652A51D85",
+          "id": "45B852E2-48D2-4E89-B312-8B84DA43B5D0"
+        },
+        {
+          "defKey": "contract_status",
+          "defName": "合同状态",
+          "comment": "1 未生效；2生效中；3完成；4暂停；5终止；",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
+          "id": "2C4ADFF9-75B6-46CF-BCFD-263E5A955B62"
+        },
+        {
+          "defKey": "use_begin_date",
+          "defName": "使用开始日期",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "1990D013-2B1F-4A9F-9531-B3DF70FE4C48",
+          "id": "B31B713B-CB2A-45BF-92E6-511C66471A3B"
+        },
+        {
+          "defKey": "use_end_date",
+          "defName": "使用结束日期",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "1990D013-2B1F-4A9F-9531-B3DF70FE4C48",
+          "id": "ED1A338C-B3D8-45B6-9B5C-AC404F06CF92"
+        },
+        {
+          "defKey": "buy_time",
+          "defName": "购买日期",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "25BD2BED-9971-48D1-8CC0-BC2E7F196D9F"
+        },
+        {
+          "defKey": "contract_remark",
+          "defName": "合同备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "1C6E71B0-6162-4E65-8BB0-829A2ABF6B47"
+        },
+        {
+          "defKey": "actual_charge_amount",
+          "defName": "实际收取金额",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "CDB8E6FE-BE30-491A-9EC8-169F6E4E7BAE"
+        }
+      ],
+      "correlations": [],
+      "indexes": []
+    },
+    {
+      "id": "22B1E0F7-731C-4C46-8F49-CB3BE4C88D3A",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "jljs_contract_operate",
+      "defName": "加励健身-合同操作记录",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "主键",
+          "comment": "",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "refDict": "",
+          "uiHint": "",
+          "id": "C64C88D9-B229-4965-BC16-7B09D85338A2"
+        },
+        {
+          "defKey": "create_by",
+          "defName": "创建人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "67882835-965F-45EE-A86E-5CA1FA35DD77"
+        },
+        {
+          "defKey": "create_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "7BDDD30E-DB57-4ED4-8E39-4ABCE3E23BE5"
+        },
+        {
+          "defKey": "update_by",
+          "defName": "更新人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "FBCF6501-8633-4C6C-AF45-6EF4DCFEBDA7"
+        },
+        {
+          "defKey": "update_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "E2FED73A-07E5-44E1-A089-6B14BFE44647"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "是否删除",
+          "comment": "0未删除；秒级时间戳 已删除",
+          "type": "VARCHAR",
+          "len": 10,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "",
+          "id": "9C90D717-059F-488F-A86A-7A933D52EB92"
+        },
+        {
+          "defKey": "course_info_id",
+          "defName": "课程id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "id": "671E2C30-8142-4F72-A7EB-DAE4A49F8AF8"
+        },
+        {
+          "defKey": "operate_type",
+          "defName": "操作类型",
+          "comment": "1暂停；2补缴；3退课",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
+          "id": "DD0D463C-3C50-4D19-9A9C-294C8D91ACED"
+        },
+        {
+          "defKey": "interval_days",
+          "defName": "间隔天数",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "id": "A988514A-DE0C-4820-B9C3-6BAA9B906920"
+        },
+        {
+          "defKey": "operate_begin_date",
+          "defName": "开始时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "1990D013-2B1F-4A9F-9531-B3DF70FE4C48",
+          "id": "F1ECB0AD-0D11-406A-ACF2-951ADF8630FA"
+        },
+        {
+          "defKey": "operate_end_date",
+          "defName": "结束时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "1990D013-2B1F-4A9F-9531-B3DF70FE4C48",
+          "id": "05E4991C-03A1-4ADB-8C90-FD17D2C55EDD"
+        },
+        {
+          "defKey": "operate_reason",
+          "defName": "操作原因",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "FF363EFE-1075-44B1-9105-76BA4000E5B1"
+        },
+        {
+          "defKey": "operate_amount",
+          "defName": "操作金额",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "D57627AF-D1B5-4BB8-9B8F-53C9BFF99560"
+        }
+      ],
+      "correlations": [],
+      "indexes": []
+    },
+    {
+      "id": "E952608A-A3E6-4DAD-B071-811D2F6A63F9",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "jljs_class_record",
+      "defName": "加励健身-上课记录",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "主键",
+          "comment": "",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "refDict": "",
+          "uiHint": "",
+          "id": "6F93824D-646E-42FF-B46D-7EB859807383"
+        },
+        {
+          "defKey": "create_by",
+          "defName": "创建人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "86E36104-3B2F-44BB-980E-B53DDDBD85F7"
+        },
+        {
+          "defKey": "create_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "DF55AABC-DB17-4B42-B54A-5D6B617E706E"
+        },
+        {
+          "defKey": "update_by",
+          "defName": "更新人id",
+          "comment": "",
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "type": "",
+          "len": 32,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "52A11A14-A562-4533-ADB2-81064B00ECC5"
+        },
+        {
+          "defKey": "update_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "4C0E783D-25A2-4706-B032-712A32A3D458"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "是否删除",
+          "comment": "0未删除；秒级时间戳 已删除",
+          "type": "VARCHAR",
+          "len": 10,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "",
+          "id": "B4900EE9-3009-4EAF-9715-DC103FFACEF4"
+        },
+        {
+          "defKey": "coach_id",
+          "defName": "教练id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "id": "116A2571-700B-4F88-9573-F1622477F40A"
+        },
+        {
+          "defKey": "member_id",
+          "defName": "会员id",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
+          "id": "5D2B20C8-5065-4ADB-9B31-D1A8B2FCBDE5"
+        },
+        {
+          "defKey": "class_begin_time",
+          "defName": "课程开始时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "id": "2FE71DB1-3448-4934-96F4-20CC47112659"
+        },
+        {
+          "defKey": "class_end_time",
+          "defName": "课程结束时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "id": "F9681189-F8F5-44DE-B641-FBEF1F4B41D5"
+        },
+        {
+          "defKey": "class_remark",
+          "defName": "课程备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "49686F4E-72F0-4447-9EEF-6388D843887C"
+        }
+      ],
+      "correlations": [],
+      "indexes": []
     }
   ],
   "views": [],
@@ -3394,8 +5173,8 @@
         "B91D99E0-9B7C-416C-8737-B760957DAF09": "*int"
       },
       {
-        "defKey": "date",
-        "defName": "日期",
+        "defKey": "time",
+        "defName": "时间",
         "id": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "DATETIME",
         "A4E23CB7-BB01-4BD1-9F71-F73F3E15A542": "DATE",
@@ -3455,6 +5234,13 @@
         "F3AC2415-E86B-40C6-9FEB-F4B7937D2C30": "string",
         "81CCA482-3F4D-4EAC-8CF9-F5E7BC098AD2": "string",
         "B91D99E0-9B7C-416C-8737-B760957DAF09": "string"
+      },
+      {
+        "defKey": "date",
+        "defName": "日期",
+        "id": "C91B2236-F6F8-4E12-99DF-5D77E5FE9EC9",
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "DATE",
+        "797A1496-D649-4261-89B4-544132EC3F36": "Date"
       }
     ]
   },
@@ -3508,14 +5294,14 @@
       "defKey": "Money",
       "defName": "金额",
       "applyFor": "1A0BDC09-0792-4174-9E8E-80BE8DF44B8E",
-      "len": 24,
-      "scale": 6,
+      "len": 10,
+      "scale": 2,
       "uiHint": "",
       "id": "C3B1681B-99F9-4818-9E80-DE1652A51D85"
     },
     {
       "defKey": "DateTime",
-      "defName": "日期时间",
+      "defName": "时间",
       "applyFor": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
       "len": "",
       "scale": "",
@@ -3557,6 +5343,15 @@
       "scale": "",
       "uiHint": "",
       "id": "4B9CAE43-640C-41EC-B6E0-737223773A7A"
+    },
+    {
+      "defKey": "Date",
+      "defName": "日期",
+      "applyFor": "C91B2236-F6F8-4E12-99DF-5D77E5FE9EC9",
+      "len": "",
+      "scale": "",
+      "uiHint": "",
+      "id": "1990D013-2B1F-4A9F-9531-B3DF70FE4C48"
     }
   ],
   "diagrams": [],
