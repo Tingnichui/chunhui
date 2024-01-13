@@ -8,6 +8,15 @@ export const login = (data) => {
     });
 };
 
+export const logout = (data) => {
+    return http({
+        url: "/sysUser/logout",
+        method: "post",
+        data,
+    });
+};
+
+
 
 export const regist = (data) => {
     return http({

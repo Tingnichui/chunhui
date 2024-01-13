@@ -2,7 +2,7 @@
   <div>
     <el-container style="height: 100vh">
       <!-- 侧边栏 -->
-      <el-aside style="background: #81D4FA" width="200px">
+      <el-aside width="200px">
         <el-menu default-active="2">
           <div v-for="(item,index) in menuList" :key="index">
             <template v-if="!item.url">
@@ -31,7 +31,7 @@
 
       <el-container>
         <!-- 顶部 -->
-        <el-header style="text-align: right; font-size: 12px;background: #FFF9C4;">
+        <el-header style="text-align: right; font-size: 12px;">
           <div class="toolbar">
             <el-dropdown>
               <el-icon style="margin-right: 8px; margin-top: 1px"
@@ -41,13 +41,11 @@
               </el-icon>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item>View</el-dropdown-item>
-                  <el-dropdown-item>Add</el-dropdown-item>
-                  <el-dropdown-item>Delete</el-dropdown-item>
+                  <el-dropdown-item @click="logoutNow">登出</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
-            <span>Tom</span>
+            <span>你好</span>
           </div>
         </el-header>
         <!-- 主体 -->
@@ -61,6 +59,7 @@
 
 <script>
 import {getHomeMenu} from "@/api/sys-menu";
+import {logout} from "@/api/sys-user";
 
 export default {
   data() {
@@ -74,57 +73,9 @@ export default {
     });
   },
   methods: {
-    getMenu() {
-      this.menuList = [
-        {
-          "subMune": [],
-          "icon": "HomeFilled",
-          "title": "回到首页",
-          "url": "/home",
-        },
-        {
-          "subMune": [],
-          "icon": "list",
-          "title": "资源管理",
-          "url": "/admin/resource/list",
-        },
-        {
-          "subMune": [],
-          "icon": "list",
-          "title": "菜单管理",
-          "url": "/admin/menu/list",
-        },
-        {
-          "subMune": [],
-          "icon": "list",
-          "title": "角色管理",
-          "url": "/admin/sys-role/list",
-        },
-        {
-          "subMune": [],
-          "icon": "list",
-          "title": "权限管理",
-          "url": "/admin/sys-permission/list",
-        },
-        {
-          "subMune": [],
-          "icon": "list",
-          "title": "用户管理",
-          "url": "/admin/sys-user/list",
-        }
-
-      ]
-      // 在这里处理一下菜单id
-      let menuId = 0;
-      let subMenuId = 100;
-      this.menuList.forEach(m => {
-        m.id = ++menuId + "";
-        if (m.subMune.length !== 0) {
-          m.subMune.forEach(s => {
-            s.id = ++subMenuId + "";
-            s.s_menu_id = menuId + "";
-          })
-        }
+    logoutNow() {
+      logout().then(() => {
+        this.$router.push('/login')
       })
     },
     to(url) {
