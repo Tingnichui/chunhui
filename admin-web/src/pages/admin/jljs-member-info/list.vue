@@ -122,7 +122,7 @@
                         <el-input v-model="saveForm.memberGender"/>
                     </el-form-item>
                     <el-form-item label="会员年龄">
-                        <el-input v-model="saveForm.memberAge"/>
+                        <el-input-number v-model="saveForm.memberAge"/>
                     </el-form-item>
                     <el-form-item label="手机号">
                         <el-input v-model="saveForm.memberPhoneNum"/>

@@ -119,7 +119,7 @@
                         <el-input v-model="saveForm.courseName"/>
                     </el-form-item>
                     <el-form-item label="价格">
-                        <el-input v-model="saveForm.coursePrice"/>
+                        <el-input-number v-model="saveForm.coursePrice"/>
                     </el-form-item>
                     <el-form-item label="描述">
                         <el-input v-model="saveForm.courseDescribe"/>

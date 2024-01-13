@@ -249,12 +249,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="合同金额">
-          <el-input v-model="saveForm.contractAmount"/>
+          <el-input-number v-model="saveForm.contractAmount"/>
         </el-form-item>
-        <el-form-item label="实际收取金额">
-          <el-input v-model="saveForm.actualChargeAmount"/>
+        <el-form-item label="实际收取">
+          <el-input-number v-model="saveForm.actualChargeAmount" type="number"/>
         </el-form-item>
-        <el-form-item label="合同备注">
+        <el-form-item label="备注">
           <el-input v-model="saveForm.contractRemark"/>
         </el-form-item>
       </el-form>
