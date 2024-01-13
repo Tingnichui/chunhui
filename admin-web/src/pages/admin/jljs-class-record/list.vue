@@ -65,7 +65,7 @@
             label="教练"
         >
           <template #default="scope">
-            <div v-for="item in coachList" >
+            <div v-for="item in coachList">
               <span v-if="item.id === scope.row.coachId"> {{ item.coachName }} </span>
             </div>
           </template>
@@ -143,11 +143,43 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="课程开始时间">
-          <el-input v-model="saveForm.classBeginTime"/>
+        <el-form-item
+            prop="classBeginTime"
+            label="上课日期"
+        >
+          <el-date-picker
+              v-model="saveForm.classDate"
+              type="date"
+              placeholder="请选择日期"
+              :disabled-date="disabledDate"
+              value-format="YYYY-MM-DD"
+              :shortcuts="shortcuts"
+              format="YYYY-MM-DD"
+          />
         </el-form-item>
-        <el-form-item label="课程结束时间">
-          <el-input v-model="saveForm.classEndTime"/>
+        <el-form-item label="开始时间">
+          <el-time-select
+              v-model="saveForm.beginTime"
+              :max-time="saveForm.endTime"
+              class="mr-4"
+              placeholder="请选择结束时间"
+              start="06:00"
+              step="00:15"
+              end="24:00"
+              format="HH:mm"
+          />
+
+        </el-form-item>
+        <el-form-item label="结束时间">
+          <el-time-select
+              v-model="saveForm.endTime"
+              :min-time="saveForm.beginTime"
+              placeholder="请选择开始时间"
+              start="06:00"
+              step="00:15"
+              end="24:00"
+              format="HH:mm"
+          />
         </el-form-item>
         <el-form-item label="课程备注">
           <el-input v-model="saveForm.classRemark"/>
@@ -175,6 +207,7 @@ import {
   saveJljsClassRecord,
   updateJljsClassRecord
 } from "@/api/jljs-class-record.js";
+import {formatDate} from "@/util/DateUtil";
 import {ElMessageBox} from "element-plus";
 import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
 import {pageJljsCoachInfoList} from "@/api/jljs-coach-info";
@@ -186,12 +219,42 @@ export default {
       saveForm: {},
       updateFlag: false,
       saveDialogFlag: false,
-      courseList: [],
+      memberList: [],
       coachList: [],
       searchForm: {
         current: 1,
         size: 15
-      }
+      },
+      shortcuts : [
+        {
+          text: '今天',
+          value: new Date(),
+        },
+        {
+          text: '昨天',
+          value: () => {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            return date
+          },
+        },
+        {
+          text: '前天',
+          value: () => {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 3)
+            return date
+          },
+        },
+        {
+          text: '一周前',
+          value: () => {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            return date
+          },
+        },
+      ]
     }
   },
   mounted() {
@@ -230,6 +293,10 @@ export default {
     },
     showSaveForm() {
       this.resetSaveForm()
+      const date = new Date()
+      this.saveForm.classDate = formatDate(date,'yyyy-MM-dd')
+      this.saveForm.beginTime = formatDate(date, 'HH:mm')
+      this.saveForm.endTime = formatDate(new Date(date.getTime() + 60 * 60 * 1000), 'HH:mm')
       this.saveDialogFlag = true
       this.updateFlag = false
     },
@@ -239,10 +306,15 @@ export default {
       getJljsClassRecordDetail(id).then((res) => {
         this.saveDialogFlag = true
         this.saveForm = res.data
+        this.saveForm.classDate = this.saveForm.classBeginTime.substring(0,10)
+        this.saveForm.beginTime = this.saveForm.classBeginTime.substring(11,16)
+        this.saveForm.endTime = this.saveForm.classEndTime.substring(11,16)
       })
     },
     saveData() {
       const promiseFn = this.updateFlag ? updateJljsClassRecord : saveJljsClassRecord;
+      this.saveForm.classBeginTime = this.saveForm.classDate + ' ' + this.saveForm.beginTime  + ':00'
+      this.saveForm.classEndTime = this.saveForm.classDate + ' ' + this.saveForm.endTime + ':00'
       promiseFn(this.saveForm).then(res => {
         this.$message({
           message: res.message,
@@ -263,6 +335,9 @@ export default {
           })
         })
       })
+    },
+    disabledDate(day) {
+      return day.getTime() > Date.now()
     }
   }
 }
