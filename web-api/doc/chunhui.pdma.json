@@ -4,12 +4,12 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2024-1-12 21:56:24",
+  "updatedTime": "2024-1-14 02:27:10",
   "dbConns": [],
   "profile": {
     "default": {
       "db": "29D1CE08-4C35-4D2D-AAA9-23D93305B52E",
-      "dbConn": "",
+      "dbConn": "8E236CA4-5F0C-45B3-81C3-D67ED3227055",
       "entityInitFields": [
         {
           "defKey": "id",
@@ -4000,7 +4000,7 @@
         {
           "defKey": "contract_status",
           "defName": "合同状态",
-          "comment": "1 未生效；2生效中；3完成；4暂停；5终止；",
+          "comment": "",
           "type": "",
           "len": "",
           "scale": "",
@@ -4326,9 +4326,9 @@
           "id": "671E2C30-8142-4F72-A7EB-DAE4A49F8AF8"
         },
         {
-          "defKey": "operate_type",
+          "defKey": "contract_operate_type",
           "defName": "操作类型",
-          "comment": "1暂停；2补缴；3退课",
+          "comment": "",
           "type": "",
           "len": "",
           "scale": "",
@@ -4337,7 +4337,7 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": true,
-          "refDict": "",
+          "refDict": "155B81AD-EAE5-4B41-BF73-3B7DC128CA65",
           "extProps": {
             "当前时间": "CURRENT_TIMESTAMP"
           },
@@ -5103,9 +5103,175 @@
       "intro": "",
       "items": [],
       "id": "9E7C9788-B805-4C7D-8531-FD1D9DC79B05"
+    },
+    {
+      "defKey": "jljs_contract_operate_type",
+      "defName": "合同操作记录",
+      "sort": "",
+      "intro": "",
+      "id": "155B81AD-EAE5-4B41-BF73-3B7DC128CA65",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "开卡",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "E5FB0B44-C9CD-45CD-9401-3D15C6ED133A"
+        },
+        {
+          "defKey": "2",
+          "defName": "暂停",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "1D56AC31-CD3E-488D-9182-992FD838C383"
+        },
+        {
+          "defKey": "3",
+          "defName": "退课",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "0C2352E9-61CD-442E-B688-A319DFEA216C"
+        },
+        {
+          "defKey": "4",
+          "defName": "补缴",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "AE88A6BF-728B-4008-8521-497622EB8120"
+        }
+      ]
+    },
+    {
+      "defKey": "jljs_contract_status",
+      "defName": "合同状态",
+      "sort": "",
+      "intro": "",
+      "id": "3D586C5C-2447-4103-9207-E0A57DB83D7D",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "未生效",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "615E2ED7-5F93-4C78-ADB2-98D758BC39AA"
+        },
+        {
+          "defKey": "2",
+          "defName": "使用中",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "4C123FF9-B002-4EBF-838D-C2D6F70472E1"
+        },
+        {
+          "defKey": "3",
+          "defName": "已完成",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "D67BE31F-C3D0-4378-9A0B-C7823A0C1C58"
+        },
+        {
+          "defKey": "4",
+          "defName": "暂停",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "502E644F-2DD7-4A5C-9C9F-8B060124454B"
+        },
+        {
+          "defKey": "5",
+          "defName": "终止",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "4E7A1F61-2F28-425B-BE65-8A41A307CEC4"
+        }
+      ]
     }
   ],
-  "viewGroups": [],
+  "viewGroups": [
+    {
+      "defKey": "jljs",
+      "defName": "加励健身",
+      "refEntities": [
+        "48905D8D-62F2-4533-B2C8-5B6CCEB403BD",
+        "B328E34D-4F63-4E87-8E9D-091C7180B4F6",
+        "94D87820-0928-4CF1-A2BF-5818C0772F1E",
+        "B8ACDB52-4B2B-456F-B882-DB85E8620890",
+        "22B1E0F7-731C-4C46-8F49-CB3BE4C88D3A",
+        "E952608A-A3E6-4DAD-B071-811D2F6A63F9"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [
+        "155B81AD-EAE5-4B41-BF73-3B7DC128CA65",
+        "3D586C5C-2447-4103-9207-E0A57DB83D7D"
+      ],
+      "id": "F3DFFBEB-55E9-4D85-B4FF-CC4340A8A240"
+    },
+    {
+      "defKey": "system",
+      "defName": "系统管理",
+      "refEntities": [
+        "B9CCD5AE-BBFB-4682-9B60-A9BB5016A897",
+        "1B797861-AFA8-4EC8-869C-44BDE84A8E65",
+        "A58D1213-67A5-4D95-8603-CBEF4514342B",
+        "B307C23D-2F8D-4EC9-B71D-7DCAA7675133",
+        "E4F16A8D-00B5-4AB3-A3A8-2B8ADF6AFD0A",
+        "F5DC32A9-D4FB-4292-9FB3-58FFC0AB85F0",
+        "0D448AEA-2057-40CE-B405-226477458CE0",
+        "B508471A-8DB2-4975-BA15-57B96A5B44F5",
+        "FEA56997-3EBC-4FCA-A8CB-1F1C39937DB3",
+        "D86E829E-0A99-4F67-9A5C-8B3478C43E57"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "C597E147-E5A4-4561-9250-1EB2CFB648D4"
+    }
+  ],
   "dataTypeMapping": {
     "referURL": "",
     "mappings": [
@@ -5585,5 +5751,18 @@
       "id": "F30202B9-4B5D-4CE7-87CE-B3890C84D3F2"
     }
   ],
-  "dbConn": []
+  "dbConn": [
+    {
+      "defKey": "8E236CA4-5F0C-45B3-81C3-D67ED3227055",
+      "defName": "阿里云",
+      "type": "29D1CE08-4C35-4D2D-AAA9-23D93305B52E",
+      "properties": {
+        "driver_class_name": "com.mysql.cj.jdbc.Driver",
+        "url": "jdbc:mysql://120.79.131.118:3306/chunhui?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true&useAffectedRows=true",
+        "password": "Hui2better@128",
+        "username": "root",
+        "customer_driver": ""
+      }
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-package com.chunhui.web.controller;
+package com.chunhui.web.controller.system;
 
 import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.pojo.vo.AliyunOssUploadAccess;

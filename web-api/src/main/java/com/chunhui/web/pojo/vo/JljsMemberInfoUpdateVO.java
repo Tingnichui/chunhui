@@ -16,6 +16,7 @@ public class JljsMemberInfoUpdateVO {
     /**
      * 会员姓名
      */
+    @NotBlank(message = "会员姓名不能为空")
     private String memberName;
 
 

@@ -17,24 +17,28 @@ public class JljsContractInfoUpdateVO {
     /**
      * 会员id
      */
+    @NotBlank(message = "会员不能为空")
     private String memberId;
 
 
     /**
      * 课程id
      */
+    @NotBlank(message = "课程不能为空")
     private String courseInfoId;
 
 
     /**
      * 开单教练id
      */
+    @NotBlank(message = "开单教练不能为空")
     private String belongCoachId;
 
 
     /**
      * 合同金额
      */
+    @NotBlank(message = "合同金额不能为空")
     private BigDecimal contractAmount;
 
 
@@ -71,6 +75,7 @@ public class JljsContractInfoUpdateVO {
     /**
      * 实际收取金额
      */
+    @NotBlank(message = "实际收取金额不能为空")
     private String actualChargeAmount;
 
 

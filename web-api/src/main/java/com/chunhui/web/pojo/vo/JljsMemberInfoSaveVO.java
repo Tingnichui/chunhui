@@ -2,6 +2,8 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 
 @Data
 public class JljsMemberInfoSaveVO {
@@ -10,6 +12,7 @@ public class JljsMemberInfoSaveVO {
     /**
      * 会员姓名
      */
+    @NotBlank(message = "会员姓名不能为空")
     private String memberName;
 
 

@@ -16,6 +16,7 @@ public class JljsCoachInfoUpdateVO {
     /**
      * 教练姓名
      */
+    @NotBlank(message = "教练姓名不能为空")
     private String coachName;
 
 
