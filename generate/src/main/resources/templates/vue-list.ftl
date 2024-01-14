@@ -11,7 +11,7 @@
                 <#list fields as field>
                     <el-form-item
                             label="${field.comment} :"
-                            prop="name"
+                            prop="${field.nameHump}"
                             style="width:25%"
                     >
                         <el-input
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-    import {deleteById, detail, pageList, save, update} from "@/api/${tableKebab}.js";
+    import {delete${tableBigHump}ById, get${tableBigHump}Detail, page${tableBigHump}List, save${tableBigHump}, update${tableBigHump}} from "@/api/${tableKebab}.js";
     import {ElMessageBox} from "element-plus";
 
     export default {
@@ -125,7 +125,7 @@
         },
         methods: {
             search() {
-                pageList(this.searchForm).then(res => {
+                page${tableBigHump}List(this.searchForm).then(res => {
                         this.tableData = res.data
                     }
                 )
@@ -156,13 +156,13 @@
             showUpdate(id) {
                 this.resetSaveForm()
                 this.updateFlag = true
-                detail(id).then((res) => {
+                get${tableBigHump}Detail(id).then((res) => {
                     this.saveDialogFlag = true
                     this.saveForm = res.data
                 })
             },
             saveData() {
-                const promiseFn = this.updateFlag ? update : save;
+                const promiseFn = this.updateFlag ? update${tableBigHump} : save${tableBigHump};
                 promiseFn(this.saveForm).then(res => {
                     this.$message({
                         message: res.message,
@@ -175,7 +175,7 @@
             },
             deleteInfo(id) {
                 ElMessageBox.confirm('确定删除？').then(() => {
-                    deleteById(id).then(res => {
+                    delete${tableBigHump}ById(id).then(res => {
                         this.research()
                         this.$message({
                             message: "删除成功",

@@ -16,7 +16,12 @@ import java.util.List;
 
 public class Main {
 
-    public static final List<String> tableNames = Arrays.asList("res_info");
+    public static final List<String> tableNames = Arrays.asList("jljs_contract_operate_record");
+
+
+
+
+
 
     /**
      * 忽略表字段
@@ -90,7 +95,7 @@ public class Main {
                 .setFilePrefix("Service")
                 .setFileSuffix(".java"));
 
-        // service
+        // Controller
         templateList.add(new TemplateConfig()
                 .setCoverFlag(true)
                 .setName("controller.ftl")
@@ -98,21 +103,21 @@ public class Main {
                 .setFilePrefix("Controller")
                 .setFileSuffix(".java"));
 
-        // vue-list.ftl
-        templateList.add(new TemplateConfig()
-                .setCoverFlag(true)
-                .setName("vue-list.ftl")
-                .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\pages\\admin")
-                .setFatherDir("tableName")
-                .setFilePrefix("list")
-                .setFileSuffix(".vue"));
-
-        // vue-api
-        templateList.add(new TemplateConfig()
-                .setCoverFlag(true)
-                .setName("vue-api.ftl")
-                .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\api")
-                .setFileSuffix(".js"));
+//        // vue-list.ftl
+//        templateList.add(new TemplateConfig()
+//                .setCoverFlag(true)
+//                .setName("vue-list.ftl")
+//                .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\pages\\admin")
+//                .setFatherDir("tableName")
+//                .setFilePrefix("list")
+//                .setFileSuffix(".vue"));
+//
+//        // vue-api
+//        templateList.add(new TemplateConfig()
+//                .setCoverFlag(true)
+//                .setName("vue-api.ftl")
+//                .setGenateDir("D:\\project\\chunhui\\admin-web\\src\\api")
+//                .setFileSuffix(".js"));
 
     }
 

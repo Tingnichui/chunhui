@@ -4,6 +4,7 @@ package com.chunhui.web.controller;
 import com.chunhui.web.pojo.query.${tableBigHump}Query;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.service.${tableBigHump}Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 
+@Validated
 @RestController
 @RequestMapping("/${tableHump}")
 public class ${tableBigHump}Controller {
@@ -20,7 +22,7 @@ public class ${tableBigHump}Controller {
 private ${tableBigHump}Service ${tableHump}Service;
 
 @RequestMapping("/pageList")
-public Result<PageResult<${tableBigHump}OutVO>> regist(@RequestBody ${tableBigHump}Query query) {
+public Result<PageResult<${tableBigHump}OutVO>> pageList(@RequestBody ${tableBigHump}Query query) {
     return ${tableHump}Service.pageList(query);
     }
 
@@ -30,13 +32,13 @@ return ${tableHump}Service.detail(id);
 }
 
 @RequestMapping("/save")
-public Result<String> save(@RequestBody ${tableBigHump}SaveVO saveVO) {
+public Result<String> save(@Validated @RequestBody ${tableBigHump}SaveVO saveVO) {
 return ${tableHump}Service.save(saveVO);
 }
 
 
 @RequestMapping("/update")
-public Result<String> update(@RequestBody ${tableBigHump}UpdateVO updateVO) {
+public Result<String> update(@Validated @RequestBody ${tableBigHump}UpdateVO updateVO) {
 return ${tableHump}Service.update(updateVO);
 }
 
