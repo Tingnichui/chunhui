@@ -122,7 +122,7 @@
       />
     </el-card>
     <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
-      <el-form :model="saveForm" label-position="right" label-width="80px">
+      <el-form :model="saveForm" label-position="right" label-width="80px" :rules="rules">
         <el-form-item label="教练">
           <el-select v-model="saveForm.coachId" filterable placeholder="请选择教练">
             <el-option
@@ -225,6 +225,9 @@ export default {
         current: 1,
         size: 15
       },
+      rules: [
+
+      ],
       shortcuts : [
         {
           text: '今天',

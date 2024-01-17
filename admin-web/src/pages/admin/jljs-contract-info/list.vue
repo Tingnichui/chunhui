@@ -148,7 +148,7 @@
             label="课程"
         >
           <template #default="scope">
-            <div v-for="item in courseList" >
+            <div v-for="item in courseList">
               <span v-if="item.id === scope.row.courseInfoId"> {{ item.courseName }} </span>
             </div>
           </template>
@@ -158,7 +158,7 @@
             label="开单教练"
         >
           <template #default="scope">
-            <div v-for="item in coachList" >
+            <div v-for="item in coachList">
               <span v-if="item.id === scope.row.belongCoachId"> {{ item.coachName }} </span>
             </div>
           </template>
@@ -188,6 +188,16 @@
             label="实际收取金额"
         />
         <el-table-column
+            prop="actualChargeAmount"
+            label="合同状态"
+        >
+          <template #default="scope">
+            <div v-for="item in contractStatusList">
+              <span v-if="item.value === scope.row.contractStatus"> {{ item.label }} </span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
             prop="act"
             label="操作"
             :width="160"
@@ -196,6 +206,10 @@
         >
           <template #default="scope">
             <el-space>
+              <div>
+                <el-button v-if="scope.row.contractStatus === '1'" link type="primary" @click="showkaika(scope.row.id)">开卡</el-button>
+                <el-button v-else link type="primary" @click="operateDialogFlag = true;contractId = scope.row.id">操作</el-button>
+              </div>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
               <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
             </el-space>
@@ -216,6 +230,28 @@
           @size-change="changePageSize"
       />
     </el-card>
+    <el-dialog v-model="operateDialogFlag">
+      <contractOperateRecord :contract-id="contractId"></contractOperateRecord>
+    </el-dialog>
+    <el-dialog v-model="kaikaDialogFlag" center title="开卡" width="40%">
+      <el-form :model="kaikaForm" label-position="right" label-width="80px">
+        <el-form-item label="开卡时间">
+          <el-date-picker
+              v-model="kaikaForm.operateBeginDate"
+              type="date"
+              placeholder="请选择开卡时间"
+              value-format="YYYY-MM-DD"
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+          <span class="dialog-footer">
+            <el-button type="primary" @click="doKaika">
+              确定
+            </el-button>
+          </span>
+      </template>
+    </el-dialog>
     <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
       <el-form :model="saveForm" label-position="right" label-width="80px">
         <el-form-item label="会员">
@@ -284,21 +320,30 @@ import {ElMessageBox} from "element-plus";
 import {pageJljsCoachInfoList} from "@/api/jljs-coach-info";
 import {pageJljsCourseInfoList} from "@/api/jljs-course-info";
 import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
+import contractOperateRecord from '@/pages/admin/jljs-contract-operate-record/list.vue'
+import {saveJljsContractOperateRecord, updateJljsContractOperateRecord} from "@/api/jljs-contract-operate-record";
 
 export default {
+  components: {
+    contractOperateRecord
+  },
   data() {
     return {
       tableData: {total: 0},
       saveForm: {},
       updateFlag: false,
       saveDialogFlag: false,
+      operateDialogFlag: false,
+      kaikaDialogFlag: false,
+      kaikaForm: {},
       memberList: [],
       courseList: [],
       coachList: [],
+      contractId: '',
       contractStatusList: [
         {label: '未生效', value: '1'},
-        {label: '生效中', value: '2'},
-        {label: '完成', value: '3'},
+        {label: '使用中', value: '2'},
+        {label: '已完成', value: '3'},
         {label: '暂停', value: '4'},
         {label: '终止', value: '5'},
       ],
@@ -383,6 +428,23 @@ export default {
     },
     changeCourse(value) {
       this.saveForm.contractAmount = this.courseList.find(v => v.id === value).coursePrice
+    },
+    showkaika(id) {
+      this.kaikaForm = {
+        contractInfoId: id,
+        contractOperateType: '1'
+      }
+      this.kaikaDialogFlag = true
+    },
+    doKaika() {
+      saveJljsContractOperateRecord(this.kaikaForm).then(res => {
+        this.$message({
+          message: res.message,
+          type: 'success',
+        })
+        this.kaikaDialogFlag = false
+        this.research()
+      })
     }
   }
 }

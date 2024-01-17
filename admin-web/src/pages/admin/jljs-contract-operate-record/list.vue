@@ -1,86 +1,22 @@
 <template>
   <div class="page">
-    <el-card>
-      <el-form
-          class="query-form"
-          inline
-          :label-width="80"
-          :model="searchForm"
-      >
-        <el-form-item
-            label="heto :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.contractInfoId"
-          />
-        </el-form-item>
-        <el-form-item
-            label="操作类型;1暂停；2补缴；3退课 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.operateType"
-          />
-        </el-form-item>
-        <el-form-item
-            label="间隔天数 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.intervalDays"
-          />
-        </el-form-item>
-        <el-form-item
-            label="开始时间 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.operateBeginDate"
-          />
-        </el-form-item>
-        <el-form-item
-            label="结束时间 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.operateEndDate"
-          />
-        </el-form-item>
-        <el-form-item
-            label="操作原因 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.operateReason"
-          />
-        </el-form-item>
-        <el-form-item
-            label="操作金额 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.operateAmount"
-          />
-        </el-form-item>
-        <div class="action-groups">
-          <el-button type="primary" plain @click="search">查询</el-button>
-          <el-button type="primary" plain @click="research">重置</el-button>
-        </div>
-      </el-form>
-    </el-card>
+<!--    <el-card>-->
+<!--      <el-form-->
+<!--          class="query-form"-->
+<!--          inline-->
+<!--          :label-width="80"-->
+<!--          :model="searchForm"-->
+<!--      >-->
+<!--        <div class="action-groups">-->
+<!--        </div>-->
+<!--      </el-form>-->
+<!--    </el-card>-->
     <el-card>
       <template #header>
         <div class="card-header">
-          <el-space><span>菜单管理</span></el-space>
+          <el-space><span>{{ contractId }}</span></el-space>
           <el-space>
+            <el-button type="primary" plain @click="search">查询</el-button>
             <el-button type="primary" plain @click="showSaveForm">新增</el-button>
           </el-space>
         </div>
@@ -96,12 +32,8 @@
           :stripe="true"
       >
         <el-table-column
-            prop="contractInfoId"
-            label="heto"
-        />
-        <el-table-column
-            prop="operateType"
-            label="操作类型;1暂停；2补缴；3退课"
+            prop="contractOperateType"
+            label="合同操作类型"
         />
         <el-table-column
             prop="intervalDays"
@@ -154,26 +86,62 @@
     </el-card>
     <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
       <el-form :model="saveForm" label-position="right" label-width="80px">
-        <el-form-item label="heto">
-          <el-input v-model="saveForm.contractInfoId"/>
+        <el-form-item label="合同操作类型">
+          <el-select v-model="saveForm.contractOperateType" filterable placeholder="请选择合同操作">
+            <el-option
+                v-for="item in contractOperateTypeList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="操作类型;1暂停；2补缴；3退课">
-          <el-input v-model="saveForm.operateType"/>
-        </el-form-item>
-        <el-form-item label="间隔天数">
-          <el-input v-model="saveForm.intervalDays"/>
-        </el-form-item>
-        <el-form-item label="开始时间">
-          <el-input v-model="saveForm.operateBeginDate"/>
-        </el-form-item>
-        <el-form-item label="结束时间">
-          <el-input v-model="saveForm.operateEndDate"/>
-        </el-form-item>
+        <div>
+          <!-- 开卡 -->
+          <div v-if="saveForm.contractOperateType === '1'">
+            <el-form-item label="开卡时间">
+              <el-date-picker
+                  v-model="saveForm.operateBeginDate"
+                  type="date"
+                  value-format="YYYY-MM-DD"
+                  placeholder="请选择开卡时间"
+              />
+            </el-form-item>
+          </div>
+          <!-- 停课 -->
+          <div v-if="saveForm.contractOperateType === '2'">
+            <el-form-item label="开始时间">
+              <el-date-picker
+                  v-model="saveForm.operateBeginDate"
+                  type="date"
+                  value-format="YYYY-MM-DD"
+                  placeholder="请选择开始时间"
+              />
+            </el-form-item>
+            <el-form-item label="结束时间">
+              <el-date-picker
+                  v-model="saveForm.operateEndDate"
+                  type="date"
+                  value-format="YYYY-MM-DD"
+                  placeholder="请选择结束时间"
+              />
+            </el-form-item>
+          </div>
+          <!-- 退课 -->
+          <div v-if="saveForm.contractOperateType === '3'">
+            <el-form-item label="操作金额">
+              <el-input-number v-model="saveForm.operateAmount"/>
+            </el-form-item>
+          </div>
+          <!-- 补缴 -->
+          <div v-if="saveForm.contractOperateType === '4'">
+            <el-form-item label="操作金额">
+              <el-input-number v-model="saveForm.operateAmount"/>
+            </el-form-item>
+          </div>
+        </div>
         <el-form-item label="操作原因">
           <el-input v-model="saveForm.operateReason"/>
-        </el-form-item>
-        <el-form-item label="操作金额">
-          <el-input v-model="saveForm.operateAmount"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -199,32 +167,36 @@ import {
   updateJljsContractOperateRecord
 } from "@/api/jljs-contract-operate-record.js";
 import {ElMessageBox} from "element-plus";
-import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
-import {pageJljsCoachInfoList} from "@/api/jljs-coach-info";
 
 export default {
+  name: 'contractOperateRecord',
+  props: {
+    contractId: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       tableData: {total: 0},
       saveForm: {},
       updateFlag: false,
       saveDialogFlag: false,
-      memberList: [],
-      coachList: [],
       searchForm: {
         current: 1,
         size: 15
-      }
+      },
+      contractInfoId: this.contractId,
+      contractOperateTypeList: [
+        {label: '开卡', value: '1'},
+        {label: '暂停', value: '2'},
+        {label: '退课', value: '3'},
+        {label: '补缴', value: '4'},
+      ]
     }
   },
   mounted() {
     this.research()
-    pageJljsMemberInfoList({size: -1}).then(res => {
-      this.memberList = res.data.records
-    })
-    pageJljsCoachInfoList({size: -1}).then(res => {
-      this.coachList = res.data.records
-    })
   },
   methods: {
     search() {
@@ -236,7 +208,8 @@ export default {
     research() {
       this.searchForm = {
         current: 1,
-        size: 15
+        size: 15,
+        contractInfoId: this.contractInfoId
       }
       this.search()
     },
@@ -249,7 +222,9 @@ export default {
       this.search()
     },
     resetSaveForm() {
-      this.saveForm = {}
+      this.saveForm = {
+        contractInfoId: this.contractInfoId
+      }
     },
     showSaveForm() {
       this.resetSaveForm()
