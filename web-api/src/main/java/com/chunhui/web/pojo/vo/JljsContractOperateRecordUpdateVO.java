@@ -16,15 +16,15 @@ private String id;
 
 
     /**
-    * heto
+    * 合同id
     */
     private String contractInfoId;
 
 
     /**
-    * 操作类型;1暂停；2补缴；3退课
+    * 合同操作类型
     */
-    private String operateType;
+    private String contractOperateType;
 
 
     /**

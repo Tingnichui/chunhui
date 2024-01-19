@@ -3,6 +3,7 @@ package com.chunhui.web.pojo.vo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -31,14 +32,14 @@ public class JljsClassRecordUpdateVO {
     /**
      * 课程开始时间
      */
-    @NotBlank(message = "课程开始时间不能为空")
+    @NotNull(message = "课程开始时间不能为空")
     private Date classBeginTime;
 
 
     /**
      * 课程结束时间
      */
-    @NotBlank(message = "课程结束时间不能为空")
+    @NotNull(message = "课程结束时间不能为空")
     private Date classEndTime;
 
 

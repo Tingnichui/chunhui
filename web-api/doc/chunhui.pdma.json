@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.1.3",
   "createdTime": "2023-11-24 20:55:18",
-  "updatedTime": "2024-1-14 02:27:10",
+  "updatedTime": "2024-1-14 03:33:22",
   "dbConns": [],
   "profile": {
     "default": {
@@ -4005,7 +4005,7 @@
           "len": "",
           "scale": "",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": true,
@@ -4327,7 +4327,7 @@
         },
         {
           "defKey": "contract_operate_type",
-          "defName": "操作类型",
+          "defName": "合同操作类型",
           "comment": "",
           "type": "",
           "len": "",
@@ -4438,6 +4438,25 @@
           },
           "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
           "id": "D57627AF-D1B5-4BB8-9B8F-53C9BFF99560"
+        },
+        {
+          "defKey": "operate_cancel_status",
+          "defName": "是否撤销",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "2CE0FE7A-2052-4D6A-BBF7-3D6BF9CFA4EA",
+          "extProps": {
+            "当前时间": "CURRENT_TIMESTAMP"
+          },
+          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
+          "id": "7DF08C91-44D8-4B8A-B6A3-59E804916F03"
         }
       ],
       "correlations": [],
@@ -5229,6 +5248,39 @@
           "id": "4E7A1F61-2F28-425B-BE65-8A41A307CEC4"
         }
       ]
+    },
+    {
+      "defKey": "operate_cancel_status",
+      "defName": "操作撤销状态",
+      "sort": "",
+      "intro": "",
+      "id": "2CE0FE7A-2052-4D6A-BBF7-3D6BF9CFA4EA",
+      "items": [
+        {
+          "defKey": "0",
+          "defName": "未撤销",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "870109CD-BBD0-4191-8E02-D4A4018E4292"
+        },
+        {
+          "defKey": "1",
+          "defName": "已撤销",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "2C971C16-5DAA-489D-9B0B-FBBE2FC0F834"
+        }
+      ]
     }
   ],
   "viewGroups": [
@@ -5247,7 +5299,8 @@
       "refDiagrams": [],
       "refDicts": [
         "155B81AD-EAE5-4B41-BF73-3B7DC128CA65",
-        "3D586C5C-2447-4103-9207-E0A57DB83D7D"
+        "3D586C5C-2447-4103-9207-E0A57DB83D7D",
+        "2CE0FE7A-2052-4D6A-BBF7-3D6BF9CFA4EA"
       ],
       "id": "F3DFFBEB-55E9-4D85-B4FF-CC4340A8A240"
     },

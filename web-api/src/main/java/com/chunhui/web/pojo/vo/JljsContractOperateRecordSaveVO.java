@@ -2,8 +2,7 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 
 @Data
@@ -11,44 +10,46 @@ public class JljsContractOperateRecordSaveVO {
 
 
     /**
-    * heto
-    */
+     * 合同id
+     */
+    @NotBlank(message = "合同id不能为空")
     private String contractInfoId;
 
 
     /**
-    * 操作类型;1暂停；2补缴；3退课
-    */
-    private String operateType;
+     * 合同操作类型
+     */
+    @NotBlank(message = "操作时间不能为空")
+    private String contractOperateType;
 
 
     /**
-    * 间隔天数
-    */
+     * 间隔天数
+     */
     private Integer intervalDays;
 
 
     /**
-    * 开始时间
-    */
+     * 开始时间
+     */
     private String operateBeginDate;
 
 
     /**
-    * 结束时间
-    */
+     * 结束时间
+     */
     private String operateEndDate;
 
 
     /**
-    * 操作原因
-    */
+     * 操作原因
+     */
     private String operateReason;
 
 
     /**
-    * 操作金额
-    */
+     * 操作金额
+     */
     private String operateAmount;
 
 

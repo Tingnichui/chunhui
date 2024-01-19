@@ -22,7 +22,7 @@ public class JljsContractOperateRecordDao extends BaseDao
     public IPage<JljsContractOperateRecord> pageListByQurey(JljsContractOperateRecordQuery query) {
         LambdaQueryWrapper<JljsContractOperateRecord> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.like(StringUtils.isNotBlank(query.getContractInfoId()), JljsContractOperateRecord::getContractInfoId, query.getContractInfoId());
-        queryWrapper.like(StringUtils.isNotBlank(query.getOperateType()), JljsContractOperateRecord::getOperateType, query.getOperateType());
+        queryWrapper.like(StringUtils.isNotBlank(query.getContractOperateType()), JljsContractOperateRecord::getContractOperateType, query.getContractOperateType());
 //    queryWrapper.like(StringUtils.isNotBlank(query.getIntervalDays()), JljsContractOperateRecord::getIntervalDays, query.getIntervalDays());
         queryWrapper.like(StringUtils.isNotBlank(query.getOperateBeginDate()), JljsContractOperateRecord::getOperateBeginDate, query.getOperateBeginDate());
         queryWrapper.like(StringUtils.isNotBlank(query.getOperateEndDate()), JljsContractOperateRecord::getOperateEndDate, query.getOperateEndDate());

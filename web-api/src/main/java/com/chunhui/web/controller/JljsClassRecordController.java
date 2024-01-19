@@ -18,34 +18,33 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/jljsClassRecord")
 public class JljsClassRecordController {
 
-@Resource
-private JljsClassRecordService jljsClassRecordService;
+    @Resource
+    private JljsClassRecordService jljsClassRecordService;
 
-@RequestMapping("/pageList")
-public Result<PageResult<JljsClassRecordOutVO>> pageList(@RequestBody JljsClassRecordQuery query) {
-    return jljsClassRecordService.pageList(query);
+    @RequestMapping("/pageList")
+    public Result<PageResult<JljsClassRecordOutVO>> pageList(@RequestBody JljsClassRecordQuery query) {
+        return jljsClassRecordService.pageList(query);
     }
 
-@RequestMapping("/detail")
-public Result<JljsClassRecordOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsClassRecordService.detail(id);
-}
+    @RequestMapping("/detail")
+    public Result<JljsClassRecordOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsClassRecordService.detail(id);
+    }
 
-@RequestMapping("/save")
-public Result<String> save(@Validated @RequestBody JljsClassRecordSaveVO saveVO) {
-return jljsClassRecordService.save(saveVO);
-}
+    @RequestMapping("/save")
+    public Result<String> save(@Validated @RequestBody JljsClassRecordSaveVO saveVO) {
+        return jljsClassRecordService.save(saveVO);
+    }
 
+    @RequestMapping("/update")
+    public Result<String> update(@Validated @RequestBody JljsClassRecordUpdateVO updateVO) {
+        return jljsClassRecordService.update(updateVO);
+    }
 
-@RequestMapping("/update")
-public Result<String> update(@Validated @RequestBody JljsClassRecordUpdateVO updateVO) {
-return jljsClassRecordService.update(updateVO);
-}
-
-@RequestMapping("/delete")
-public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsClassRecordService.delete(id);
-}
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsClassRecordService.delete(id);
+    }
 
 
 }
