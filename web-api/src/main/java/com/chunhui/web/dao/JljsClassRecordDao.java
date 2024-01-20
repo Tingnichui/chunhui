@@ -26,6 +26,7 @@ public class JljsClassRecordDao extends BaseDao
 //    queryWrapper.like(StringUtils.isNotBlank(query.getClassBeginTime()), JljsClassRecord::getClassBeginTime, query.getClassBeginTime());
 //    queryWrapper.like(StringUtils.isNotBlank(query.getClassEndTime()), JljsClassRecord::getClassEndTime, query.getClassEndTime());
         queryWrapper.like(StringUtils.isNotBlank(query.getClassRemark()), JljsClassRecord::getClassRemark, query.getClassRemark());
+        queryWrapper.orderByDesc(JljsClassRecord::getClassBeginTime);
         return super.pageList(query, queryWrapper);
     }
 
