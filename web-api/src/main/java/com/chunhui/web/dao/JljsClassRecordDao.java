@@ -1,5 +1,6 @@
 package com.chunhui.web.dao;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -22,8 +23,8 @@ public class JljsClassRecordDao extends BaseDao<JljsClassRecordMapper, JljsClass
         LambdaQueryWrapper<JljsClassRecord> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.like(StringUtils.isNotBlank(query.getCoachId()), JljsClassRecord::getCoachId, query.getCoachId());
         queryWrapper.like(StringUtils.isNotBlank(query.getMemberId()), JljsClassRecord::getMemberId, query.getMemberId());
-        queryWrapper.ge(null != query.getClassBeginTime(), JljsClassRecord::getClassBeginTime, query.getClassBeginTime());
-        queryWrapper.le(null != query.getClassEndTime(), JljsClassRecord::getClassEndTime, query.getClassEndTime());
+        queryWrapper.ge(null != query.getClassBeginTime(), JljsClassRecord::getClassBeginTime, DateUtil.format(query.getClassBeginTime(), "yyyy-MM-dd 00:00:00"));
+        queryWrapper.le(null != query.getClassBeginTime(), JljsClassRecord::getClassBeginTime, DateUtil.format(query.getClassEndTime(), "yyyy-MM-dd 23:59:59"));
         queryWrapper.like(StringUtils.isNotBlank(query.getClassRemark()), JljsClassRecord::getClassRemark, query.getClassRemark());
         queryWrapper.orderByDesc(JljsClassRecord::getClassBeginTime);
         return super.pageList(query, queryWrapper);

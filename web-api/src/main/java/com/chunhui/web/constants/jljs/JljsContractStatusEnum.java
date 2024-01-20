@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum JljsContractStatusEnum {
 
     daikaika("1", "待开卡"),
-    shiong("2", "使用中"),
+    shiyong("2", "使用中"),
     wancheng("3", "已完成"),
     zanting("4", "暂停"),
     zhongzhi("5", "终止"),

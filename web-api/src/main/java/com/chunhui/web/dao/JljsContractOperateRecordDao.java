@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.chunhui.web.mapper.JljsContractOperateRecordMapper;
+import com.chunhui.web.pojo.po.BaseDO;
 import com.chunhui.web.pojo.po.JljsContractOperateRecord;
 import com.chunhui.web.pojo.query.JljsContractOperateRecordQuery;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,7 @@ public class JljsContractOperateRecordDao extends BaseDao
         queryWrapper.like(StringUtils.isNotBlank(query.getOperateEndDate()), JljsContractOperateRecord::getOperateEndDate, query.getOperateEndDate());
         queryWrapper.like(StringUtils.isNotBlank(query.getOperateReason()), JljsContractOperateRecord::getOperateReason, query.getOperateReason());
         queryWrapper.like(StringUtils.isNotBlank(query.getOperateAmount()), JljsContractOperateRecord::getOperateAmount, query.getOperateAmount());
+        queryWrapper.orderByDesc(BaseDO::getCreateTime);
         return super.pageList(query, queryWrapper);
     }
 

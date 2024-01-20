@@ -18,34 +18,33 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/jljsContractInfo")
 public class JljsContractInfoController {
 
-@Resource
-private JljsContractInfoService jljsContractInfoService;
+    @Resource
+    private JljsContractInfoService jljsContractInfoService;
 
-@RequestMapping("/pageList")
-public Result<PageResult<JljsContractInfoOutVO>> pageList(@RequestBody JljsContractInfoQuery query) {
-    return jljsContractInfoService.pageList(query);
+    @RequestMapping("/pageList")
+    public Result<PageResult<JljsContractInfoOutVO>> pageList(@RequestBody JljsContractInfoQuery query) {
+        return jljsContractInfoService.pageList(query);
     }
 
-@RequestMapping("/detail")
-public Result<JljsContractInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsContractInfoService.detail(id);
-}
+    @RequestMapping("/detail")
+    public Result<JljsContractInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsContractInfoService.detail(id);
+    }
 
-@RequestMapping("/save")
-public Result<String> save(@Validated @RequestBody JljsContractInfoSaveVO saveVO) {
-return jljsContractInfoService.save(saveVO);
-}
+    @RequestMapping("/save")
+    public Result<String> save(@Validated @RequestBody JljsContractInfoSaveVO saveVO) {
+        return jljsContractInfoService.save(saveVO);
+    }
 
+    @RequestMapping("/update")
+    public Result<String> update(@Validated @RequestBody JljsContractInfoUpdateVO updateVO) {
+        return jljsContractInfoService.update(updateVO);
+    }
 
-@RequestMapping("/update")
-public Result<String> update(@Validated @RequestBody JljsContractInfoUpdateVO updateVO) {
-return jljsContractInfoService.update(updateVO);
-}
-
-@RequestMapping("/delete")
-public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsContractInfoService.delete(id);
-}
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsContractInfoService.delete(id);
+    }
 
 
 }

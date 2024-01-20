@@ -1,8 +1,10 @@
 package com.chunhui.web.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 
 @Data
@@ -32,13 +34,15 @@ public class JljsContractOperateRecordSaveVO {
     /**
      * 开始时间
      */
-    private String operateBeginDate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date operateBeginDate;
 
 
     /**
      * 结束时间
      */
-    private String operateEndDate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date operateEndDate;
 
 
     /**

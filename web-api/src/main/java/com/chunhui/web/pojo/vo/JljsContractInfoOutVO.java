@@ -1,8 +1,10 @@
 package com.chunhui.web.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 public class JljsContractInfoOutVO {
@@ -44,19 +46,20 @@ public class JljsContractInfoOutVO {
     /**
      * 使用开始日期
      */
-    private String useBeginDate;
+    @JsonFormat
+    private Date useBeginDate;
 
 
     /**
      * 使用结束日期
      */
-    private String useEndDate;
+    private Date useEndDate;
 
 
     /**
      * 购买日期
      */
-    private String buyTime;
+    private Date buyTime;
 
 
     /**
@@ -68,7 +71,7 @@ public class JljsContractInfoOutVO {
     /**
      * 实际收取金额
      */
-    private String actualChargeAmount;
+    private BigDecimal actualChargeAmount;
 
 
 }

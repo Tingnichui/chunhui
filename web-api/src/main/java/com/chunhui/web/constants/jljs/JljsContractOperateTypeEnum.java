@@ -11,6 +11,7 @@ public enum JljsContractOperateTypeEnum {
     zanting("2", "暂停"),
     tuike("3", "退课"),
     bujiao("4", "补缴"),
+    yanqi("5", "延期"),
     ;
 
 

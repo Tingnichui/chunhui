@@ -207,8 +207,9 @@
           <template #default="scope">
             <el-space>
               <div>
-                <el-button v-if="scope.row.contractStatus === '1'" link type="primary" @click="showkaika(scope.row.id)">开卡</el-button>
-                <el-button v-else link type="primary" @click="operateDialogFlag = true;contractId = scope.row.id">操作</el-button>
+                <el-button v-if="scope.row.contractStatus === '1'" link type="primary" @click="contractOperate(scope.row.id, '1')">开卡</el-button>
+                <el-button v-else link type="primary" @click="contractOperate(scope.row.id)">操作</el-button>
+<!--                <el-button v-else link type="primary" @click="operateDialogFlag = true;contractId = scope.row.id">操作</el-button>-->
               </div>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
               <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
@@ -234,25 +235,74 @@
     <el-dialog v-model="operateDialogFlag">
       <contractOperateRecord :contract-id="contractId"></contractOperateRecord>
     </el-dialog>
-    <el-dialog v-model="kaikaDialogFlag" center title="开卡" width="40%">
-      <el-form :model="kaikaForm" label-position="right" label-width="80px">
-        <el-form-item label="开卡时间">
-          <el-date-picker
-              v-model="kaikaForm.operateBeginDate"
-              type="date"
-              placeholder="请选择开卡时间"
-              value-format="YYYY-MM-DD"
-          />
+
+    <el-dialog v-model="contractOperateDialogFlag" center title="操作" width="40%">
+      <el-form :model="contractOperateForm" label-position="right" label-width="80px">
+        <el-form-item label="操作类型">
+          <el-select v-model="contractOperateForm.contractOperateType" filterable placeholder="请选择操作类型" @change="changeOperateType">
+            <el-option
+                v-for="item in contractOperateTypeList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <div>
+          <!-- 开卡 -->
+          <div v-if="contractOperateForm.contractOperateType === '1'">
+            <el-form-item label="开卡时间">
+              <el-date-picker
+                  v-model="contractOperateForm.operateBeginDate"
+                  type="date"
+                  value-format="YYYY-MM-DD"
+                  placeholder="请选择开卡时间"
+              />
+            </el-form-item>
+          </div>
+          <!-- 停课 -->
+          <div v-if="contractOperateForm.contractOperateType === '2'">
+            <el-form-item label="起始时间">
+              <el-date-picker
+                  v-model="contractOperateForm.dateRange"
+                  type="daterange"
+                  unlink-panels
+                  range-separator="-"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  value-format="YYYY-MM-DD"
+              />
+            </el-form-item>
+          </div>
+          <!-- 退课 -->
+          <div v-if="contractOperateForm.contractOperateType === '3'">
+            <el-form-item label="操作金额">
+              <el-input-number v-model="contractOperateForm.operateAmount"/>
+            </el-form-item>
+          </div>
+          <!-- 补缴 -->
+          <div v-if="contractOperateForm.contractOperateType === '4'">
+            <el-form-item label="操作金额">
+              <el-input-number v-model="contractOperateForm.operateAmount"/>
+            </el-form-item>
+          </div>
+        </div>
+        <el-form-item label="操作原因">
+          <el-input v-model="contractOperateForm.operateReason"/>
         </el-form-item>
       </el-form>
       <template #footer>
           <span class="dialog-footer">
-            <el-button type="primary" @click="doKaika">
-              确定
+            <el-button type="primary" @click="contractOperateDialogFlag = false">
+              取消
+            </el-button>
+            <el-button type="primary" @click="contractOperateSave">
+              保存
             </el-button>
           </span>
       </template>
     </el-dialog>
+
     <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
       <el-form :model="saveForm" label-position="right" label-width="80px">
         <el-form-item label="会员">
@@ -289,7 +339,7 @@
           <el-input-number v-model="saveForm.contractAmount"/>
         </el-form-item>
         <el-form-item label="实际收取">
-          <el-input-number v-model="saveForm.actualChargeAmount" type="number"/>
+          <el-input-number v-model="saveForm.actualChargeAmount"/>
         </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="saveForm.contractRemark"/>
@@ -335,8 +385,8 @@ export default {
       updateFlag: false,
       saveDialogFlag: false,
       operateDialogFlag: false,
-      kaikaDialogFlag: false,
-      kaikaForm: {},
+      contractOperateDialogFlag: false,
+      contractOperateForm: {},
       memberList: [],
       courseList: [],
       coachList: [],
@@ -347,6 +397,13 @@ export default {
         {label: '已完成', value: '3'},
         {label: '暂停', value: '4'},
         {label: '终止', value: '5'},
+      ],
+      contractOperateTypeList: [
+        {label: '开卡', value: '1'},
+        {label: '暂停', value: '2'},
+        {label: '退课', value: '3'},
+        {label: '补缴', value: '4'},
+        // {label: '延期', value: '5'},
       ],
       searchForm: {
         current: 1,
@@ -430,20 +487,31 @@ export default {
     changeCourse(value) {
       this.saveForm.contractAmount = this.courseList.find(v => v.id === value).coursePrice
     },
-    showkaika(id) {
-      this.kaikaForm = {
+    contractOperate(id, type) {
+      this.contractOperateForm = {
         contractInfoId: id,
-        contractOperateType: '1'
       }
-      this.kaikaDialogFlag = true
+      if (type) {
+        this.contractOperateForm.contractOperateType = type
+      }
+      this.contractOperateDialogFlag = true
     },
-    doKaika() {
-      saveJljsContractOperateRecord(this.kaikaForm).then(res => {
+    changeOperateType(){
+      const { contractInfoId, contractOperateType } = this.contractOperateForm;
+      this.contractOperateForm = { contractInfoId, contractOperateType };
+    },
+    contractOperateSave() {
+      if (this.contractOperateForm.dateRange) {
+        this.contractOperateForm.operateBeginDate = this.contractOperateForm.dateRange[0]
+        this.contractOperateForm.operateEndDate = this.contractOperateForm.dateRange[1]
+      }
+
+      saveJljsContractOperateRecord(this.contractOperateForm).then(res => {
         this.$message({
           message: res.message,
           type: 'success',
         })
-        this.kaikaDialogFlag = false
+        this.contractOperateDialogFlag = false
         this.research()
       })
     }
