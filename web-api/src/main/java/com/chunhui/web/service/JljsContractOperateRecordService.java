@@ -52,7 +52,10 @@ public class JljsContractOperateRecordService {
         // 开卡 更新合同开始日期
         if (JljsContractOperateTypeEnum.kaika.getCode().equals(operateType)) {
             if (!JljsContractStatusEnum.daikaika.getCode().equals(contractStatus)) {
-                return ResultGenerator.fail("已开卡不可重复操作");
+                return ResultGenerator.fail("合同不是待开卡状态，不可操作");
+            }
+            if (null == operateRecord.getOperateBeginDate()) {
+                return ResultGenerator.fail("开卡时间不能为空");
             }
             LambdaUpdateWrapper<JljsContractInfo> updateWrapper = Wrappers.lambdaUpdate(JljsContractInfo.class);
             updateWrapper.eq(BaseDO::getId, contractInfo.getId());
