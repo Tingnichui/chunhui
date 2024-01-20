@@ -80,6 +80,7 @@
                     :background="true"
                     :small="true"
                     :total="tableData.total"
+                    :default-page-size="15"
                     :page-sizes="[15,30,50,80,100]"
                     v-model:page-size="tableData.pageSize"
                     v-model:current-page="tableData.current"

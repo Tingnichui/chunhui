@@ -115,6 +115,7 @@
           :small="true"
           :total="tableData.total"
           :page-sizes="[15,30,50,80,100]"
+          :default-page-size="15"
           v-model:page-size="tableData.pageSize"
           v-model:current-page="tableData.current"
           @current-change="changeCurrentPage"
