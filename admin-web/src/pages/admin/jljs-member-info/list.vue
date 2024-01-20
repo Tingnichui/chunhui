@@ -17,13 +17,18 @@
                         />
                     </el-form-item>
                     <el-form-item
-                            label="会员性别;1 男；2女 :"
+                            label="会员性别 :"
                             prop="name"
                             style="width:25%"
                     >
-                        <el-input
-                                v-model="searchForm.memberGender"
+                      <el-select v-model="searchForm.memberGender" filterable placeholder="请选择性别">
+                        <el-option
+                            v-for="item in memberGenderList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
                         />
+                      </el-select>
                     </el-form-item>
                     <el-form-item
                             label="会员年龄 :"
@@ -70,15 +75,21 @@
             >
                     <el-table-column
                             prop="memberName"
-                            label="会员姓名"
+                            label="姓名"
                     />
                     <el-table-column
                             prop="memberGender"
-                            label="会员性别;1 男；2女"
-                    />
+                            label="性别"
+                    >
+                      <template #default="scope">
+                        <div v-for="item in memberGenderList">
+                          <span v-if="item.value === scope.row.memberGender"> {{ item.label }} </span>
+                        </div>
+                      </template>
+                    </el-table-column>
                     <el-table-column
                             prop="memberAge"
-                            label="会员年龄"
+                            label="年龄"
                     />
                     <el-table-column
                             prop="memberPhoneNum"
@@ -119,8 +130,15 @@
                     <el-form-item label="会员姓名">
                         <el-input v-model="saveForm.memberName"/>
                     </el-form-item>
-                    <el-form-item label="会员性别;1 男；2女">
-                        <el-input v-model="saveForm.memberGender"/>
+                    <el-form-item label="会员性别;">
+                      <el-select v-model="saveForm.memberGender" filterable placeholder="请选择性别">
+                        <el-option
+                            v-for="item in memberGenderList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                        />
+                      </el-select>
                     </el-form-item>
                     <el-form-item label="会员年龄">
                         <el-input-number v-model="saveForm.memberAge"/>
@@ -157,7 +175,11 @@
                 searchForm: {
                     current: 1,
                     size: 15
-                }
+                },
+              memberGenderList: [
+                {label: '男', value: '1'},
+                {label: '女', value: '2'},
+              ],
             }
         },
         mounted() {
