@@ -12,7 +12,7 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.coachId" filterable placeholder="请选择教练">
+          <el-select v-model="searchForm.coachId" clearable filterable placeholder="请选择教练">
             <el-option
                 v-for="item in coachList"
                 :key="item.id"
@@ -26,7 +26,7 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.memberId" filterable placeholder="请选择会员">
+          <el-select v-model="searchForm.memberId" clearable filterable placeholder="请选择会员">
             <el-option
                 v-for="item in memberList"
                 :key="item.id"

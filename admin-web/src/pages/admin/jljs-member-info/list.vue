@@ -21,7 +21,7 @@
                             prop="name"
                             style="width:25%"
                     >
-                      <el-select v-model="searchForm.memberGender" filterable placeholder="请选择性别">
+                      <el-select v-model="searchForm.memberGender" clearable placeholder="请选择性别">
                         <el-option
                             v-for="item in memberGenderList"
                             :key="item.value"

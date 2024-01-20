@@ -12,7 +12,7 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.memberId" filterable placeholder="请选择会员">
+          <el-select v-model="searchForm.memberId" clearable filterable placeholder="请选择会员">
             <el-option
                 v-for="item in memberList"
                 :key="item.id"
@@ -26,7 +26,7 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.courseInfoId" placeholder="请选择课程" filterable @change="changeCourse">
+          <el-select v-model="searchForm.courseInfoId" clearable placeholder="请选择课程" filterable @change="changeCourse">
             <el-option
                 v-for="item in courseList"
                 :key="item.id"
@@ -40,7 +40,7 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.belongCoachId" filterable placeholder="请选择教练">
+          <el-select v-model="searchForm.belongCoachId" clearable filterable placeholder="请选择教练">
             <el-option
                 v-for="item in coachList"
                 :key="item.id"
@@ -54,7 +54,7 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.contractStatus" filterable placeholder="请选择教练">
+          <el-select v-model="searchForm.contractStatus" clearable filterable placeholder="请选择合同状态">
             <el-option
                 v-for="item in contractStatusList"
                 :key="item.value"
