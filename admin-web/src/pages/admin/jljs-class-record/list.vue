@@ -35,6 +35,22 @@
             />
           </el-select>
         </el-form-item>
+        <el-form-item
+            label="日期 :"
+            prop="name"
+            style="width:25%"
+        >
+          <el-date-picker
+              v-model="searchForm.dateRange"
+              type="daterange"
+              unlink-panels
+              range-separator="到"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              value-format="YYYY-MM-DD"
+              :shortcuts="shortcutsrange"
+          />
+        </el-form-item>
         <div class="action-groups">
           <el-button type="primary" plain @click="search">查询</el-button>
           <el-button type="primary" plain @click="research">重置</el-button>
@@ -208,7 +224,13 @@ import {
   saveJljsClassRecord,
   updateJljsClassRecord
 } from "@/api/jljs-class-record.js";
-import {formatDate} from "@/util/DateUtil";
+import {
+  formatDate,
+  getCurrentMonthFirstDay,
+  getCurrentWeekFirstDay,
+  lastMonthFirst,
+  lastMonthLast
+} from "@/util/DateUtil";
 import {ElMessageBox} from "element-plus";
 import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
 import {pageJljsCoachInfoList} from "@/api/jljs-coach-info";
@@ -258,6 +280,40 @@ export default {
             return date
           },
         },
+      ],
+      shortcutsrange : [
+        {
+          text: '今天',
+          value: () => {
+            const start = new Date()
+            const end = new Date()
+            return [start, end]
+          },
+        },
+        {
+          text: '本周',
+          value: () => {
+            const end = new Date()
+            const start = getCurrentWeekFirstDay(end)
+            return [start, end]
+          },
+        },
+        {
+          text: '本月',
+          value: () => {
+            const end = new Date()
+            const start = getCurrentMonthFirstDay(end)
+            return [start, end]
+          },
+        },
+        {
+          text: '上月',
+          value: () => {
+            const start = lastMonthFirst()
+            const end = lastMonthLast()
+            return [start, end]
+          },
+        },
       ]
     }
   },
@@ -272,6 +328,10 @@ export default {
   },
   methods: {
     search() {
+      if (this.searchForm.dateRange) {
+        this.searchForm.classBeginTime = this.searchForm.dateRange[0]
+        this.searchForm.classEndTime = this.searchForm.dateRange[1]
+      }
       pageJljsClassRecordList(this.searchForm).then(res => {
             this.tableData = res.data
           }

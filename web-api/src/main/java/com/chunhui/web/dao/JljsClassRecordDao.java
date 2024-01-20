@@ -13,8 +13,7 @@ import javax.annotation.Resource;
 
 
 @Repository
-public class JljsClassRecordDao extends BaseDao
-        <JljsClassRecordMapper, JljsClassRecord> {
+public class JljsClassRecordDao extends BaseDao<JljsClassRecordMapper, JljsClassRecord> {
 
     @Resource
     private JljsClassRecordMapper jljsClassRecordMapper;
@@ -23,8 +22,8 @@ public class JljsClassRecordDao extends BaseDao
         LambdaQueryWrapper<JljsClassRecord> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.like(StringUtils.isNotBlank(query.getCoachId()), JljsClassRecord::getCoachId, query.getCoachId());
         queryWrapper.like(StringUtils.isNotBlank(query.getMemberId()), JljsClassRecord::getMemberId, query.getMemberId());
-//    queryWrapper.like(StringUtils.isNotBlank(query.getClassBeginTime()), JljsClassRecord::getClassBeginTime, query.getClassBeginTime());
-//    queryWrapper.like(StringUtils.isNotBlank(query.getClassEndTime()), JljsClassRecord::getClassEndTime, query.getClassEndTime());
+        queryWrapper.ge(null != query.getClassBeginTime(), JljsClassRecord::getClassBeginTime, query.getClassBeginTime());
+        queryWrapper.le(null != query.getClassEndTime(), JljsClassRecord::getClassEndTime, query.getClassEndTime());
         queryWrapper.like(StringUtils.isNotBlank(query.getClassRemark()), JljsClassRecord::getClassRemark, query.getClassRemark());
         queryWrapper.orderByDesc(JljsClassRecord::getClassBeginTime);
         return super.pageList(query, queryWrapper);
