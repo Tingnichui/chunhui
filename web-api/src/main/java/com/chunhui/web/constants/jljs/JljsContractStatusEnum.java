@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum JljsContractStatusEnum {
 
-    weishengxiao("1", "未生效"),
+    daikaika("1", "待开卡"),
     shiong("2", "使用中"),
     wancheng("3", "已完成"),
     zanting("4", "暂停"),

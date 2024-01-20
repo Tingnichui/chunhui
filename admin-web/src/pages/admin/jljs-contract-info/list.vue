@@ -342,7 +342,7 @@ export default {
       coachList: [],
       contractId: '',
       contractStatusList: [
-        {label: '未生效', value: '1'},
+        {label: '待开卡', value: '1'},
         {label: '使用中', value: '2'},
         {label: '已完成', value: '3'},
         {label: '暂停', value: '4'},

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -47,19 +48,19 @@ public class JljsContractInfo extends BaseDO {
     /**
      * 使用开始日期
      */
-    private String useBeginDate;
+    private Date useBeginDate;
 
 
     /**
      * 使用结束日期
      */
-    private String useEndDate;
+    private Date useEndDate;
 
 
     /**
      * 购买日期
      */
-    private String buyTime;
+    private Date buyTime;
 
 
     /**
@@ -71,7 +72,7 @@ public class JljsContractInfo extends BaseDO {
     /**
      * 实际收取金额
      */
-    private String actualChargeAmount;
+    private BigDecimal actualChargeAmount;
 
 
 }

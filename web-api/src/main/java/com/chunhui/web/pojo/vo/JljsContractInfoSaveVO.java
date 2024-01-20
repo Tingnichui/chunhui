@@ -3,7 +3,9 @@ package com.chunhui.web.pojo.vo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 @Data
@@ -34,7 +36,7 @@ public class JljsContractInfoSaveVO {
     /**
      * 合同金额
      */
-    @NotBlank(message = "合同金额不能为空")
+    @NotNull(message = "合同金额不能为空")
     private BigDecimal contractAmount;
 
 
@@ -47,19 +49,19 @@ public class JljsContractInfoSaveVO {
     /**
      * 使用开始日期
      */
-    private String useBeginDate;
+    private Date useBeginDate;
 
 
     /**
      * 使用结束日期
      */
-    private String useEndDate;
+    private Date useEndDate;
 
 
     /**
      * 购买日期
      */
-    private String buyTime;
+    private Date buyTime;
 
 
     /**
@@ -71,8 +73,8 @@ public class JljsContractInfoSaveVO {
     /**
      * 实际收取金额
      */
-    @NotBlank(message = "实际收取金额不能为空")
-    private String actualChargeAmount;
+    @NotNull(message = "实际收取金额不能为空")
+    private BigDecimal actualChargeAmount;
 
 
 }
