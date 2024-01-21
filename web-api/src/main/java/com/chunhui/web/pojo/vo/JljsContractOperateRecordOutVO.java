@@ -2,6 +2,7 @@ package com.chunhui.web.pojo.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -50,7 +51,13 @@ public class JljsContractOperateRecordOutVO {
     /**
      * 操作金额
      */
-    private String operateAmount;
+    private BigDecimal operateAmount;
+
+
+    /**
+     * 操作状态
+     */
+    private String operateStatus;
 
 
 }

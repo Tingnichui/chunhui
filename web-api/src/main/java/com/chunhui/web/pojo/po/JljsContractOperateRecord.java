@@ -3,6 +3,7 @@ package com.chunhui.web.pojo.po;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -53,7 +54,13 @@ public class JljsContractOperateRecord extends BaseDO {
     /**
      * 操作金额
      */
-    private String operateAmount;
+    private BigDecimal operateAmount;
+
+
+    /**
+     * 操作状态
+     */
+    private String operateStatus;
 
 
 }

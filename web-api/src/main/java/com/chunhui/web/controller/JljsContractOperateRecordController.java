@@ -26,6 +26,11 @@ public class JljsContractOperateRecordController {
         return jljsContractOperateRecordService.pageList(query);
     }
 
+    @RequestMapping("/revoke")
+    public Result<String> revoke(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsContractOperateRecordService.revoke(id);
+    }
+
     @RequestMapping("/detail")
     public Result<JljsContractOperateRecordOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
         return jljsContractOperateRecordService.detail(id);

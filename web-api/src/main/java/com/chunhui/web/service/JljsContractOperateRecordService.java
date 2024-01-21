@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.chunhui.web.constants.jljs.JljsContractOperateTypeEnum;
 import com.chunhui.web.constants.jljs.JljsContractStatusEnum;
+import com.chunhui.web.constants.jljs.JljsOperateStatusEnum;
 import com.chunhui.web.dao.JljsContractInfoDao;
 import com.chunhui.web.dao.JljsContractOperateRecordDao;
 import com.chunhui.web.mapstruct.CommonConvert;
@@ -119,4 +120,16 @@ public class JljsContractOperateRecordService {
         return ResultGenerator.success();
     }
 
+    public Result<String> revoke(String id) {
+        JljsContractOperateRecord record = jljsContractOperateRecordDao.getById(id);
+        if (null == record) {
+            return ResultGenerator.fail("操作记录不存在");
+        }
+        // 更新状态
+        record.setOperateStatus(JljsOperateStatusEnum.chexiao.getCode());
+        jljsContractOperateRecordDao.updateById(record);
+
+        return ResultGenerator.success("操作成功");
+
+    }
 }

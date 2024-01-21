@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -54,7 +55,7 @@ public class JljsContractOperateRecordSaveVO {
     /**
      * 操作金额
      */
-    private String operateAmount;
+    private BigDecimal operateAmount;
 
 
 }

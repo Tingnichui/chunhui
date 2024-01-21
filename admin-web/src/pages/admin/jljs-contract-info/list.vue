@@ -131,7 +131,7 @@
           :highlight-current-row="true"
           row-key="id"
           empty-text="No Data"
-          :stripe="true"
+          :row-class-name="tableRowClassName"
       >
         <el-table-column
             prop="actualChargeAmount"
@@ -232,6 +232,7 @@
           @size-change="changePageSize"
       />
     </el-card>
+
     <el-dialog v-model="operateRecordDialogFlag">
       <contractOperateRecord :contract-id="contractId"></contractOperateRecord>
     </el-dialog>
@@ -335,19 +336,6 @@
             />
           </el-select>
         </el-form-item>
-<!--        <el-form-item>-->
-
-<!--          <el-radio-group v-model="saveForm.courseType" class="ml-4" style="display: flex;">-->
-<!--            <el-radio v-for="item in courseTypeList" style="margin-right: 10px;" :label="item.value" size="large">{{ item.label }}</el-radio>-->
-<!--          </el-radio-group>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="合同金额">-->
-<!--          <el-input-number v-model="saveForm.contractAmount"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="实际收取">-->
-<!--          <el-input-number v-model="saveForm.actualChargeAmount"/>-->
-<!--        </el-form-item>-->
-
         <el-form-item label-width="0px">
           合同金额<el-input v-model="saveForm.contractAmount" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>元，
           实际收取<el-input v-model="saveForm.actualChargeAmount" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>元。
@@ -395,11 +383,9 @@ import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
 import contractOperateRecord from '@/pages/admin/jljs-contract-operate-record/list.vue'
 import {saveJljsContractOperateRecord} from "@/api/jljs-contract-operate-record";
 import {formatDateStr} from "../../../util/DateUtil";
-import Index from "@/pages/admin/res-info/list.vue";
 
 export default {
   components: {
-    Index,
     contractOperateRecord
   },
   data() {
@@ -431,7 +417,6 @@ export default {
         {label: '暂停', value: '2'},
         {label: '退课', value: '3'},
         {label: '补缴', value: '4'},
-        // {label: '延期', value: '5'},
       ],
       searchForm: {
         current: 1,
@@ -544,6 +529,11 @@ export default {
         this.contractOperateDialogFlag = false
         this.research()
       })
+    },
+    tableRowClassName({ row, rowIndex }) {
+      if (row.actualChargeAmount/row.contractAmount === 0) {
+        return 'warning-row';
+      }
     }
   }
 }
@@ -589,4 +579,12 @@ export default {
   flex-direction: row;
   align-items: center;
 }
+
+.el-table .warning-row {
+  --el-table-tr-bg-color: var(--el-color-warning-light-9);
+}
+.el-table .success-row {
+  --el-table-tr-bg-color: var(--el-color-success-light-9);
+}
+
 </style>

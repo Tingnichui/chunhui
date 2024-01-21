@@ -19,3 +19,6 @@ return http.postForm("/jljsContractOperateRecord/detail", {id});
 export const deleteJljsContractOperateRecordById = (id) => {
 return http.postForm("/jljsContractOperateRecord/delete", {id});
 };
+export const revokeJljsContractOperateRecordById = (id) => {
+return http.postForm("/jljsContractOperateRecord/revoke", {id});
+};
