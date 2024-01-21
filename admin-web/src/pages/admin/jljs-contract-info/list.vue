@@ -117,7 +117,7 @@
     <el-card>
       <template #header>
         <div class="card-header">
-          <el-space><span>菜单管理</span></el-space>
+          <el-space><span>合约管理</span></el-space>
           <el-space>
             <el-button type="primary" plain @click="showSaveForm">新增</el-button>
           </el-space>
@@ -134,12 +134,12 @@
           :stripe="true"
       >
         <el-table-column
-            prop="memberId"
-            label="会员"
+            prop="actualChargeAmount"
+            label="合同状态"
         >
           <template #default="scope">
-            <div v-for="item in memberList">
-              <span v-if="item.id === scope.row.memberId">{{ item.memberName }}</span>
+            <div v-for="item in contractStatusList">
+              <span v-if="item.value === scope.row.contractStatus"> {{ item.label }} </span>
             </div>
           </template>
         </el-table-column>
@@ -154,19 +154,26 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="belongCoachId"
-            label="开单教练"
+            prop="memberId"
+            label="会员"
         >
           <template #default="scope">
-            <div v-for="item in coachList">
-              <span v-if="item.id === scope.row.belongCoachId"> {{ item.coachName }} </span>
+            <div v-for="item in memberList">
+              <span v-if="item.id === scope.row.memberId">{{ item.memberName }}</span>
             </div>
           </template>
         </el-table-column>
         <el-table-column
-            prop="contractAmount"
-            label="合同金额"
-        />
+            label="已收/总计"
+        >
+          <template #default="scope">
+            <span :style="scope.row.actualChargeAmount/scope.row.contractAmount === 0 ? 'color:#f56c6c' :
+            (scope.row.actualChargeAmount/scope.row.contractAmount === 1 ? 'color:#67c23a' : 'color:#FF9800')"
+            >
+            {{scope.row.actualChargeAmount}} / {{scope.row.contractAmount}}
+            </span>
+          </template>
+        </el-table-column>
         <el-table-column
             label="开卡日期"
         >
@@ -181,23 +188,19 @@
             label="合同备注"
         />
         <el-table-column
-            prop="actualChargeAmount"
-            label="实际收取金额"
-        />
-        <el-table-column
-            prop="actualChargeAmount"
-            label="合同状态"
+            prop="belongCoachId"
+            label="开单教练"
         >
           <template #default="scope">
-            <div v-for="item in contractStatusList">
-              <span v-if="item.value === scope.row.contractStatus"> {{ item.label }} </span>
+            <div v-for="item in coachList">
+              <span v-if="item.id === scope.row.belongCoachId"> {{ item.coachName }} </span>
             </div>
           </template>
         </el-table-column>
         <el-table-column
             prop="act"
             label="操作"
-            :width="160"
+            :width="210"
             align="center"
             fixed="right"
         >
@@ -206,8 +209,8 @@
               <div>
                 <el-button v-if="scope.row.contractStatus === '1'" link type="primary" @click="contractOperate(scope.row.id, '1')">开卡</el-button>
                 <el-button v-else link type="primary" @click="contractOperate(scope.row.id)">操作</el-button>
-<!--                <el-button v-else link type="primary" @click="operateDialogFlag = true;contractId = scope.row.id">操作</el-button>-->
               </div>
+              <el-button link type="info" @click="operateRecordDialogFlag = true;contractId = scope.row.id">操作记录</el-button>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
               <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
             </el-space>
@@ -229,7 +232,7 @@
           @size-change="changePageSize"
       />
     </el-card>
-    <el-dialog v-model="operateDialogFlag">
+    <el-dialog v-model="operateRecordDialogFlag">
       <contractOperateRecord :contract-id="contractId"></contractOperateRecord>
     </el-dialog>
 
@@ -390,7 +393,7 @@ import {pageJljsCoachInfoList} from "@/api/jljs-coach-info";
 import {pageJljsCourseInfoList} from "@/api/jljs-course-info";
 import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
 import contractOperateRecord from '@/pages/admin/jljs-contract-operate-record/list.vue'
-import {saveJljsContractOperateRecord, updateJljsContractOperateRecord} from "@/api/jljs-contract-operate-record";
+import {saveJljsContractOperateRecord} from "@/api/jljs-contract-operate-record";
 import {formatDateStr} from "../../../util/DateUtil";
 import Index from "@/pages/admin/res-info/list.vue";
 
@@ -405,7 +408,7 @@ export default {
       saveForm: {},
       updateFlag: false,
       saveDialogFlag: false,
-      operateDialogFlag: false,
+      operateRecordDialogFlag: false,
       contractOperateDialogFlag: false,
       contractOperateForm: {},
       memberList: [],
