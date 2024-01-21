@@ -125,9 +125,18 @@ public class JljsContractOperateRecordService {
         if (null == record) {
             return ResultGenerator.fail("操作记录不存在");
         }
-        // 更新状态
+        // 更新为撤销状态
         record.setOperateStatus(JljsOperateStatusEnum.chexiao.getCode());
         jljsContractOperateRecordDao.updateById(record);
+
+        // 撤销开卡 更新合同为待开卡 使用日期置空
+        if (JljsContractOperateTypeEnum.kaika.getCode().equals(record.getContractOperateType())) {
+            LambdaUpdateWrapper<JljsContractInfo> update = Wrappers.lambdaUpdate(JljsContractInfo.class);
+            update.eq(BaseDO::getId, record.getContractInfoId());
+            update.set(JljsContractInfo::getContractStatus, JljsContractStatusEnum.daikaika.getCode());
+            update.set(JljsContractInfo::getUseBeginDate, null);
+            jljsContractInfoDao.update(update);
+        }
 
         return ResultGenerator.success("操作成功");
 
