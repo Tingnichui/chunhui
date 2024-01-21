@@ -74,4 +74,30 @@ public class JljsContractInfoOutVO {
     private BigDecimal actualChargeAmount;
 
 
+    /**
+     * 课程类型；1按次消费；2按天计时；
+     */
+    private String courseType;
+
+    /**
+     * 有效期限（天）
+     */
+    private Integer courseUsePeriodDays;
+
+    /**
+     * 可使用数量（天/次）
+     */
+    private Integer courseAvailableQuantity;
+
+    /**
+     * 剩余数量（天/次）
+     */
+    private Integer courseRemainQuantity;
+
+    /**
+     * 已使用数量（天/次）
+     */
+    private Integer courseUseQuantity;
+
+
 }

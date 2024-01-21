@@ -168,17 +168,14 @@
             label="合同金额"
         />
         <el-table-column
-            prop="useBeginDate"
-            label="使用开始日期"
-        />
-        <el-table-column
-            prop="useEndDate"
-            label="使用结束日期"
-        />
-        <el-table-column
-            prop="buyTime"
-            label="购买日期"
-        />
+            label="开卡日期"
+        >
+          <template #default="scope">
+            <div>
+              {{ scope.row.useBeginDate ? formatDateStr(scope.row.useBeginDate, "yyyy-MM-dd") : '-' }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
             prop="contractRemark"
             label="合同备注"
@@ -304,23 +301,13 @@
     </el-dialog>
 
     <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
-      <el-form :model="saveForm" label-position="right" label-width="80px">
+      <el-form :model="saveForm" label-position="left" label-width="100px">
         <el-form-item label="会员">
           <el-select v-model="saveForm.memberId" filterable placeholder="请选择会员">
             <el-option
                 v-for="item in memberList"
                 :key="item.id"
                 :label="item.memberName"
-                :value="item.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="课程">
-          <el-select v-model="saveForm.courseInfoId" filterable placeholder="请选择课程" @change="changeCourse">
-            <el-option
-                v-for="item in courseList"
-                :key="item.id"
-                :label="item.courseName"
                 :value="item.id"
             />
           </el-select>
@@ -335,13 +322,44 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="合同金额">
-          <el-input-number v-model="saveForm.contractAmount"/>
+        <el-form-item label="课程">
+          <el-select v-model="saveForm.courseInfoId" filterable placeholder="请选择课程" @change="changeCourse">
+            <el-option
+                v-for="item in courseList"
+                :key="item.id"
+                :label="item.courseName"
+                :value="item.id"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="实际收取">
-          <el-input-number v-model="saveForm.actualChargeAmount"/>
+<!--        <el-form-item>-->
+
+<!--          <el-radio-group v-model="saveForm.courseType" class="ml-4" style="display: flex;">-->
+<!--            <el-radio v-for="item in courseTypeList" style="margin-right: 10px;" :label="item.value" size="large">{{ item.label }}</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="合同金额">-->
+<!--          <el-input-number v-model="saveForm.contractAmount"/>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="实际收取">-->
+<!--          <el-input-number v-model="saveForm.actualChargeAmount"/>-->
+<!--        </el-form-item>-->
+
+        <el-form-item label-width="0px">
+          合同金额<el-input v-model="saveForm.contractAmount" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>元，
+          实际收取<el-input v-model="saveForm.actualChargeAmount" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>元。
+          自开卡<el-input v-model="saveForm.courseUsePeriodDays" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>天内，
+          可使用<el-input v-model="saveForm.courseAvailableQuantity" style="width: 60px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>
+          <el-select v-model="saveForm.courseType" style="width: 60px;" :input-style="{'height':'26px','text-align': 'center'}">
+            <el-option
+                v-for="item in courseTypeList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>。
         </el-form-item>
-        <el-form-item label="备注">
+        <el-form-item label="备注"  label-width="40px">
           <el-input v-model="saveForm.contractRemark"/>
         </el-form-item>
       </el-form>
@@ -373,9 +391,12 @@ import {pageJljsCourseInfoList} from "@/api/jljs-course-info";
 import {pageJljsMemberInfoList} from "@/api/jljs-member-info";
 import contractOperateRecord from '@/pages/admin/jljs-contract-operate-record/list.vue'
 import {saveJljsContractOperateRecord, updateJljsContractOperateRecord} from "@/api/jljs-contract-operate-record";
+import {formatDateStr} from "../../../util/DateUtil";
+import Index from "@/pages/admin/res-info/list.vue";
 
 export default {
   components: {
+    Index,
     contractOperateRecord
   },
   data() {
@@ -397,6 +418,10 @@ export default {
         {label: '已完成', value: '3'},
         {label: '暂停', value: '4'},
         {label: '终止', value: '5'},
+      ],
+      courseTypeList: [
+        {label: '次', value: '1'},
+        {label: '天', value: '2'},
       ],
       contractOperateTypeList: [
         {label: '开卡', value: '1'},
@@ -424,6 +449,7 @@ export default {
     })
   },
   methods: {
+    formatDateStr,
     search() {
       pageJljsContractInfoList(this.searchForm).then(res => {
             this.tableData = res.data
@@ -486,6 +512,7 @@ export default {
     },
     changeCourse(value) {
       this.saveForm.contractAmount = this.courseList.find(v => v.id === value).coursePrice
+      // this.saveForm.buyQuantity = this.courseList.find(v => v.id === value).courseValidDays
     },
     contractOperate(id, type) {
       this.contractOperateForm = {
