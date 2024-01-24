@@ -18,34 +18,34 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/jljsCoachInfo")
 public class JljsCoachInfoController {
 
-@Resource
-private JljsCoachInfoService jljsCoachInfoService;
+    @Resource
+    private JljsCoachInfoService jljsCoachInfoService;
 
-@RequestMapping("/pageList")
-public Result<PageResult<JljsCoachInfoOutVO>> pageList(@RequestBody JljsCoachInfoQuery query) {
-    return jljsCoachInfoService.pageList(query);
+    @RequestMapping("/pageList")
+    public Result<PageResult<JljsCoachInfoOutVO>> pageList(@RequestBody JljsCoachInfoQuery query) {
+        return jljsCoachInfoService.pageList(query);
     }
 
-@RequestMapping("/detail")
-public Result<JljsCoachInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsCoachInfoService.detail(id);
-}
+    @RequestMapping("/detail")
+    public Result<JljsCoachInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsCoachInfoService.detail(id);
+    }
 
-@RequestMapping("/save")
-public Result<String> save(@Validated @RequestBody JljsCoachInfoSaveVO saveVO) {
-return jljsCoachInfoService.save(saveVO);
-}
+    @RequestMapping("/save")
+    public Result<String> save(@Validated @RequestBody JljsCoachInfoSaveVO saveVO) {
+        return jljsCoachInfoService.save(saveVO);
+    }
 
 
-@RequestMapping("/update")
-public Result<String> update(@Validated @RequestBody JljsCoachInfoUpdateVO updateVO) {
-return jljsCoachInfoService.update(updateVO);
-}
+    @RequestMapping("/update")
+    public Result<String> update(@Validated @RequestBody JljsCoachInfoUpdateVO updateVO) {
+        return jljsCoachInfoService.update(updateVO);
+    }
 
-@RequestMapping("/delete")
-public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsCoachInfoService.delete(id);
-}
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsCoachInfoService.delete(id);
+    }
 
 
 }

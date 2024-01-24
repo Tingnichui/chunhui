@@ -18,34 +18,34 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/jljsMemberInfo")
 public class JljsMemberInfoController {
 
-@Resource
-private JljsMemberInfoService jljsMemberInfoService;
+    @Resource
+    private JljsMemberInfoService jljsMemberInfoService;
 
-@RequestMapping("/pageList")
-public Result<PageResult<JljsMemberInfoOutVO>> pageList(@RequestBody JljsMemberInfoQuery query) {
-    return jljsMemberInfoService.pageList(query);
+    @RequestMapping("/pageList")
+    public Result<PageResult<JljsMemberInfoOutVO>> pageList(@RequestBody JljsMemberInfoQuery query) {
+        return jljsMemberInfoService.pageList(query);
     }
 
-@RequestMapping("/detail")
-public Result<JljsMemberInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsMemberInfoService.detail(id);
-}
+    @RequestMapping("/detail")
+    public Result<JljsMemberInfoOutVO> detail(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsMemberInfoService.detail(id);
+    }
 
-@RequestMapping("/save")
-public Result<String> save(@Validated @RequestBody JljsMemberInfoSaveVO saveVO) {
-return jljsMemberInfoService.save(saveVO);
-}
+    @RequestMapping("/save")
+    public Result<String> save(@Validated @RequestBody JljsMemberInfoSaveVO saveVO) {
+        return jljsMemberInfoService.save(saveVO);
+    }
 
 
-@RequestMapping("/update")
-public Result<String> update(@Validated @RequestBody JljsMemberInfoUpdateVO updateVO) {
-return jljsMemberInfoService.update(updateVO);
-}
+    @RequestMapping("/update")
+    public Result<String> update(@Validated @RequestBody JljsMemberInfoUpdateVO updateVO) {
+        return jljsMemberInfoService.update(updateVO);
+    }
 
-@RequestMapping("/delete")
-public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
-return jljsMemberInfoService.delete(id);
-}
+    @RequestMapping("/delete")
+    public Result<String> delete(@NotBlank(message = "id不能为空") @RequestParam String id) {
+        return jljsMemberInfoService.delete(id);
+    }
 
 
 }
