@@ -2,9 +2,6 @@ package com.chunhui.web.pojo.query;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
-
 
 @Data
 public class JljsContractOperateRecordQuery extends QueryBase {
@@ -13,44 +10,44 @@ public class JljsContractOperateRecordQuery extends QueryBase {
 
 
     /**
-    * 合同id
-    */
+     * 合同id
+     */
     private String contractInfoId;
 
 
     /**
-    * 合同操作类型
-    */
+     * 合同操作类型
+     */
     private String contractOperateType;
 
 
     /**
-    * 间隔天数
-    */
+     * 间隔天数
+     */
     private Integer intervalDays;
 
 
     /**
-    * 开始时间
-    */
+     * 开始时间
+     */
     private String operateBeginDate;
 
 
     /**
-    * 结束时间
-    */
+     * 结束时间
+     */
     private String operateEndDate;
 
 
     /**
-    * 操作原因
-    */
+     * 操作原因
+     */
     private String operateReason;
 
 
     /**
-    * 操作金额
-    */
+     * 操作金额
+     */
     private String operateAmount;
 
 
