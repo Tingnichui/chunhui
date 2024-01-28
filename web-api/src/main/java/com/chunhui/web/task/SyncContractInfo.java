@@ -63,7 +63,9 @@ public class SyncContractInfo {
                             .eq(BaseDO::getId, contractId)
                             .set(JljsContractInfo::getUseBeginDate, null)
                             .set(JljsContractInfo::getUseEndDate, null)
-                            .set(JljsContractInfo::getCourseTotalStopDays, 0)
+                            .set(JljsContractInfo::getCourseUseQuantity, null)
+                            .set(JljsContractInfo::getCourseRemainQuantity, null)
+                            .set(JljsContractInfo::getCourseTotalStopDays, null)
                             .set(JljsContractInfo::getContractStatus, JljsContractStatusEnum.daikaika.getCode())
             );
             return;
