@@ -175,11 +175,27 @@
           </template>
         </el-table-column>
         <el-table-column
-            label="开卡日期"
+            label="起始日期"
         >
           <template #default="scope">
-            <div>
-              {{ scope.row.useBeginDate ? formatDateStr(scope.row.useBeginDate, "yyyy-MM-dd") : '-' }}
+            <div v-if="scope.row.useBeginDate && scope.row.useEndDate">
+              {{ `${formatDateStr(scope.row.useBeginDate, "yyyy-MM-dd")} ~ ${formatDateStr(scope.row.useEndDate, "yyyy-MM-dd")}` }}
+            </div>
+            <div v-else>
+              -
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+            prop="courseRemainQuantity"
+            label="剩余数量"
+        >
+          <template #default="scope">
+            <div v-if="scope.row.courseRemainQuantity || scope.row.courseRemainQuantity === 0">
+              {{ `${scope.row.courseRemainQuantity}${scope.row.courseType === '1' ? '次' : '天'}`}}
+            </div>
+            <div v-else>
+              -
             </div>
           </template>
         </el-table-column>
@@ -210,7 +226,7 @@
                 <el-button v-if="scope.row.contractStatus === '1'" link type="primary" @click="contractOperate(scope.row.id, '1')">开卡</el-button>
                 <el-button v-else link type="primary" @click="contractOperate(scope.row.id)">操作</el-button>
               </div>
-              <el-button link type="info" @click="operateRecordDialogFlag = true;contractId = scope.row.id">操作记录</el-button>
+              <el-button link type="info" @click="showOperateRecord(scope.row.id)">操作记录</el-button>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
               <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
             </el-space>
@@ -234,7 +250,7 @@
     </el-card>
 
     <el-dialog v-model="operateRecordDialogFlag">
-      <contractOperateRecord :contract-id="contractId"></contractOperateRecord>
+      <contractOperateRecord :contract-id="contractId" :key="contractId"></contractOperateRecord>
     </el-dialog>
 
     <el-dialog v-model="contractOperateDialogFlag" center title="操作" width="40%">
@@ -475,6 +491,10 @@ export default {
         this.saveForm = res.data
       })
     },
+    showOperateRecord(id) {
+      this.operateRecordDialogFlag = true
+      this.contractId = id
+    },
     saveData() {
       const promiseFn = this.updateFlag ? updateJljsContractInfo : saveJljsContractInfo;
       promiseFn(this.saveForm).then(res => {
@@ -482,7 +502,7 @@ export default {
           message: res.message,
           type: 'success',
         })
-        this.research();
+        this.search();
         this.saveDialogFlag = false
         this.updateFlag = false
       })

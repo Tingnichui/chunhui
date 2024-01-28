@@ -99,4 +99,9 @@ public class JljsContractInfo extends BaseDO {
      */
     private Integer courseUseQuantity;
 
+    /**
+     * 课程总暂停天数
+     */
+    private Integer courseTotalStopDays;
+
 }
