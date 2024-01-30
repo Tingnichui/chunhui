@@ -2,10 +2,10 @@
   <div class="page">
     <el-card>
       <el-form
-          class="query-form"
-          inline
           :label-width="80"
           :model="searchForm"
+          class="query-form"
+          inline
       >
         <el-form-item
             label="会员 :"
@@ -26,7 +26,8 @@
             prop="name"
             style="width:25%"
         >
-          <el-select v-model="searchForm.courseInfoId" clearable placeholder="请选择课程" filterable @change="changeCourse">
+          <el-select v-model="searchForm.courseInfoId" clearable filterable placeholder="请选择课程"
+                     @change="changeCourse">
             <el-option
                 v-for="item in courseList"
                 :key="item.id"
@@ -109,8 +110,8 @@
         <!--          />-->
         <!--        </el-form-item>-->
         <div class="action-groups">
-          <el-button type="primary" plain @click="search">查询</el-button>
-          <el-button type="primary" plain @click="research">重置</el-button>
+          <el-button plain type="primary" @click="search">查询</el-button>
+          <el-button plain type="primary" @click="research">重置</el-button>
         </div>
       </el-form>
     </el-card>
@@ -119,23 +120,23 @@
         <div class="card-header">
           <el-space><span>合约管理</span></el-space>
           <el-space>
-            <el-button type="primary" plain @click="showSaveForm">新增</el-button>
+            <el-button plain type="primary" @click="showSaveForm">新增</el-button>
           </el-space>
         </div>
       </template>
       <el-table
           :data="tableData.records"
-          style="width: 100%"
-          size="default"
-          height="500"
           :highlight-current-row="true"
-          row-key="id"
-          empty-text="No Data"
           :row-class-name="tableRowClassName"
+          empty-text="No Data"
+          height="500"
+          row-key="id"
+          size="default"
+          style="width: 100%"
       >
         <el-table-column
-            prop="actualChargeAmount"
             label="合同状态"
+            prop="actualChargeAmount"
         >
           <template #default="scope">
             <div v-for="item in contractStatusList">
@@ -144,8 +145,8 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="courseInfoId"
             label="课程"
+            prop="courseInfoId"
         >
           <template #default="scope">
             <div v-for="item in courseList">
@@ -154,8 +155,8 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="memberId"
             label="会员"
+            prop="memberId"
         >
           <template #default="scope">
             <div v-for="item in memberList">
@@ -170,7 +171,7 @@
             <span :style="scope.row.actualChargeAmount/scope.row.contractAmount === 0 ? 'color:#f56c6c' :
             (scope.row.actualChargeAmount/scope.row.contractAmount === 1 ? 'color:#67c23a' : 'color:#FF9800')"
             >
-            {{scope.row.actualChargeAmount}} / {{scope.row.contractAmount}}
+            {{ scope.row.actualChargeAmount }} / {{ scope.row.contractAmount }}
             </span>
           </template>
         </el-table-column>
@@ -179,7 +180,9 @@
         >
           <template #default="scope">
             <div v-if="scope.row.useBeginDate && scope.row.useEndDate">
-              {{ `${formatDateStr(scope.row.useBeginDate, "yyyy-MM-dd")} ~ ${formatDateStr(scope.row.useEndDate, "yyyy-MM-dd")}` }}
+              {{
+                `${formatDateStr(scope.row.useBeginDate, "yyyy-MM-dd")} ~ ${formatDateStr(scope.row.useEndDate, "yyyy-MM-dd")}`
+              }}
             </div>
             <div v-else>
               -
@@ -187,12 +190,12 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="courseRemainQuantity"
             label="剩余数量"
+            prop="courseRemainQuantity"
         >
           <template #default="scope">
             <div v-if="scope.row.courseRemainQuantity || scope.row.courseRemainQuantity === 0">
-              {{ `${scope.row.courseRemainQuantity}${scope.row.courseType === '1' ? '次' : '天'}`}}
+              {{ `${scope.row.courseRemainQuantity}${scope.row.courseType === '1' ? '次' : '天'}` }}
             </div>
             <div v-else>
               -
@@ -200,12 +203,12 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="contractRemark"
             label="合同备注"
+            prop="contractRemark"
         />
         <el-table-column
-            prop="belongCoachId"
             label="开单教练"
+            prop="belongCoachId"
         >
           <template #default="scope">
             <div v-for="item in coachList">
@@ -214,16 +217,18 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="act"
-            label="操作"
             :width="210"
             align="center"
             fixed="right"
+            label="操作"
+            prop="act"
         >
           <template #default="scope">
             <el-space>
               <div>
-                <el-button v-if="scope.row.contractStatus === '1'" link type="primary" @click="contractOperate(scope.row.id, '1')">开卡</el-button>
+                <el-button v-if="scope.row.contractStatus === '1'" link type="primary"
+                           @click="contractOperate(scope.row.id, '1')">开卡
+                </el-button>
                 <el-button v-else link type="primary" @click="contractOperate(scope.row.id)">操作</el-button>
               </div>
               <el-button link type="info" @click="showOperateRecord(scope.row.id)">操作记录</el-button>
@@ -236,27 +241,28 @@
     </el-card>
     <el-card>
       <el-pagination
-          layout="total,prev,pager,next,sizes"
+          v-model:current-page="tableData.current"
+          v-model:page-size="tableData.pageSize"
           :background="true"
+          :default-page-size="15"
+          :page-sizes="[15,30,50,80,100]"
           :small="true"
           :total="tableData.total"
-          :page-sizes="[15,30,50,80,100]"
-          :default-page-size="15"
-          v-model:page-size="tableData.pageSize"
-          v-model:current-page="tableData.current"
+          layout="total,prev,pager,next,sizes"
           @current-change="changeCurrentPage"
           @size-change="changePageSize"
       />
     </el-card>
 
     <el-dialog v-model="operateRecordDialogFlag">
-      <contractOperateRecord :contract-id="contractId" :key="contractId"></contractOperateRecord>
+      <contractOperateRecord :key="contractId" :contract-id="contractId"></contractOperateRecord>
     </el-dialog>
 
     <el-dialog v-model="contractOperateDialogFlag" center title="操作" width="40%">
       <el-form :model="contractOperateForm" label-position="right" label-width="80px">
         <el-form-item label="操作类型">
-          <el-select v-model="contractOperateForm.contractOperateType" filterable placeholder="请选择操作类型" @change="changeOperateType">
+          <el-select v-model="contractOperateForm.contractOperateType" filterable placeholder="请选择操作类型"
+                     @change="changeOperateType">
             <el-option
                 v-for="item in contractOperateTypeList"
                 :key="item.value"
@@ -271,9 +277,9 @@
             <el-form-item label="开卡时间">
               <el-date-picker
                   v-model="contractOperateForm.operateBeginDate"
+                  placeholder="请选择开卡时间"
                   type="date"
                   value-format="YYYY-MM-DD"
-                  placeholder="请选择开卡时间"
               />
             </el-form-item>
           </div>
@@ -282,11 +288,11 @@
             <el-form-item label="起始时间">
               <el-date-picker
                   v-model="contractOperateForm.dateRange"
-                  type="daterange"
-                  unlink-panels
+                  end-placeholder="结束时间"
                   range-separator="-"
                   start-placeholder="开始时间"
-                  end-placeholder="结束时间"
+                  type="daterange"
+                  unlink-panels
                   value-format="YYYY-MM-DD"
               />
             </el-form-item>
@@ -320,7 +326,7 @@
       </template>
     </el-dialog>
 
-    <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
+    <el-dialog v-model="saveDialogFlag" :title="updateFlag ? '修改' : '新增'" center width="40%">
       <el-form :model="saveForm" label-position="left" label-width="100px">
         <el-form-item label="会员">
           <el-select v-model="saveForm.memberId" filterable placeholder="请选择会员">
@@ -353,20 +359,33 @@
           </el-select>
         </el-form-item>
         <el-form-item label-width="0px">
-          合同金额<el-input v-model="saveForm.contractAmount" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>元，
-          实际收取<el-input v-model="saveForm.actualChargeAmount" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>元。
-          自开卡<el-input v-model="saveForm.courseUsePeriodDays" style="width: 70px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>天内，
-          可使用<el-input v-model="saveForm.courseAvailableQuantity" style="width: 60px;margin: 0 5px;" :input-style="{'height':'26px','text-align': 'center'}"/>
-          <el-select v-model="saveForm.courseType" style="width: 60px;" :input-style="{'height':'26px','text-align': 'center'}">
+          合同金额
+          <el-input v-model="saveForm.contractAmount" :input-style="{'height':'26px','text-align': 'center'}"
+                    style="width: 70px;margin: 0 5px;"/>
+          元，
+          实际收取
+          <el-input v-model="saveForm.actualChargeAmount" :input-style="{'height':'26px','text-align': 'center'}"
+                    style="width: 70px;margin: 0 5px;"/>
+          元。
+          自开卡
+          <el-input v-model="saveForm.courseUsePeriodDays" :input-style="{'height':'26px','text-align': 'center'}"
+                    style="width: 70px;margin: 0 5px;"/>
+          天内，
+          可使用
+          <el-input v-model="saveForm.courseAvailableQuantity" :input-style="{'height':'26px','text-align': 'center'}"
+                    style="width: 60px;margin: 0 5px;"/>
+          <el-select v-model="saveForm.courseType" :input-style="{'height':'26px','text-align': 'center'}"
+                     style="width: 60px;">
             <el-option
                 v-for="item in courseTypeList"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
             />
-          </el-select>。
+          </el-select>
+          。
         </el-form-item>
-        <el-form-item label="备注"  label-width="40px">
+        <el-form-item label="备注" label-width="40px">
           <el-input v-model="saveForm.contractRemark"/>
         </el-form-item>
       </el-form>
@@ -531,9 +550,9 @@ export default {
       }
       this.contractOperateDialogFlag = true
     },
-    changeOperateType(){
-      const { contractInfoId, contractOperateType } = this.contractOperateForm;
-      this.contractOperateForm = { contractInfoId, contractOperateType };
+    changeOperateType() {
+      const {contractInfoId, contractOperateType} = this.contractOperateForm;
+      this.contractOperateForm = {contractInfoId, contractOperateType};
     },
     contractOperateSave() {
       if (this.contractOperateForm.dateRange) {
@@ -550,8 +569,8 @@ export default {
         this.research()
       })
     },
-    tableRowClassName({ row, rowIndex }) {
-      if (row.actualChargeAmount/row.contractAmount === 0) {
+    tableRowClassName({row, rowIndex}) {
+      if (row.actualChargeAmount / row.contractAmount === 0) {
         return 'warning-row';
       }
     }
@@ -603,6 +622,7 @@ export default {
 .el-table .warning-row {
   --el-table-tr-bg-color: var(--el-color-warning-light-9);
 }
+
 .el-table .success-row {
   --el-table-tr-bg-color: var(--el-color-success-light-9);
 }

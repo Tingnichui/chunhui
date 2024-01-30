@@ -2,10 +2,10 @@
   <div class="page">
     <el-card>
       <el-form
-          class="query-form"
-          inline
           :label-width="80"
           :model="searchForm"
+          class="query-form"
+          inline
       >
         <el-form-item
             label="教练 :"
@@ -42,18 +42,18 @@
         >
           <el-date-picker
               v-model="searchForm.dateRange"
-              type="daterange"
-              unlink-panels
+              :shortcuts="shortcutsrange"
+              end-placeholder="结束时间"
               range-separator="到"
               start-placeholder="开始时间"
-              end-placeholder="结束时间"
+              type="daterange"
+              unlink-panels
               value-format="YYYY-MM-DD"
-              :shortcuts="shortcutsrange"
           />
         </el-form-item>
         <div class="action-groups">
-          <el-button type="primary" plain @click="search">查询</el-button>
-          <el-button type="primary" plain @click="research">重置</el-button>
+          <el-button plain type="primary" @click="search">查询</el-button>
+          <el-button plain type="primary" @click="research">重置</el-button>
         </div>
       </el-form>
     </el-card>
@@ -62,23 +62,23 @@
         <div class="card-header">
           <el-space><span>菜单管理</span></el-space>
           <el-space>
-            <el-button type="primary" plain @click="showSaveForm">新增</el-button>
+            <el-button plain type="primary" @click="showSaveForm">新增</el-button>
           </el-space>
         </div>
       </template>
       <el-table
           :data="tableData.records"
-          style="width: 100%"
-          size="default"
-          height="500"
           :highlight-current-row="true"
-          row-key="id"
-          empty-text="No Data"
           :stripe="true"
+          empty-text="No Data"
+          height="500"
+          row-key="id"
+          size="default"
+          style="width: 100%"
       >
         <el-table-column
-            prop="coachId"
             label="教练"
+            prop="coachId"
         >
           <template #default="scope">
             <div v-for="item in coachList">
@@ -87,8 +87,8 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="memberId"
             label="会员"
+            prop="memberId"
         >
           <template #default="scope">
             <div v-for="item in memberList">
@@ -97,23 +97,23 @@
           </template>
         </el-table-column>
         <el-table-column
-            prop="classBeginTime"
             label="开始时间"
+            prop="classBeginTime"
         />
         <el-table-column
-            prop="classEndTime"
             label="结束时间"
+            prop="classEndTime"
         />
         <el-table-column
-            prop="classRemark"
             label="课程备注"
+            prop="classRemark"
         />
         <el-table-column
-            prop="act"
-            label="操作"
             :width="160"
             align="center"
             fixed="right"
+            label="操作"
+            prop="act"
         >
           <template #default="scope">
             <el-space>
@@ -126,20 +126,20 @@
     </el-card>
     <el-card>
       <el-pagination
-          layout="total,prev,pager,next,sizes"
+          v-model:current-page="tableData.current"
+          v-model:page-size="tableData.pageSize"
           :background="true"
+          :default-page-size="15"
+          :page-sizes="[15,30,50,80,100]"
           :small="true"
           :total="tableData.total"
-          :page-sizes="[15,30,50,80,100]"
-          :default-page-size="15"
-          v-model:page-size="tableData.pageSize"
-          v-model:current-page="tableData.current"
+          layout="total,prev,pager,next,sizes"
           @current-change="changeCurrentPage"
           @size-change="changePageSize"
       />
     </el-card>
-    <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
-      <el-form :model="saveForm" label-position="right" label-width="80px" :rules="rules">
+    <el-dialog v-model="saveDialogFlag" :title="updateFlag ? '修改' : '新增'" center width="40%">
+      <el-form :model="saveForm" :rules="rules" label-position="right" label-width="80px">
         <el-form-item label="教练">
           <el-select v-model="saveForm.coachId" filterable placeholder="请选择教练">
             <el-option
@@ -161,17 +161,17 @@
           </el-select>
         </el-form-item>
         <el-form-item
-            prop="classBeginTime"
             label="上课日期"
+            prop="classBeginTime"
         >
           <el-date-picker
               v-model="saveForm.classDate"
-              type="date"
-              placeholder="请选择日期"
               :disabled-date="disabledDate"
-              value-format="YYYY-MM-DD"
               :shortcuts="shortcuts"
               format="YYYY-MM-DD"
+              placeholder="请选择日期"
+              type="date"
+              value-format="YYYY-MM-DD"
           />
         </el-form-item>
         <el-form-item label="开始时间">
@@ -179,11 +179,11 @@
               v-model="saveForm.beginTime"
               :max-time="saveForm.endTime"
               class="mr-4"
+              end="24:00"
+              format="HH:mm"
               placeholder="请选择结束时间"
               start="06:00"
               step="00:15"
-              end="24:00"
-              format="HH:mm"
           />
 
         </el-form-item>
@@ -191,11 +191,11 @@
           <el-time-select
               v-model="saveForm.endTime"
               :min-time="saveForm.beginTime"
+              end="24:00"
+              format="HH:mm"
               placeholder="请选择开始时间"
               start="06:00"
               step="00:15"
-              end="24:00"
-              format="HH:mm"
           />
         </el-form-item>
         <el-form-item label="课程备注">
@@ -248,10 +248,8 @@ export default {
         current: 1,
         size: 15
       },
-      rules: [
-
-      ],
-      shortcuts : [
+      rules: [],
+      shortcuts: [
         {
           text: '今天',
           value: new Date(),
@@ -281,7 +279,7 @@ export default {
           },
         },
       ],
-      shortcutsrange : [
+      shortcutsrange: [
         {
           text: '今天',
           value: () => {
@@ -358,7 +356,7 @@ export default {
     showSaveForm() {
       this.resetSaveForm()
       const date = new Date()
-      this.saveForm.classDate = formatDate(date,'yyyy-MM-dd')
+      this.saveForm.classDate = formatDate(date, 'yyyy-MM-dd')
       this.saveForm.beginTime = formatDate(date, 'HH:mm')
       this.saveForm.endTime = formatDate(new Date(date.getTime() + 60 * 60 * 1000), 'HH:mm')
       this.saveDialogFlag = true
@@ -370,14 +368,14 @@ export default {
       getJljsClassRecordDetail(id).then((res) => {
         this.saveDialogFlag = true
         this.saveForm = res.data
-        this.saveForm.classDate = this.saveForm.classBeginTime.substring(0,10)
-        this.saveForm.beginTime = this.saveForm.classBeginTime.substring(11,16)
-        this.saveForm.endTime = this.saveForm.classEndTime.substring(11,16)
+        this.saveForm.classDate = this.saveForm.classBeginTime.substring(0, 10)
+        this.saveForm.beginTime = this.saveForm.classBeginTime.substring(11, 16)
+        this.saveForm.endTime = this.saveForm.classEndTime.substring(11, 16)
       })
     },
     saveData() {
       const promiseFn = this.updateFlag ? updateJljsClassRecord : saveJljsClassRecord;
-      this.saveForm.classBeginTime = this.saveForm.classDate + ' ' + this.saveForm.beginTime  + ':00'
+      this.saveForm.classBeginTime = this.saveForm.classDate + ' ' + this.saveForm.beginTime + ':00'
       this.saveForm.classEndTime = this.saveForm.classDate + ' ' + this.saveForm.endTime + ':00'
       promiseFn(this.saveForm).then(res => {
         this.$message({

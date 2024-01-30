@@ -2,10 +2,10 @@
   <div class="page">
     <el-card>
       <el-form
-          class="query-form"
-          inline
           :label-width="80"
           :model="searchForm"
+          class="query-form"
+          inline
       >
         <el-form-item
             label="名称 :"
@@ -44,8 +44,8 @@
           />
         </el-form-item>
         <div class="action-groups">
-          <el-button type="primary" plain @click="search">查询</el-button>
-          <el-button type="primary" plain @click="research">重置</el-button>
+          <el-button plain type="primary" @click="search">查询</el-button>
+          <el-button plain type="primary" @click="research">重置</el-button>
         </div>
       </el-form>
     </el-card>
@@ -54,42 +54,42 @@
         <div class="card-header">
           <el-space><span>课程管理</span></el-space>
           <el-space>
-            <el-button type="primary" plain @click="showSaveForm">新增</el-button>
+            <el-button plain type="primary" @click="showSaveForm">新增</el-button>
           </el-space>
         </div>
       </template>
       <el-table
           :data="tableData.records"
-          style="width: 100%"
-          size="default"
-          height="500"
           :highlight-current-row="true"
-          row-key="id"
-          empty-text="No Data"
           :stripe="true"
+          empty-text="No Data"
+          height="500"
+          row-key="id"
+          size="default"
+          style="width: 100%"
       >
         <el-table-column
-            prop="courseName"
             label="名称"
+            prop="courseName"
         />
         <el-table-column
-            prop="coursePrice"
             label="价格"
+            prop="coursePrice"
         />
         <el-table-column
-            prop="courseValidDays"
             label="有效天数"
+            prop="courseValidDays"
         />
         <el-table-column
-            prop="courseDescribe"
             label="描述"
+            prop="courseDescribe"
         />
         <el-table-column
-            prop="act"
-            label="操作"
             :width="160"
             align="center"
             fixed="right"
+            label="操作"
+            prop="act"
         >
           <template #default="scope">
             <el-space>
@@ -102,19 +102,19 @@
     </el-card>
     <el-card>
       <el-pagination
-          layout="total,prev,pager,next,sizes"
+          v-model:current-page="tableData.current"
+          v-model:page-size="tableData.pageSize"
           :background="true"
+          :default-page-size="15"
+          :page-sizes="[15,30,50,80,100]"
           :small="true"
           :total="tableData.total"
-          :page-sizes="[15,30,50,80,100]"
-          :default-page-size="15"
-          v-model:page-size="tableData.pageSize"
-          v-model:current-page="tableData.current"
+          layout="total,prev,pager,next,sizes"
           @current-change="changeCurrentPage"
           @size-change="changePageSize"
       />
     </el-card>
-    <el-dialog v-model="saveDialogFlag" center :title="updateFlag ? '修改' : '新增'" width="40%">
+    <el-dialog v-model="saveDialogFlag" :title="updateFlag ? '修改' : '新增'" center width="40%">
       <el-form :model="saveForm" label-position="right" label-width="80px">
         <el-form-item label="名称">
           <el-input v-model="saveForm.courseName"/>
