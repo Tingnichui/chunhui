@@ -34,7 +34,7 @@
 
 <script>
 
-import {detail, getCurrentUserDetail} from "@/api/sys-user";
+import {getCurrentUserDetail} from "@/api/sys-user";
 
 export default {
   name: "index",
