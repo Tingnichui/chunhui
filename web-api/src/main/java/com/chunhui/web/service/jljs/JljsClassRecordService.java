@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.jljs;
 
 import com.chunhui.web.dao.JljsClassRecordDao;
 import com.chunhui.web.mapstruct.CommonConvert;

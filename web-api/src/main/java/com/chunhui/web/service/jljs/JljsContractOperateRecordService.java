@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.jljs;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;

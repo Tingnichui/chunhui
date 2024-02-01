@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.jljs;
 
 import com.chunhui.web.dao.JljsCoachInfoDao;
 import com.chunhui.web.mapstruct.CommonConvert;
@@ -17,32 +17,25 @@ public class JljsCoachInfoService {
     @Resource
     private JljsCoachInfoDao jljsCoachInfoDao;
 
-    public Result
-            <PageResult
-                    <JljsCoachInfoOutVO>> pageList(JljsCoachInfoQuery query) {
-        return ResultGenerator.success(PageUtil.pageResult(jljsCoachInfoDao.pageListByQurey(query),
-                commonConvert::toJljsCoachInfoOutList));
+    public Result<PageResult<JljsCoachInfoOutVO>> pageList(JljsCoachInfoQuery query) {
+        return ResultGenerator.success(PageUtil.pageResult(jljsCoachInfoDao.pageListByQurey(query), commonConvert::toJljsCoachInfoOutList));
     }
 
-    public Result
-            <JljsCoachInfoOutVO> detail(String id) {
+    public Result<JljsCoachInfoOutVO> detail(String id) {
         return ResultGenerator.success(commonConvert.toJljsCoachInfoListOut(jljsCoachInfoDao.getById(id)));
     }
 
-    public Result
-            <String> save(JljsCoachInfoSaveVO saveVO) {
+    public Result<String> save(JljsCoachInfoSaveVO saveVO) {
         jljsCoachInfoDao.save(commonConvert.toJljsCoachInfo(saveVO));
         return ResultGenerator.success();
     }
 
-    public Result
-            <String> update(JljsCoachInfoUpdateVO updateVO) {
+    public Result<String> update(JljsCoachInfoUpdateVO updateVO) {
         jljsCoachInfoDao.updateById(commonConvert.updatetoJljsCoachInfo(updateVO));
         return ResultGenerator.success();
     }
 
-    public Result
-            <String> delete(String id) {
+    public Result<String> delete(String id) {
         jljsCoachInfoDao.removeById(id);
         return ResultGenerator.success();
     }

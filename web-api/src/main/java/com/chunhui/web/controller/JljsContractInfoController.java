@@ -3,7 +3,7 @@ package com.chunhui.web.controller;
 
 import com.chunhui.web.pojo.query.JljsContractInfoQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.JljsContractInfoService;
+import com.chunhui.web.service.jljs.JljsContractInfoService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

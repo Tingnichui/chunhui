@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.jljs;
 
 import com.chunhui.web.dao.JljsCourseInfoDao;
 import com.chunhui.web.mapstruct.CommonConvert;
@@ -17,32 +17,25 @@ public class JljsCourseInfoService {
     @Resource
     private JljsCourseInfoDao jljsCourseInfoDao;
 
-    public Result
-            <PageResult
-                    <JljsCourseInfoOutVO>> pageList(JljsCourseInfoQuery query) {
-        return ResultGenerator.success(PageUtil.pageResult(jljsCourseInfoDao.pageListByQurey(query),
-                commonConvert::toJljsCourseInfoOutList));
+    public Result<PageResult<JljsCourseInfoOutVO>> pageList(JljsCourseInfoQuery query) {
+        return ResultGenerator.success(PageUtil.pageResult(jljsCourseInfoDao.pageListByQurey(query), commonConvert::toJljsCourseInfoOutList));
     }
 
-    public Result
-            <JljsCourseInfoOutVO> detail(String id) {
+    public Result<JljsCourseInfoOutVO> detail(String id) {
         return ResultGenerator.success(commonConvert.toJljsCourseInfoListOut(jljsCourseInfoDao.getById(id)));
     }
 
-    public Result
-            <String> save(JljsCourseInfoSaveVO saveVO) {
+    public Result<String> save(JljsCourseInfoSaveVO saveVO) {
         jljsCourseInfoDao.save(commonConvert.toJljsCourseInfo(saveVO));
         return ResultGenerator.success();
     }
 
-    public Result
-            <String> update(JljsCourseInfoUpdateVO updateVO) {
+    public Result<String> update(JljsCourseInfoUpdateVO updateVO) {
         jljsCourseInfoDao.updateById(commonConvert.updatetoJljsCourseInfo(updateVO));
         return ResultGenerator.success();
     }
 
-    public Result
-            <String> delete(String id) {
+    public Result<String> delete(String id) {
         jljsCourseInfoDao.removeById(id);
         return ResultGenerator.success();
     }

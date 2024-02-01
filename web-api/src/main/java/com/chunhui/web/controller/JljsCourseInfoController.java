@@ -3,7 +3,7 @@ package com.chunhui.web.controller;
 
 import com.chunhui.web.pojo.query.JljsCourseInfoQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.JljsCourseInfoService;
+import com.chunhui.web.service.jljs.JljsCourseInfoService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

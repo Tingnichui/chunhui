@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.jljs;
 
 import com.chunhui.web.constants.jljs.JljsContractStatusEnum;
 import com.chunhui.web.dao.JljsContractInfoDao;

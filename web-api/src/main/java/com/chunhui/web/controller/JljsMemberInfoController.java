@@ -3,7 +3,7 @@ package com.chunhui.web.controller;
 
 import com.chunhui.web.pojo.query.JljsMemberInfoQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.JljsMemberInfoService;
+import com.chunhui.web.service.jljs.JljsMemberInfoService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

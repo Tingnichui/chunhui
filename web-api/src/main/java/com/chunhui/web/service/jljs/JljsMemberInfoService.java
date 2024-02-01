@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.jljs;
 
 import com.chunhui.web.dao.JljsMemberInfoDao;
 import com.chunhui.web.mapstruct.CommonConvert;
@@ -17,32 +17,25 @@ public class JljsMemberInfoService {
     @Resource
     private JljsMemberInfoDao jljsMemberInfoDao;
 
-    public Result
-            <PageResult
-                    <JljsMemberInfoOutVO>> pageList(JljsMemberInfoQuery query) {
-        return ResultGenerator.success(PageUtil.pageResult(jljsMemberInfoDao.pageListByQurey(query),
-                commonConvert::toJljsMemberInfoOutList));
+    public Result<PageResult<JljsMemberInfoOutVO>> pageList(JljsMemberInfoQuery query) {
+        return ResultGenerator.success(PageUtil.pageResult(jljsMemberInfoDao.pageListByQurey(query), commonConvert::toJljsMemberInfoOutList));
     }
 
-    public Result
-            <JljsMemberInfoOutVO> detail(String id) {
+    public Result<JljsMemberInfoOutVO> detail(String id) {
         return ResultGenerator.success(commonConvert.toJljsMemberInfoListOut(jljsMemberInfoDao.getById(id)));
     }
 
-    public Result
-            <String> save(JljsMemberInfoSaveVO saveVO) {
+    public Result<String> save(JljsMemberInfoSaveVO saveVO) {
         jljsMemberInfoDao.save(commonConvert.toJljsMemberInfo(saveVO));
         return ResultGenerator.success();
     }
 
-    public Result
-            <String> update(JljsMemberInfoUpdateVO updateVO) {
+    public Result<String> update(JljsMemberInfoUpdateVO updateVO) {
         jljsMemberInfoDao.updateById(commonConvert.updatetoJljsMemberInfo(updateVO));
         return ResultGenerator.success();
     }
 
-    public Result
-            <String> delete(String id) {
+    public Result<String> delete(String id) {
         jljsMemberInfoDao.removeById(id);
         return ResultGenerator.success();
     }

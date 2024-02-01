@@ -3,7 +3,7 @@ package com.chunhui.web.controller;
 
 import com.chunhui.web.pojo.query.JljsClassRecordQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.JljsClassRecordService;
+import com.chunhui.web.service.jljs.JljsClassRecordService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
