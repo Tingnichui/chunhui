@@ -3,7 +3,7 @@ package com.chunhui.web.controller.system;
 
 import com.chunhui.web.pojo.query.SysUserRoleQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.SysUserRoleService;
+import com.chunhui.web.service.system.SysUserRoleService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

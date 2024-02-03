@@ -4,7 +4,7 @@ package com.chunhui.web.controller.system;
 import com.chunhui.web.pojo.po.SysUser;
 import com.chunhui.web.pojo.query.SysUserQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.SysUserService;
+import com.chunhui.web.service.system.SysUserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

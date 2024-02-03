@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.system;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.chunhui.web.dao.SysRolePermissionDao;

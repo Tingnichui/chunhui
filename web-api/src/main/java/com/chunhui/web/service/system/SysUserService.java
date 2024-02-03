@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.system;
 
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;

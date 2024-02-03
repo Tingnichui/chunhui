@@ -1,4 +1,4 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.system;
 
 import com.chunhui.web.dao.SysFileDao;
 import com.chunhui.web.exception.BusinessException;

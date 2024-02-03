@@ -1,8 +1,8 @@
-package com.chunhui.web.service;
+package com.chunhui.web.service.system;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.toolkit.SimpleQuery;
-import com.chunhui.web.constants.PermissionType;
+import com.chunhui.web.constants.system.PermissionType;
 import com.chunhui.web.dao.SysPermissionDao;
 import com.chunhui.web.dao.SysResourcePermissionDao;
 import com.chunhui.web.dao.SysRolePermissionDao;

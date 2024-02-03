@@ -3,7 +3,7 @@ package com.chunhui.web.controller.system;
 
 import com.chunhui.web.pojo.query.SysRoleQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.SysRoleService;
+import com.chunhui.web.service.system.SysRoleService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

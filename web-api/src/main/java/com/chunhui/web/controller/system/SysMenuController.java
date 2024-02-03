@@ -3,7 +3,7 @@ package com.chunhui.web.controller.system;
 
 import com.chunhui.web.pojo.query.SysMenuQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.SysMenuService;
+import com.chunhui.web.service.system.SysMenuService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

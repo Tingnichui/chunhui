@@ -1,4 +1,4 @@
-package com.chunhui.web.constants;
+package com.chunhui.web.constants.system;
 
 
 import lombok.AllArgsConstructor;

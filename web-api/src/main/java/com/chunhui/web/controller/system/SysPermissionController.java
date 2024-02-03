@@ -3,7 +3,7 @@ package com.chunhui.web.controller.system;
 
 import com.chunhui.web.pojo.query.SysPermissionQuery;
 import com.chunhui.web.pojo.vo.*;
-import com.chunhui.web.service.SysPermissionService;
+import com.chunhui.web.service.system.SysPermissionService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

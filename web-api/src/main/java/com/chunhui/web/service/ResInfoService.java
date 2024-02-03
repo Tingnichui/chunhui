@@ -9,6 +9,7 @@ import com.chunhui.web.pojo.po.ResFile;
 import com.chunhui.web.pojo.po.ResInfo;
 import com.chunhui.web.pojo.query.ResInfoQuery;
 import com.chunhui.web.pojo.vo.*;
+import com.chunhui.web.service.system.SysFileService;
 import com.chunhui.web.util.PageUtil;
 import com.chunhui.web.util.ResultGenerator;
 import org.springframework.stereotype.Service;

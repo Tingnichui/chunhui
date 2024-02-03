@@ -1,4 +1,4 @@
-package com.chunhui.web.controller;
+package com.chunhui.web.controller.jljs;
 
 
 import com.chunhui.web.pojo.query.JljsCoachInfoQuery;

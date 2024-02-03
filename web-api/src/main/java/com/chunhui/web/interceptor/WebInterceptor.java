@@ -1,7 +1,7 @@
 package com.chunhui.web.interceptor;
 
 import cn.hutool.core.util.IdUtil;
-import com.chunhui.web.service.SysUserService;
+import com.chunhui.web.service.system.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;

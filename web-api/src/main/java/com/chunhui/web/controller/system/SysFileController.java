@@ -4,7 +4,7 @@ import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.pojo.vo.AliyunOssUploadAccess;
 import com.chunhui.web.pojo.vo.Result;
 import com.chunhui.web.pojo.vo.SysFileSaveVO;
-import com.chunhui.web.service.SysFileService;
+import com.chunhui.web.service.system.SysFileService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
