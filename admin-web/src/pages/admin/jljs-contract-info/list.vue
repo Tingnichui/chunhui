@@ -255,7 +255,7 @@
     </el-card>
 
     <el-dialog v-model="operateRecordDialogFlag">
-      <contractOperateRecord :key="contractId" :contract-id="contractId"></contractOperateRecord>
+      <contractOperateRecord :key="contractId + (new Date()).getSeconds()" :contract-id="contractId"></contractOperateRecord>
     </el-dialog>
 
     <el-dialog v-model="contractOperateDialogFlag" center title="操作" width="40%">

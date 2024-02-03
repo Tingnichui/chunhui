@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -75,6 +77,24 @@ public class JljsContractOperateRecordService {
             if (ObjectUtils.anyNull(operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())) {
                 return ResultGenerator.fail("起始时间不能为空");
             }
+            // 获取该合同所有的成功的请假记录
+            List<JljsContractOperateRecord> list = jljsContractOperateRecordDao.list(
+                    Wrappers.lambdaQuery(JljsContractOperateRecord.class)
+                            .eq(JljsContractOperateRecord::getContractInfoId, contractInfo.getId())
+                            .eq(JljsContractOperateRecord::getOperateStatus, JljsOperateStatusEnum.chenggong.getCode())
+                            .eq(JljsContractOperateRecord::getContractOperateType, JljsContractOperateTypeEnum.zanting.getCode())
+            );
+            for (JljsContractOperateRecord record : list) {
+                Date operateBeginDate = record.getOperateBeginDate();
+                Date operateEndDate = record.getOperateEndDate();
+                if (DateUtil.isIn(operateRecord.getOperateBeginDate(), operateBeginDate, operateEndDate)
+                        || DateUtil.isIn(operateRecord.getOperateEndDate(), operateBeginDate, operateEndDate)
+                        || DateUtil.isIn(operateBeginDate, operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())
+                        || DateUtil.isIn(operateEndDate, operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())) {
+                    return ResultGenerator.fail("已存在" + DateUtil.formatDate(operateBeginDate) + "~" + DateUtil.formatDate(operateEndDate) + "请假记录，时间不可重复");
+                }
+            }
+
             long dayDiff = DateUtil.betweenDay(operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate(), true) + 1;
             operateRecord.setIntervalDays((int) dayDiff);
             // 保存操作记录
