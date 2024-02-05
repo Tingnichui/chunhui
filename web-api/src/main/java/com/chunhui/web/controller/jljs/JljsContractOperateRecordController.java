@@ -37,7 +37,7 @@ public class JljsContractOperateRecordController {
     }
 
     @RequestMapping("/save")
-    public Result<String> save(@Validated @RequestBody JljsContractOperateRecordSaveVO saveVO) {
+    public Result<String> save(@Validated @RequestBody JljsContractOperateRecordSaveVO saveVO) throws Exception {
         return jljsContractOperateRecordService.save(saveVO);
     }
 
