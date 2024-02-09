@@ -9,6 +9,7 @@ import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.JljsContractInfo;
 import com.chunhui.web.pojo.query.JljsContractInfoQuery;
 import com.chunhui.web.pojo.vo.*;
+import com.chunhui.web.task.SyncContractInfo;
 import com.chunhui.web.util.PageUtil;
 import com.chunhui.web.util.ResultGenerator;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class JljsContractInfoService {
     private final CommonConvert commonConvert = CommonConvert.INSTANCE;
     @Resource
     private JljsContractInfoDao jljsContractInfoDao;
+
+    @Resource
+    private SyncContractInfo syncContractInfo;
 
     public Result<PageResult<JljsContractInfoOutVO>> pageList(JljsContractInfoQuery query) {
         return ResultGenerator.success(PageUtil.pageResult(jljsContractInfoDao.pageListByQurey(query), commonConvert::toJljsContractInfoOutList));
@@ -40,6 +44,7 @@ public class JljsContractInfoService {
 
     public Result<String> update(JljsContractInfoUpdateVO updateVO) {
         jljsContractInfoDao.updateById(commonConvert.updatetoJljsContractInfo(updateVO));
+        syncContractInfo.sync(updateVO.getId());
         return ResultGenerator.success();
     }
 

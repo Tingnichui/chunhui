@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.chunhui.web.constants.jljs.JljsContractOperateTypeEnum;
 import com.chunhui.web.constants.jljs.JljsContractStatusEnum;
+import com.chunhui.web.dao.JljsClassRecordDao;
 import com.chunhui.web.dao.JljsContractInfoDao;
 import com.chunhui.web.pojo.po.JljsContractInfo;
 import com.chunhui.web.pojo.vo.JljsContractOperateRecordSaveVO;
@@ -35,6 +36,8 @@ class SyncContractInfoTests {
     private JljsContractInfoService jljsContractInfoService;
     @Resource
     private JljsContractInfoDao jljsContractInfoDao;
+    @Resource
+    private JljsClassRecordDao jljsClassRecordDao;
 
     @Test
     void test() {
@@ -48,7 +51,7 @@ class SyncContractInfoTests {
     void saveOperateRecord() throws Exception {
         try {
             MDC.put("processId", IdUtil.getSnowflakeNextIdStr());
-            
+
             // 获取所有正在使用的合同
             List<JljsContractInfo> contractInfoList = jljsContractInfoDao.list(
                     Wrappers.lambdaQuery(JljsContractInfo.class)

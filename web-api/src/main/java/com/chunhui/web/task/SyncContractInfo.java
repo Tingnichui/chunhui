@@ -96,9 +96,11 @@ public class SyncContractInfo {
 
         // 更新 已使用量、剩余数量
         if (JljsCourseTypeEnum.ci.getCode().equals(contractInfo.getCourseType())) {
+            // 获取该会员该合同的使用记录
             int count = (int) jljsClassRecordDao.count(
                     Wrappers.lambdaQuery(JljsClassRecord.class)
                             .eq(JljsClassRecord::getMemberId, contractInfo.getMemberId())
+                            .eq(JljsClassRecord::getContractInfoId, contractId)
             );
             contractInfo.setCourseUseQuantity(count);
             contractInfo.setCourseRemainQuantity(contractInfo.getCourseAvailableQuantity() - count);
@@ -146,5 +148,6 @@ public class SyncContractInfo {
         queryWrapper.eq(JljsContractOperateRecord::getOperateStatus, JljsOperateStatusEnum.chenggong.getCode());
         return queryWrapper;
     }
+
 
 }

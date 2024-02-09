@@ -3,6 +3,7 @@ package com.chunhui.web.service.jljs;
 import com.chunhui.web.dao.JljsClassRecordDao;
 import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.mapstruct.CommonConvert;
+import com.chunhui.web.pojo.po.JljsClassRecord;
 import com.chunhui.web.pojo.po.JljsContractInfo;
 import com.chunhui.web.pojo.query.JljsClassRecordQuery;
 import com.chunhui.web.pojo.vo.*;
@@ -38,7 +39,12 @@ public class JljsClassRecordService {
         if (null == contractInfo) {
             return ResultGenerator.fail("该会员没有使用中的合同");
         }
-        jljsClassRecordDao.save(commonConvert.toJljsClassRecord(saveVO));
+        String contractInfoId = contractInfo.getId();
+        JljsClassRecord jljsClassRecord = commonConvert.toJljsClassRecord(saveVO);
+        jljsClassRecord.setContractInfoId(contractInfoId);
+        jljsClassRecordDao.save(jljsClassRecord);
+        // 更新合同信息
+        syncContractInfo.sync(contractInfoId);
         return ResultGenerator.success();
     }
 
@@ -48,7 +54,12 @@ public class JljsClassRecordService {
     }
 
     public Result<String> delete(String id) {
-        jljsClassRecordDao.removeById(id);
+        JljsClassRecord record = jljsClassRecordDao.getById(id);
+        if (null != record) {
+            jljsClassRecordDao.removeById(id);
+            // 更新合同信息
+            syncContractInfo.sync(record.getContractInfoId());
+        }
         return ResultGenerator.success();
     }
 
