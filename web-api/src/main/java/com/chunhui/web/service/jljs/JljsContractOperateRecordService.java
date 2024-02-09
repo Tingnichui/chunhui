@@ -36,6 +36,8 @@ public class JljsContractOperateRecordService {
     @Resource
     private JljsContractInfoDao jljsContractInfoDao;
     @Resource
+    private JljsContractInfoService jljsContractInfoService;
+    @Resource
     private SyncContractInfo syncContractInfo;
 
     public Result<PageResult<JljsContractOperateRecordOutVO>> pageList(JljsContractOperateRecordQuery query) {
@@ -61,6 +63,11 @@ public class JljsContractOperateRecordService {
             if (JljsContractOperateTypeEnum.kaika.getCode().equals(operateType)) {
                 if (!JljsContractStatusEnum.daikaika.getCode().equals(contractStatus)) {
                     throw new BusinessException("合同不是待开卡状态，不可操作");
+                }
+                // 判断存在几个使用中的合同
+                JljsContractInfo contractInfoInUse = jljsContractInfoService.getInUseContractInfoByMemberId(contractInfo.getMemberId());
+                if (null != contractInfoInUse) {
+                    throw new BusinessException("已经存在正在使用的合同,不可再次开卡");
                 }
                 if (null == operateRecord.getOperateBeginDate()) {
                     throw new BusinessException("开卡时间不能为空");
