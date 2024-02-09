@@ -15,6 +15,7 @@ import com.chunhui.web.pojo.po.JljsContractInfo;
 import com.chunhui.web.pojo.po.JljsContractOperateRecord;
 import com.chunhui.web.pojo.query.JljsContractOperateRecordQuery;
 import com.chunhui.web.pojo.vo.*;
+import com.chunhui.web.task.SyncContractInfo;
 import com.chunhui.web.util.PageUtil;
 import com.chunhui.web.util.ResultGenerator;
 import org.apache.commons.lang3.ObjectUtils;
@@ -34,6 +35,8 @@ public class JljsContractOperateRecordService {
     private JljsContractOperateRecordDao jljsContractOperateRecordDao;
     @Resource
     private JljsContractInfoDao jljsContractInfoDao;
+    @Resource
+    private SyncContractInfo syncContractInfo;
 
     public Result<PageResult<JljsContractOperateRecordOutVO>> pageList(JljsContractOperateRecordQuery query) {
         return ResultGenerator.success(PageUtil.pageResult(jljsContractOperateRecordDao.pageListByQurey(query), commonConvert::toJljsContractOperateRecordOutList));
@@ -51,91 +54,96 @@ public class JljsContractOperateRecordService {
             throw new BusinessException("合同不存在");
         }
 
-        String contractStatus = contractInfo.getContractStatus();
-        String operateType = operateRecord.getContractOperateType();
-        // 开卡 更新合同开始日期
-        if (JljsContractOperateTypeEnum.kaika.getCode().equals(operateType)) {
-            if (!JljsContractStatusEnum.daikaika.getCode().equals(contractStatus)) {
-                throw new BusinessException("合同不是待开卡状态，不可操作");
-            }
-            if (null == operateRecord.getOperateBeginDate()) {
-                throw new BusinessException("开卡时间不能为空");
-            }
-            LambdaUpdateWrapper<JljsContractInfo> updateWrapper = Wrappers.lambdaUpdate(JljsContractInfo.class);
-            updateWrapper.eq(BaseDO::getId, contractInfo.getId());
-            updateWrapper.set(JljsContractInfo::getUseBeginDate, operateRecord.getOperateBeginDate());
-            updateWrapper.set(JljsContractInfo::getContractStatus, JljsContractStatusEnum.shiyong.getCode());
-            jljsContractInfoDao.update(updateWrapper);
-            // 保存操作记录
-            jljsContractOperateRecordDao.save(operateRecord);
-            return ResultGenerator.success();
-        }
-        // 暂停 计算间隔时间 更新合同剩余有效天数/有效次数
-        if (JljsContractOperateTypeEnum.zanting.getCode().equals(operateType)) {
-            if (!StringUtils.equalsAny(contractStatus, JljsContractStatusEnum.shiyong.getCode(), JljsContractStatusEnum.zanting.getCode())) {
-                throw new BusinessException("只有使用中或者暂停中的合同才可以进行停课");
-            }
-            if (ObjectUtils.anyNull(operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())) {
-                throw new BusinessException("起始时间不能为空");
-            }
-            // 获取该合同所有的成功的请假记录
-            List<JljsContractOperateRecord> list = jljsContractOperateRecordDao.list(
-                    Wrappers.lambdaQuery(JljsContractOperateRecord.class)
-                            .eq(JljsContractOperateRecord::getContractInfoId, contractInfo.getId())
-                            .eq(JljsContractOperateRecord::getOperateStatus, JljsOperateStatusEnum.chenggong.getCode())
-                            .eq(JljsContractOperateRecord::getContractOperateType, JljsContractOperateTypeEnum.zanting.getCode())
-            );
-            if (operateRecord.getOperateBeginDate().before(contractInfo.getUseBeginDate())) {
-                throw new BusinessException("请假时间不能早于合同开始时间");
-            }
-            // 判断请假时间在不在合同有效期内
-            if (!DateUtil.isIn(operateRecord.getOperateBeginDate(), contractInfo.getUseBeginDate(), contractInfo.getUseEndDate())
-                    && !DateUtil.isIn(operateRecord.getOperateEndDate(), contractInfo.getUseBeginDate(), contractInfo.getUseEndDate())) {
-                throw new BusinessException("请假时间需要在合同起始时间内");
-            }
-            for (JljsContractOperateRecord record : list) {
-                Date operateBeginDate = record.getOperateBeginDate();
-                Date operateEndDate = record.getOperateEndDate();
-                // 请假起始时间在之前的请假记录内 或者 之前的请假起始时间包含了请假的时间
-                if (DateUtil.isIn(operateRecord.getOperateBeginDate(), operateBeginDate, operateEndDate)
-                        || DateUtil.isIn(operateRecord.getOperateEndDate(), operateBeginDate, operateEndDate)
-                        || DateUtil.isIn(operateBeginDate, operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())
-                        || DateUtil.isIn(operateEndDate, operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())) {
-                    throw new BusinessException("已存在" + DateUtil.formatDate(operateBeginDate) + "~" + DateUtil.formatDate(operateEndDate) + "请假记录，时间不可重复");
+        try {
+            String contractStatus = contractInfo.getContractStatus();
+            String operateType = operateRecord.getContractOperateType();
+            // 开卡 更新合同开始日期
+            if (JljsContractOperateTypeEnum.kaika.getCode().equals(operateType)) {
+                if (!JljsContractStatusEnum.daikaika.getCode().equals(contractStatus)) {
+                    throw new BusinessException("合同不是待开卡状态，不可操作");
                 }
+                if (null == operateRecord.getOperateBeginDate()) {
+                    throw new BusinessException("开卡时间不能为空");
+                }
+                LambdaUpdateWrapper<JljsContractInfo> updateWrapper = Wrappers.lambdaUpdate(JljsContractInfo.class);
+                updateWrapper.eq(BaseDO::getId, contractInfo.getId());
+                updateWrapper.set(JljsContractInfo::getUseBeginDate, operateRecord.getOperateBeginDate());
+                updateWrapper.set(JljsContractInfo::getContractStatus, JljsContractStatusEnum.shiyong.getCode());
+                jljsContractInfoDao.update(updateWrapper);
+                // 保存操作记录
+                jljsContractOperateRecordDao.save(operateRecord);
+                return ResultGenerator.success();
             }
+            // 暂停 计算间隔时间 更新合同剩余有效天数/有效次数
+            if (JljsContractOperateTypeEnum.zanting.getCode().equals(operateType)) {
+                if (!StringUtils.equalsAny(contractStatus, JljsContractStatusEnum.shiyong.getCode(), JljsContractStatusEnum.zanting.getCode())) {
+                    throw new BusinessException("只有使用中或者暂停中的合同才可以进行停课");
+                }
+                if (ObjectUtils.anyNull(operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())) {
+                    throw new BusinessException("起始时间不能为空");
+                }
+                // 获取该合同所有的成功的请假记录
+                List<JljsContractOperateRecord> list = jljsContractOperateRecordDao.list(
+                        Wrappers.lambdaQuery(JljsContractOperateRecord.class)
+                                .eq(JljsContractOperateRecord::getContractInfoId, contractInfo.getId())
+                                .eq(JljsContractOperateRecord::getOperateStatus, JljsOperateStatusEnum.chenggong.getCode())
+                                .eq(JljsContractOperateRecord::getContractOperateType, JljsContractOperateTypeEnum.zanting.getCode())
+                );
+                if (operateRecord.getOperateBeginDate().before(contractInfo.getUseBeginDate())) {
+                    throw new BusinessException("请假时间不能早于合同开始时间");
+                }
+                // 判断请假时间在不在合同有效期内
+                if (!DateUtil.isIn(operateRecord.getOperateBeginDate(), contractInfo.getUseBeginDate(), contractInfo.getUseEndDate())
+                        && !DateUtil.isIn(operateRecord.getOperateEndDate(), contractInfo.getUseBeginDate(), contractInfo.getUseEndDate())) {
+                    throw new BusinessException("请假时间需要在合同起始时间内");
+                }
+                for (JljsContractOperateRecord record : list) {
+                    Date operateBeginDate = record.getOperateBeginDate();
+                    Date operateEndDate = record.getOperateEndDate();
+                    // 请假起始时间在之前的请假记录内 或者 之前的请假起始时间包含了请假的时间
+                    if (DateUtil.isIn(operateRecord.getOperateBeginDate(), operateBeginDate, operateEndDate)
+                            || DateUtil.isIn(operateRecord.getOperateEndDate(), operateBeginDate, operateEndDate)
+                            || DateUtil.isIn(operateBeginDate, operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())
+                            || DateUtil.isIn(operateEndDate, operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate())) {
+                        throw new BusinessException("已存在" + DateUtil.formatDate(operateBeginDate) + "~" + DateUtil.formatDate(operateEndDate) + "请假记录，时间不可重复");
+                    }
+                }
 
-            long dayDiff = DateUtil.betweenDay(operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate(), true) + 1;
-            operateRecord.setIntervalDays((int) dayDiff);
-            // 保存操作记录
-            jljsContractOperateRecordDao.save(operateRecord);
-            return ResultGenerator.success();
-        }
-        // 退课
-        if (JljsContractOperateTypeEnum.tuike.getCode().equals(operateType)) {
-            if (StringUtils.equalsAny(contractStatus, JljsContractStatusEnum.wancheng.getCode(), JljsContractStatusEnum.zhongzhi.getCode())) {
-                throw new BusinessException("合同已完成或已终止，不可操作");
+                long dayDiff = DateUtil.betweenDay(operateRecord.getOperateBeginDate(), operateRecord.getOperateEndDate(), true) + 1;
+                operateRecord.setIntervalDays((int) dayDiff);
+                // 保存操作记录
+                jljsContractOperateRecordDao.save(operateRecord);
+                return ResultGenerator.success();
             }
-            if (null == operateRecord.getOperateAmount()) {
-                throw new BusinessException("退课金额不能为空");
+            // 退课
+            if (JljsContractOperateTypeEnum.tuike.getCode().equals(operateType)) {
+                if (StringUtils.equalsAny(contractStatus, JljsContractStatusEnum.wancheng.getCode(), JljsContractStatusEnum.zhongzhi.getCode())) {
+                    throw new BusinessException("合同已完成或已终止，不可操作");
+                }
+                if (null == operateRecord.getOperateAmount()) {
+                    throw new BusinessException("退课金额不能为空");
+                }
+                // 保存操作记录
+                jljsContractOperateRecordDao.save(operateRecord);
+                // 更新合同状态 终止
+                LambdaUpdateWrapper<JljsContractInfo> updateWrapper = Wrappers.lambdaUpdate(JljsContractInfo.class);
+                updateWrapper.eq(BaseDO::getId, contractInfo.getId());
+                updateWrapper.set(JljsContractInfo::getContractStatus, JljsContractStatusEnum.zhongzhi.getCode());
+                jljsContractInfoDao.update(updateWrapper);
+                return ResultGenerator.success();
             }
-            // 保存操作记录
-            jljsContractOperateRecordDao.save(operateRecord);
-            // 更新合同状态 终止
-            LambdaUpdateWrapper<JljsContractInfo> updateWrapper = Wrappers.lambdaUpdate(JljsContractInfo.class);
-            updateWrapper.eq(BaseDO::getId, contractInfo.getId());
-            updateWrapper.set(JljsContractInfo::getContractStatus, JljsContractStatusEnum.zhongzhi.getCode());
-            jljsContractInfoDao.update(updateWrapper);
-            return ResultGenerator.success();
-        }
-        // 补缴
-        if (JljsContractOperateTypeEnum.bujiao.getCode().equals(operateType)) {
-            if (null == operateRecord.getOperateAmount()) {
-                throw new BusinessException("补缴金额不能为空");
+            // 补缴
+            if (JljsContractOperateTypeEnum.bujiao.getCode().equals(operateType)) {
+                if (null == operateRecord.getOperateAmount()) {
+                    throw new BusinessException("补缴金额不能为空");
+                }
+                // 保存操作记录
+                jljsContractOperateRecordDao.save(operateRecord);
+                return ResultGenerator.success();
             }
-            // 保存操作记录
-            jljsContractOperateRecordDao.save(operateRecord);
-            return ResultGenerator.success();
+        } finally {
+            // 更新合同信息
+            syncContractInfo.sync(operateRecord.getContractInfoId());
         }
         return ResultGenerator.fail("不支持的操作类型");
     }
@@ -150,6 +158,7 @@ public class JljsContractOperateRecordService {
         return ResultGenerator.success();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Result<String> revoke(String id) {
         JljsContractOperateRecord record = jljsContractOperateRecordDao.getById(id);
         if (null == record) {
@@ -167,6 +176,8 @@ public class JljsContractOperateRecordService {
             update.set(JljsContractInfo::getUseBeginDate, null);
             jljsContractInfoDao.update(update);
         }
+
+        syncContractInfo.sync(record.getContractInfoId());
 
         return ResultGenerator.success("操作成功");
 
