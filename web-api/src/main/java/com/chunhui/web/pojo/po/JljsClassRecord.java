@@ -25,6 +25,11 @@ public class JljsClassRecord extends BaseDO {
      */
     private String memberId;
 
+    /**
+     * 关联合同id
+     */
+    private String contractInfoId;
+
 
     /**
      * 课程开始时间

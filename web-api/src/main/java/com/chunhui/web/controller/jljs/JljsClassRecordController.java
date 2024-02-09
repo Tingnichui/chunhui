@@ -1,6 +1,7 @@
 package com.chunhui.web.controller.jljs;
 
 
+import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.pojo.query.JljsClassRecordQuery;
 import com.chunhui.web.pojo.vo.*;
 import com.chunhui.web.service.jljs.JljsClassRecordService;
@@ -32,7 +33,7 @@ public class JljsClassRecordController {
     }
 
     @RequestMapping("/save")
-    public Result<String> save(@Validated @RequestBody JljsClassRecordSaveVO saveVO) {
+    public Result<String> save(@Validated @RequestBody JljsClassRecordSaveVO saveVO) throws BusinessException {
         return jljsClassRecordService.save(saveVO);
     }
 

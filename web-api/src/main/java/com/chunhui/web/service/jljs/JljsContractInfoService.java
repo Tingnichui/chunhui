@@ -1,7 +1,10 @@
 package com.chunhui.web.service.jljs;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.chunhui.web.constants.jljs.JljsContractStatusEnum;
 import com.chunhui.web.dao.JljsContractInfoDao;
+import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.mapstruct.CommonConvert;
 import com.chunhui.web.pojo.po.JljsContractInfo;
 import com.chunhui.web.pojo.query.JljsContractInfoQuery;
@@ -11,6 +14,7 @@ import com.chunhui.web.util.ResultGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Service
@@ -44,4 +48,17 @@ public class JljsContractInfoService {
         return ResultGenerator.success();
     }
 
+    public JljsContractInfo getInUseContractInfoByMemberId(String memberId) throws BusinessException {
+        LambdaQueryWrapper<JljsContractInfo> wrapper = Wrappers.lambdaQuery(JljsContractInfo.class);
+        wrapper.eq(JljsContractInfo::getMemberId, memberId);
+        wrapper.eq(JljsContractInfo::getContractStatus, JljsContractStatusEnum.shiyong.getCode());
+        List<JljsContractInfo> list = jljsContractInfoDao.list(wrapper);
+        if (list.isEmpty()) {
+            return null;
+        }
+        if (list.size() > 1) {
+            throw new BusinessException("该会员存在" + list.size() + "个使用中的合同");
+        }
+        return list.get(0);
+    }
 }
