@@ -45,7 +45,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         } catch (Exception e) {
             // 获取当前线程id
             String processId = MDC.get("processId");
-            if (StringUtils.isNotBlank(processId)) {
+            if (StringUtils.isBlank(processId)) {
                 throw new RuntimeException(ExceptionEnum.SAVE_FAIL.getMessage());
             }
             this.strictUpdateFill(metaObject, CREATE_BY, String.class, processId);
