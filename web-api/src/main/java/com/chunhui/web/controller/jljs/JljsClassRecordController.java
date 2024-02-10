@@ -38,7 +38,7 @@ public class JljsClassRecordController {
     }
 
     @RequestMapping("/update")
-    public Result<String> update(@Validated @RequestBody JljsClassRecordUpdateVO updateVO) {
+    public Result<String> update(@Validated @RequestBody JljsClassRecordUpdateVO updateVO) throws BusinessException {
         return jljsClassRecordService.update(updateVO);
     }
 

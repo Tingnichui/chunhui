@@ -48,8 +48,16 @@ public class JljsClassRecordService {
         return ResultGenerator.success();
     }
 
-    public Result<String> update(JljsClassRecordUpdateVO updateVO) {
-        jljsClassRecordDao.updateById(commonConvert.updatetoJljsClassRecord(updateVO));
+    public Result<String> update(JljsClassRecordUpdateVO updateVO) throws BusinessException {
+        // 判断该会员是否有正常使用的合同
+        JljsContractInfo contractInfo = jljsContractInfoService.getInUseContractInfoByMemberId(updateVO.getMemberId());
+        if (null == contractInfo) {
+            return ResultGenerator.fail("该会员没有使用中的合同");
+        }
+        String contractInfoId = contractInfo.getId();
+        JljsClassRecord jljsClassRecord = commonConvert.updatetoJljsClassRecord(updateVO);
+        jljsClassRecord.setContractInfoId(contractInfoId);
+        jljsClassRecordDao.updateById(jljsClassRecord);
         return ResultGenerator.success();
     }
 
