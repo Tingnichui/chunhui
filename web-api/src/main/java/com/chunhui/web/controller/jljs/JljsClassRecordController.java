@@ -1,6 +1,7 @@
 package com.chunhui.web.controller.jljs;
 
 
+import com.chunhui.web.aspect.ApiOperation;
 import com.chunhui.web.exception.BusinessException;
 import com.chunhui.web.pojo.query.JljsClassRecordQuery;
 import com.chunhui.web.pojo.vo.*;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 
 @Validated
 @RestController
+@ApiOperation(name = "上课记录")
 @RequestMapping("/jljsClassRecord")
 public class JljsClassRecordController {
 
