@@ -375,7 +375,7 @@
           <el-input v-model="saveForm.courseAvailableQuantity" :input-style="{'height':'26px','text-align': 'center'}"
                     style="width: 60px;margin: 0 5px;"/>
           <el-select v-model="saveForm.courseType" :input-style="{'height':'26px','text-align': 'center'}"
-                     style="width: 60px;">
+                     style="width: 60px;" disabled>
             <el-option
                 v-for="item in courseTypeList"
                 :key="item.value"
@@ -539,7 +539,9 @@ export default {
     },
     changeCourse(value) {
       this.saveForm.contractAmount = this.courseList.find(v => v.id === value).coursePrice
-      // this.saveForm.buyQuantity = this.courseList.find(v => v.id === value).courseValidDays
+      this.saveForm.courseUsePeriodDays = this.courseList.find(v => v.id === value).courseUsePeriodDays
+      this.saveForm.courseAvailableQuantity = this.courseList.find(v => v.id === value).courseAvailableQuantity
+      this.saveForm.courseType = this.courseList.find(v => v.id === value).courseType
     },
     contractOperate(id, type) {
       this.contractOperateForm = {

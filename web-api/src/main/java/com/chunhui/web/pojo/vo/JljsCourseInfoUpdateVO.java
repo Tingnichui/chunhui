@@ -31,11 +31,20 @@ public class JljsCourseInfoUpdateVO {
      */
     private String courseDescribe;
 
+    /**
+     * 课程类型；1按次消费；2按天计时；
+     */
+    private String courseType;
 
     /**
-     * 有效天数
+     * 课程使用期限
      */
-    private Integer courseValidDays;
+    private Integer courseUsePeriodDays;
+
+    /**
+     * 课程可使用数量
+     */
+    private Integer courseAvailableQuantity;
 
 
 }

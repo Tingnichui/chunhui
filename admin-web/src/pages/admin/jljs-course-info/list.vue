@@ -34,15 +34,6 @@
               v-model="searchForm.courseDescribe"
           />
         </el-form-item>
-        <el-form-item
-            label="有效天数 :"
-            prop="name"
-            style="width:25%"
-        >
-          <el-input
-              v-model="searchForm.courseValidDays"
-          />
-        </el-form-item>
         <div class="action-groups">
           <el-button plain type="primary" @click="search">查询</el-button>
           <el-button plain type="primary" @click="research">重置</el-button>
@@ -78,7 +69,7 @@
         />
         <el-table-column
             label="有效天数"
-            prop="courseValidDays"
+            prop="courseAvailableQuantity"
         />
         <el-table-column
             label="描述"
@@ -125,8 +116,17 @@
         <el-form-item label="描述">
           <el-input v-model="saveForm.courseDescribe"/>
         </el-form-item>
-        <el-form-item label="有效天数">
-          <el-input v-model="saveForm.courseValidDays"/>
+        <el-form-item label="课程类型">
+          <el-radio-group v-model="saveForm.courseType" class="ml-4">
+            <el-radio label="1" size="large">按次消费</el-radio>
+            <el-radio label="2" size="large">按天计时</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="使用期限">
+          <el-input type="number" v-model="saveForm.courseUsePeriodDays"/>
+        </el-form-item>
+        <el-form-item label="可用数量">
+          <el-input type="number" v-model="saveForm.courseAvailableQuantity"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -192,7 +192,7 @@ export default {
       this.search()
     },
     resetSaveForm() {
-      this.saveForm = {}
+      this.saveForm = {courseType : '1'}
     },
     showSaveForm() {
       this.resetSaveForm()
