@@ -44,7 +44,7 @@ public class SyncContractInfo {
     }
 
     public void sync(String contractId) {
-        Date today = new Date();
+        Date today = DateUtil.beginOfDay(new Date());
 
         JljsContractInfo contractInfo = jljsContractInfoDao.getById(contractId);
         if (null == contractInfo) {
@@ -94,7 +94,7 @@ public class SyncContractInfo {
             }
         }
 
-        // 更新 已使用量、剩余数量
+        // 更新 次卡已使用量、剩余数量
         if (JljsCourseTypeEnum.ci.getCode().equals(contractInfo.getCourseType())) {
             // 获取该会员该合同的使用记录
             int count = (int) jljsClassRecordDao.count(
@@ -105,8 +105,10 @@ public class SyncContractInfo {
             contractInfo.setCourseUseQuantity(count);
             contractInfo.setCourseRemainQuantity(contractInfo.getCourseAvailableQuantity() - count);
         }
+        // 更新 按天计时 已使用量、剩余数量
         if (JljsCourseTypeEnum.tian.getCode().equals(contractInfo.getCourseType())) {
-            int courseUsePeriodDays = (int) DateUtil.betweenDay(contractInfo.getUseBeginDate(), today, true);
+            // 已使用量 = 使用开始时间到今天的天数 - 总计的暂停天数
+            int courseUsePeriodDays = (int) DateUtil.betweenDay(contractInfo.getUseBeginDate(), today, true) - totalStopDays - 1;
             contractInfo.setCourseUseQuantity(Math.min(contractInfo.getCourseAvailableQuantity(), courseUsePeriodDays));
             contractInfo.setCourseRemainQuantity(Math.max(contractInfo.getCourseAvailableQuantity() - courseUsePeriodDays, 0));
         }

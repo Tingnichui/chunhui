@@ -44,6 +44,11 @@ class SyncContractInfoTests {
         syncContractInfo.syncAll();
     }
 
+    @Test
+    void syncOne() {
+        syncContractInfo.sync("1747890114137645058");
+    }
+
     /**
      * 批量保存合同记录
      */
