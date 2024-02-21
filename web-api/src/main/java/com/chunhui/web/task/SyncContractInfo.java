@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -95,7 +96,8 @@ public class SyncContractInfo {
         }
 
         // 更新 次卡已使用量、剩余数量
-        if (JljsCourseTypeEnum.ci.getCode().equals(contractInfo.getCourseType())) {
+        String courseType = contractInfo.getCourseType();
+        if (JljsCourseTypeEnum.ci.getCode().equals(courseType)) {
             // 获取该会员该合同的使用记录
             int count = (int) jljsClassRecordDao.count(
                     Wrappers.lambdaQuery(JljsClassRecord.class)
@@ -106,7 +108,7 @@ public class SyncContractInfo {
             contractInfo.setCourseRemainQuantity(contractInfo.getCourseAvailableQuantity() - count);
         }
         // 更新 按天计时 已使用量、剩余数量
-        if (JljsCourseTypeEnum.tian.getCode().equals(contractInfo.getCourseType())) {
+        if (JljsCourseTypeEnum.tian.getCode().equals(courseType)) {
             // 已使用量 = 使用开始时间到今天的天数 - 总计的暂停天数
             int courseUsePeriodDays = (int) DateUtil.betweenDay(contractInfo.getUseBeginDate(), today, true) - totalStopDays - 1;
             contractInfo.setCourseUseQuantity(Math.min(contractInfo.getCourseAvailableQuantity(), courseUsePeriodDays));
@@ -129,6 +131,14 @@ public class SyncContractInfo {
                 contractInfo.setContractStatus(JljsContractStatusEnum.wancheng.getCode());
             }
         }
+        // 如果是次卡 剩余数量为0
+        if (JljsCourseTypeEnum.ci.getCode().equals(courseType) && Objects.equals(contractInfo.getCourseRemainQuantity(), 0)) {
+            // 如果是使用中 更新为已完成
+            if (JljsContractStatusEnum.shiyong.getCode().equals(contractInfo.getContractStatus())) {
+                contractInfo.setContractStatus(JljsContractStatusEnum.wancheng.getCode());
+            }
+        }
+
 
         // 合同是否终止
         JljsContractOperateRecord tuikeRecord = jljsContractOperateRecordDao.getOne(
