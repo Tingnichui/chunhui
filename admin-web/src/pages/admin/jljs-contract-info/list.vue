@@ -233,7 +233,7 @@
               </div>
               <el-button link type="info" @click="showOperateRecord(scope.row.id)">操作记录</el-button>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
-              <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>
+<!--              <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>-->
             </el-space>
           </template>
         </el-table-column>
