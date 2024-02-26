@@ -568,7 +568,7 @@ export default {
           type: 'success',
         })
         this.contractOperateDialogFlag = false
-        this.research()
+        this.search()
       })
     },
     tableRowClassName({row, rowIndex}) {
