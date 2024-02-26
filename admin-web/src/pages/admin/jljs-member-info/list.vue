@@ -260,7 +260,11 @@ export default {
           message: res.message,
           type: 'success',
         })
-        this.search();
+        if (this.updateFlag) {
+          this.search()
+        } else {
+          this.research()
+        }
         this.saveDialogFlag = false
         this.updateFlag = false
       })
