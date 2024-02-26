@@ -213,12 +213,10 @@ export default {
           }
       )
     },
-    research(resetForm = true) {
-      if (resetForm) {
-        this.searchForm = {
-          current: 1,
-          size: 15
-        }
+    research() {
+      this.searchForm = {
+        current: 1,
+        size: 15
       }
       this.search()
     },
@@ -262,7 +260,7 @@ export default {
           message: res.message,
           type: 'success',
         })
-        this.research(false);
+        this.search();
         this.saveDialogFlag = false
         this.updateFlag = false
       })
