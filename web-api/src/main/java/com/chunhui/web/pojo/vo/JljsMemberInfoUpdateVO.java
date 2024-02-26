@@ -38,4 +38,9 @@ public class JljsMemberInfoUpdateVO {
     private String memberPhoneNum;
 
 
+    /**
+     * 生日
+     */
+    private String birthDay;
+
 }

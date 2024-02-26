@@ -34,4 +34,10 @@ public class JljsMemberInfoSaveVO {
     private String memberPhoneNum;
 
 
+    /**
+     * 生日
+     */
+    private String birthDay;
+
+
 }

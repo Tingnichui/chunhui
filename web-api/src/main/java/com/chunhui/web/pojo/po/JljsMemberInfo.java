@@ -35,5 +35,10 @@ public class JljsMemberInfo extends BaseDO {
      */
     private String memberPhoneNum;
 
+    /**
+     * 生日
+     */
+    private String birthDay;
+
 
 }

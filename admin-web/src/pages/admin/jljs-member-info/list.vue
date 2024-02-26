@@ -88,12 +88,16 @@
           </template>
         </el-table-column>
         <el-table-column
+            label="手机号"
+            prop="memberPhoneNum"
+        />
+        <el-table-column
             label="年龄"
             prop="memberAge"
         />
         <el-table-column
-            label="手机号"
-            prop="memberPhoneNum"
+            label="生日"
+            prop="birthDay"
         />
         <el-table-column
             :width="160"
@@ -105,7 +109,7 @@
           <template #default="scope">
             <el-space>
               <el-button link type="success" @click="showUpdate(scope.row.id)">编辑</el-button>
-<!--              <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>-->
+              <!--              <el-button link type="danger" @click="deleteInfo(scope.row.id)">删除</el-button>-->
             </el-space>
           </template>
         </el-table-column>
@@ -142,6 +146,17 @@
         </el-form-item>
         <el-form-item label="会员年龄">
           <el-input-number v-model="saveForm.memberAge"/>
+        </el-form-item>
+        <el-form-item
+            label="生日"
+            prop="birthDay"
+        >
+          <el-input v-model="saveForm.birthMonth" :input-style="{'height':'26px','text-align': 'center'}"
+                    style="width: 50px;"/>
+          月
+          <el-input v-model="saveForm.birthDay" :input-style="{'height':'26px','text-align': 'center'}"
+                    style="width: 50px;margin: 0 5px;"/>
+          日
         </el-form-item>
         <el-form-item label="手机号">
           <el-input v-model="saveForm.memberPhoneNum"/>
@@ -198,10 +213,12 @@ export default {
           }
       )
     },
-    research() {
-      this.searchForm = {
-        current: 1,
-        size: 15
+    research(resetForm = true) {
+      if (resetForm) {
+        this.searchForm = {
+          current: 1,
+          size: 15
+        }
       }
       this.search()
     },
@@ -227,16 +244,25 @@ export default {
       getJljsMemberInfoDetail(id).then((res) => {
         this.saveDialogFlag = true
         this.saveForm = res.data
+        // 处理生日
+        if (this.saveForm.birthDay) {
+          this.saveForm.birthMonth = this.saveForm.birthDay.split('/')[0]
+          this.saveForm.birthDay = this.saveForm.birthDay.split('/')[1]
+        }
       })
     },
     saveData() {
       const promiseFn = this.updateFlag ? updateJljsMemberInfo : saveJljsMemberInfo;
+      // 处理生日
+      if (this.saveForm.birthMonth) {
+        this.saveForm.birthDay = this.saveForm.birthMonth + '/' + (this.saveForm.birthDay ? this.saveForm.birthDay : '未知')
+      }
       promiseFn(this.saveForm).then(res => {
         this.$message({
           message: res.message,
           type: 'success',
         })
-        this.research();
+        this.research(false);
         this.saveDialogFlag = false
         this.updateFlag = false
       })
