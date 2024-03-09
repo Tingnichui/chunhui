@@ -100,7 +100,7 @@ export default {
     getBirthDayMember(data) {
       const find = this.birthDayList.find(v => data.day.split('-').slice(1).join('/') == (v.sort.length < 5 ? '0' + v.birthDay : v.birthDay));
       if (find) {
-        return find.member
+        return find.memberName
       }
       return ''
     },
