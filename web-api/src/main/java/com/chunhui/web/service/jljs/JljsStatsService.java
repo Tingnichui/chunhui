@@ -18,4 +18,8 @@ public class JljsStatsService {
     public Result<Object> getClassStatsByDay(Map<String, Object> params) {
         return ResultGenerator.success(jljsStatsMapper.getClassStatsByDay(params));
     }
+
+    public Result<Object> getMemberBirthStats(Map<String, Object> params) {
+        return ResultGenerator.success(jljsStatsMapper.getMemberBirthStats(params));
+    }
 }

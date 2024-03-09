@@ -24,5 +24,10 @@ public class JljsStatsController {
         return jljsStatsService.getClassStatsByDay(params);
     }
 
+    @RequestMapping("/getMemberBirthStats")
+    public Result<Object> getMemberBirthStats(@RequestBody(required = false) Map<String, Object> params) {
+        return jljsStatsService.getMemberBirthStats(params);
+    }
+
 
 }

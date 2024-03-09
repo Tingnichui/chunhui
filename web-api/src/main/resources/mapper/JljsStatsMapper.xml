@@ -7,8 +7,20 @@
         SELECT COUNT(1)                                AS `count`,
                DATE_FORMAT(class_begin_time, '%Y%m%d') AS `day`
         FROM `jljs_class_record`
+        where del_flag = '0'
         GROUP BY DATE_FORMAT(class_begin_time, '%Y%m%d')
         ORDER BY DATE_FORMAT(class_begin_time, '%Y%m%d') ASC
+    </select>
+
+    <select id="getMemberBirthStats" resultType="java.util.Map">
+        SELECT GROUP_CONCAT(member_name)                                                                AS memberName,
+               birth_day                                                                                AS birthDay,
+               REPLACE(birth_day, '/', IF(LENGTH(SUBSTRING_INDEX(birth_day, '/', -1)) &lt; 2, '0', '')) AS sort
+        FROM `jljs_member_info` t1
+        WHERE t1.del_flag = '0'
+          AND birth_day IS NOT NULL
+        GROUP BY birth_day
+        ORDER BY CAST(sort AS UNSIGNED)
     </select>
 
 
