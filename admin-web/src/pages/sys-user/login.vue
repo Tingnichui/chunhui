@@ -47,7 +47,7 @@ export default {
     login() {
       login(this.userInfo).then(
           (res) => {
-            this.$router.push('/admin')
+            this.$router.push('/admin/jljs_home/index')
             setToken(res.data)
           }
       );

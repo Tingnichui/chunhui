@@ -53,6 +53,10 @@ const routes = [
             {
                 path: 'jljs_contract_info/list',
                 component: () => import('@/pages/admin/jljs-contract-info/list.vue')
+            },
+            {
+                path: 'jljs_home/index',
+                component: () => import('@/pages/admin/jljs-home/index.vue')
             }
         ]
     },
