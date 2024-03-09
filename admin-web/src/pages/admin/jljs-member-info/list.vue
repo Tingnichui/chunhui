@@ -151,10 +151,10 @@
             label="生日"
             prop="birthDay"
         >
-          <el-input v-model="saveForm.birthMonth" :input-style="{'height':'26px','text-align': 'center'}"
+          <el-input v-model="saveForm.birthMonth" maxlength="2" :input-style="{'height':'26px','text-align': 'center'}"
                     style="width: 50px;"/>
           月
-          <el-input v-model="saveForm.birthDay" :input-style="{'height':'26px','text-align': 'center'}"
+          <el-input v-model="saveForm.birthDay" maxlength="2" :input-style="{'height':'26px','text-align': 'center'}"
                     style="width: 50px;margin: 0 5px;"/>
           日
         </el-form-item>
