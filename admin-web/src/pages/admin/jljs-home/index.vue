@@ -5,16 +5,16 @@
       <div>
         <div>
           <el-calendar ref="calendar" class="test">
-            <template #header="{ date }">
-              <span>会员生日</span>
-              <span>{{ date }}</span>
-              <el-button-group>
-                <el-button size="small" @click="selectDate('today')">今天</el-button>
-                <el-button size="small" @click="selectDate('next-month')">
-                  下个月
-                </el-button>
-              </el-button-group>
-            </template>
+<!--            <template #header="{ date }">-->
+<!--              <span>会员生日</span>-->
+<!--              <span>{{ date }}</span>-->
+<!--              <el-button-group>-->
+<!--                <el-button size="small" @click="selectDate('today')">今天</el-button>-->
+<!--                <el-button size="small" @click="selectDate('next-month')">-->
+<!--                  下个月-->
+<!--                </el-button>-->
+<!--              </el-button-group>-->
+<!--            </template>-->
             <template #date-cell="{ data }">
               <p :style="getBirthDayMember(data) ? 'color: #E64A19;' : ''">
                 {{ data.day.split('-').slice(1).join('-')}}
