@@ -13,9 +13,9 @@
     </select>
 
     <select id="getMemberBirthStats" resultType="java.util.Map">
-        SELECT GROUP_CONCAT(member_name)                                                                AS memberName,
-               birth_day                                                                                AS birthDay,
-               REPLACE(birth_day, '/', IF(LENGTH(SUBSTRING_INDEX(birth_day, '/', -1)) &lt; 2, '0', '')) AS sort
+        SELECT GROUP_CONCAT(member_name)                                                             AS memberName,
+               birth_day                                                                             AS birthDay,
+               DATE_FORMAT(STR_TO_DATE(CONCAT(YEAR(CURDATE()), '/', birth_day), '%Y/%m/%d'), '%m%d') AS sort
         FROM `jljs_member_info` t1
         WHERE t1.del_flag = '0'
           AND birth_day IS NOT NULL
