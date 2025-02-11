@@ -18,6 +18,7 @@
         <module>eladmin-gym</module>
         <module>eladmin-media-crawler</module>
         <module>eladmin-other</module>
+        <module>eladmin-invest</module>
     </modules>
 
     <name>ELADMIN 后台管理</name>
@@ -45,6 +46,7 @@
         <jsch.version>0.2.19</jsch.version>
         <aliyun-sdk-oss.version>3.18.1</aliyun-sdk-oss.version>
         <pinyin4j.version>2.5.1</pinyin4j.version>
+        <playwright.version>1.48.0</playwright.version>
     </properties>
 
     <dependencies>
@@ -237,6 +239,15 @@
             <artifactId>pinyin4j</artifactId>
             <version>${pinyin4j.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.microsoft.playwright/playwright -->
+        <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>${playwright.version}</version>
+        </dependency>
+
+
 
     </dependencies>
 
